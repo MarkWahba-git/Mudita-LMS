@@ -1,0 +1,103 @@
+import { db } from "@/lib/db";
+
+export async function createBooking(data: {
+  studentId: string;
+  tutorId: string;
+  subject: string;
+  startTime: Date;
+  endTime: Date;
+  notes?: string;
+  price: number;
+}) {
+  try {
+    return await db.booking.create({
+      data: {
+        ...data,
+        price: data.price,
+        status: "PENDING",
+      },
+    });
+  } catch {
+    return null;
+  }
+}
+
+export async function getBookingsForStudent(studentId: string) {
+  try {
+    return await db.booking.findMany({
+      where: { studentId },
+      include: {
+        tutor: {
+          include: { user: { select: { name: true, avatar: true } } },
+        },
+      },
+      orderBy: { startTime: "desc" },
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getBookingsForTutor(tutorId: string) {
+  try {
+    return await db.booking.findMany({
+      where: { tutorId },
+      include: {
+        student: { select: { name: true, avatar: true, email: true } },
+      },
+      orderBy: { startTime: "desc" },
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function cancelBooking(bookingId: string) {
+  try {
+    return await db.booking.update({
+      where: { id: bookingId },
+      data: { status: "CANCELLED" },
+    });
+  } catch {
+    return null;
+  }
+}
+
+export async function getAvailableSlots(tutorId: string, date: Date) {
+  try {
+    const dayOfWeek = date.getDay();
+    const availability = await db.tutorAvailability.findMany({
+      where: { tutorId, dayOfWeek },
+    });
+
+    const existingBookings = await db.booking.findMany({
+      where: {
+        tutorId,
+        startTime: {
+          gte: new Date(date.setHours(0, 0, 0, 0)),
+          lt: new Date(date.setHours(23, 59, 59, 999)),
+        },
+        status: { in: ["PENDING", "CONFIRMED"] },
+      },
+    });
+
+    // Generate 1-hour slots from availability, minus booked slots
+    const slots: { startTime: string; endTime: string; available: boolean }[] = [];
+    for (const avail of availability) {
+      const [startH] = avail.startTime.split(":").map(Number);
+      const [endH] = avail.endTime.split(":").map(Number);
+      for (let h = startH; h < endH; h++) {
+        const slotStart = `${String(h).padStart(2, "0")}:00`;
+        const slotEnd = `${String(h + 1).padStart(2, "0")}:00`;
+        const isBooked = existingBookings.some((b) => {
+          const bh = b.startTime.getHours();
+          return bh === h;
+        });
+        slots.push({ startTime: slotStart, endTime: slotEnd, available: !isBooked });
+      }
+    }
+    return slots;
+  } catch {
+    return [];
+  }
+}
