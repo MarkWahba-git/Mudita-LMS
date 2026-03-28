@@ -3,23 +3,24 @@
 import { useState, useMemo } from "react";
 import type { ReactNode } from "react";
 
-interface Column<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface DataTableColumn {
   key: string;
   label: string;
-  render?: (row: T) => ReactNode;
+  render?: (row: any) => ReactNode;
 }
 
-interface DataTableProps<T extends Record<string, unknown>> {
-  columns: Column<T>[];
-  data: T[];
+interface DataTableProps {
+  columns: DataTableColumn[];
+  data: Record<string, unknown>[];
   emptyMessage?: string;
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable({
   columns,
   data,
   emptyMessage = "No data found.",
-}: DataTableProps<T>) {
+}: DataTableProps) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");

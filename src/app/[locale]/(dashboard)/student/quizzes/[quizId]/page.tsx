@@ -17,7 +17,7 @@ export default async function QuizPage({ params }: QuizPageProps) {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <QuizPlayer quiz={quiz} userId={session.user.id} />
+      <QuizPlayer quiz={quiz} />
     </div>
   );
 }

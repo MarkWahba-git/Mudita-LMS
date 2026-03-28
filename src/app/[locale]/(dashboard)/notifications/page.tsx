@@ -86,7 +86,7 @@ export default async function NotificationsPage() {
                   {notification.title}
                 </p>
                 <p className="mt-0.5 text-sm text-muted-foreground">
-                  {notification.message}
+                  {notification.body}
                 </p>
               </div>
               <p className="flex-shrink-0 text-xs text-muted-foreground">

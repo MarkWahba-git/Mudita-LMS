@@ -43,7 +43,7 @@ export default async function StudentCertificatesPage() {
                 <div className="rounded-md bg-muted px-3 py-2">
                   <p className="text-xs text-muted-foreground mb-1">Verification Code</p>
                   <code className="text-xs font-mono font-semibold tracking-wide">
-                    {cert.verificationCode}
+                    {cert.code}
                   </code>
                 </div>
                 <a

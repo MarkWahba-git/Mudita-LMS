@@ -1,4 +1,4 @@
-import { redirect } from "@/i18n/navigation";
+import { redirect } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { getUserEnrollments } from "@/services/enrollment.service";
@@ -10,7 +10,7 @@ export const metadata = { title: "My Courses | Mudita LMS" };
 
 export default async function StudentCoursesPage() {
   const session = await auth();
-  if (!session?.user) redirect({ href: "/login", locale: "en" });
+  if (!session?.user) redirect("/login");
 
   const enrollments = await getUserEnrollments(session.user.id);
 

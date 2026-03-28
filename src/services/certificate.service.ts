@@ -3,14 +3,14 @@ import { randomBytes } from "crypto";
 
 export async function generateCertificate(userId: string, courseId: string) {
   try {
-    const existing = await db.certificate.findUnique({
-      where: { userId_courseId: { userId, courseId } },
+    const existing = await db.certificate.findFirst({
+      where: { userId, courseId },
     });
     if (existing) return existing;
 
-    const verificationCode = randomBytes(12).toString("hex").toUpperCase();
+    const code = randomBytes(12).toString("hex").toUpperCase();
     return await db.certificate.create({
-      data: { userId, courseId, verificationCode, issuedAt: new Date() },
+      data: { userId, courseId, code, issuedAt: new Date() },
     });
   } catch {
     return null;
@@ -19,27 +19,42 @@ export async function generateCertificate(userId: string, courseId: string) {
 
 export async function getCertificates(userId: string) {
   try {
-    return await db.certificate.findMany({
+    const certs = await db.certificate.findMany({
       where: { userId },
-      include: {
-        course: { select: { title: true, slug: true, thumbnail: true } },
-      },
       orderBy: { issuedAt: "desc" },
     });
+
+    // Manually fetch course info since Certificate has no course relation
+    const courseIds = [...new Set(certs.map((c) => c.courseId))];
+    const courses = await db.course.findMany({
+      where: { id: { in: courseIds } },
+      select: { id: true, title: true, slug: true, thumbnail: true },
+    });
+    const courseMap = new Map(courses.map((c) => [c.id, c]));
+
+    return certs.map((cert) => ({
+      ...cert,
+      course: courseMap.get(cert.courseId) ?? { id: cert.courseId, title: "Unknown Course", slug: "", thumbnail: null },
+    }));
   } catch {
     return [];
   }
 }
 
-export async function verifyCertificate(code: string) {
+export async function verifyCertificate(verificationCode: string) {
   try {
-    return await db.certificate.findUnique({
-      where: { verificationCode: code },
-      include: {
-        user: { select: { name: true } },
-        course: { select: { title: true } },
-      },
+    const cert = await db.certificate.findUnique({
+      where: { code: verificationCode },
+      include: { user: { select: { name: true } } },
     });
+    if (!cert) return null;
+
+    const course = await db.course.findUnique({
+      where: { id: cert.courseId },
+      select: { title: true },
+    });
+
+    return { ...cert, course };
   } catch {
     return null;
   }

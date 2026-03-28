@@ -9,7 +9,7 @@ export async function createNotification(
       data: {
         userId,
         title: data.title,
-        message: data.message,
+        body: data.message,
         type: data.type ?? "INFO",
         link: data.link,
       },

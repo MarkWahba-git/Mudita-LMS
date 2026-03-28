@@ -11,7 +11,7 @@ export default async function AdminProductsPage() {
   const session = await auth();
   if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
 
-  let products: Array<{ id: string; name: string; slug: string; price: number; category: string; status: string; ageGroup: string | null }> = [];
+  let products: Awaited<ReturnType<typeof db.product.findMany>> = [];
   try {
     products = await db.product.findMany({ orderBy: { createdAt: "desc" } });
   } catch { /* no db */ }
@@ -50,10 +50,10 @@ export default async function AdminProductsPage() {
                 <tr key={p.id} className="hover:bg-muted/30">
                   <td className="px-4 py-3 font-medium">{p.name}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.category}</td>
-                  <td className="px-4 py-3">${p.price}</td>
+                  <td className="px-4 py-3">${String(p.price)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.ageGroup ?? "All"}</td>
                   <td className="px-4 py-3">
-                    <Badge variant={p.status === "PUBLISHED" ? "default" : "secondary"}>{p.status}</Badge>
+                    <Badge variant={p.status === "ACTIVE" ? "default" : "secondary"}>{p.status}</Badge>
                   </td>
                 </tr>
               ))}

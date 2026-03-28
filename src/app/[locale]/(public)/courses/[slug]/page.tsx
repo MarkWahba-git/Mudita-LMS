@@ -75,9 +75,6 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight">{course.title}</h1>
-            {course.subtitle && (
-              <p className="mt-2 text-lg text-muted-foreground">{course.subtitle}</p>
-            )}
 
             <p className="mt-4 text-muted-foreground">{course.description}</p>
 
@@ -97,12 +94,10 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
                 <Users className="h-4 w-4" />
                 <span>{course.enrollmentCount} students</span>
               </div>
-              {course.hasCertificate && (
-                <div className="flex items-center gap-1.5">
-                  <Award className="h-4 w-4 text-yellow-500" />
-                  <span>Certificate included</span>
-                </div>
-              )}
+              <div className="flex items-center gap-1.5">
+                <Award className="h-4 w-4 text-yellow-500" />
+                <span>Certificate included</span>
+              </div>
             </div>
           </div>
 

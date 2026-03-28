@@ -9,10 +9,10 @@ interface BadgeDisplayProps {
     points?: number;
   };
   earned: boolean;
-  awardedAt?: Date | null;
+  earnedAt?: Date | null;
 }
 
-export function BadgeDisplay({ badge, earned, awardedAt }: BadgeDisplayProps) {
+export function BadgeDisplay({ badge, earned, earnedAt }: BadgeDisplayProps) {
   return (
     <div
       className={`relative rounded-xl border bg-card p-5 text-center transition-all ${
@@ -41,9 +41,9 @@ export function BadgeDisplay({ badge, earned, awardedAt }: BadgeDisplayProps) {
       <h3 className="font-semibold text-sm">{badge.name}</h3>
       <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{badge.description}</p>
 
-      {earned && awardedAt && (
+      {earned && earnedAt && (
         <p className="mt-2 text-xs text-green-600">
-          Earned {new Date(awardedAt).toLocaleDateString()}
+          Earned {new Date(earnedAt).toLocaleDateString()}
         </p>
       )}
       {!earned && (

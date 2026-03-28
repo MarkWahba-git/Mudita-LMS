@@ -37,8 +37,6 @@ export default async function AdminCoursesPage() {
     created: new Date(c.createdAt).toLocaleDateString(),
   }));
 
-  type Row = (typeof tableData)[number];
-
   const statusColors: Record<string, string> = {
     PUBLISHED: "bg-green-100 text-green-800",
     DRAFT: "bg-yellow-100 text-yellow-800",
@@ -50,13 +48,13 @@ export default async function AdminCoursesPage() {
     {
       key: "status",
       label: "Status",
-      render: (row: Row) => (
+      render: (row: Record<string, unknown>) => (
         <span
           className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-            statusColors[row.status] ?? "bg-gray-100 text-gray-600"
+            statusColors[String(row.status)] ?? "bg-gray-100 text-gray-600"
           }`}
         >
-          {row.status}
+          {String(row.status)}
         </span>
       ),
     },
@@ -83,7 +81,7 @@ export default async function AdminCoursesPage() {
       </div>
       <DataTable
         columns={columns}
-        data={tableData as unknown as Record<string, unknown>[]}
+        data={tableData as Record<string, unknown>[]}
         emptyMessage="No courses found."
       />
     </div>

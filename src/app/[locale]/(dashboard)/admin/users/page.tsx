@@ -31,24 +31,22 @@ export default async function AdminUsersPage() {
     joined: new Date(u.createdAt).toLocaleDateString(),
   }));
 
-  type Row = (typeof tableData)[number];
-
   const columns = [
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },
     {
       key: "role",
       label: "Role",
-      render: (row: Row) => (
+      render: (row: Record<string, unknown>) => (
         <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-          {row.role}
+          {String(row.role)}
         </span>
       ),
     },
     {
       key: "status",
       label: "Status",
-      render: (row: Row) => (
+      render: (row: Record<string, unknown>) => (
         <span
           className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
             row.status === "Active"
@@ -56,7 +54,7 @@ export default async function AdminUsersPage() {
               : "bg-red-100 text-red-700"
           }`}
         >
-          {row.status}
+          {String(row.status)}
         </span>
       ),
     },
@@ -71,7 +69,7 @@ export default async function AdminUsersPage() {
       </div>
       <DataTable
         columns={columns}
-        data={tableData as unknown as Record<string, unknown>[]}
+        data={tableData as Record<string, unknown>[]}
         emptyMessage="No users found."
       />
     </div>

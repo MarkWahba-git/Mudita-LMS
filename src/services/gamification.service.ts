@@ -1,14 +1,15 @@
 import { db } from "@/lib/db";
+import type { PointAction } from "@/generated/prisma/client";
 
 export async function awardPoints(
   userId: string,
-  action: string,
+  action: PointAction,
   points: number,
-  metadata?: Record<string, unknown>
+  metadata?: object
 ) {
   try {
     return await db.pointTransaction.create({
-      data: { userId, action, points, metadata: metadata ?? {} },
+      data: { userId, action, points, metadata: metadata ? JSON.parse(JSON.stringify(metadata)) : undefined },
     });
   } catch {
     return null;
@@ -32,7 +33,7 @@ export async function getUserBadges(userId: string) {
     return await db.userBadge.findMany({
       where: { userId },
       include: { badge: true },
-      orderBy: { awardedAt: "desc" },
+      orderBy: { earnedAt: "desc" },
     });
   } catch {
     return [];

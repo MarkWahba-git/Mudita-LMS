@@ -131,7 +131,7 @@ export async function createBadge(data: {
         name: data.name,
         description: data.description,
         icon: data.icon,
-        criteria: data.criteria,
+        criteria: data.criteria as never,
         points: data.points ?? 0,
       },
     });

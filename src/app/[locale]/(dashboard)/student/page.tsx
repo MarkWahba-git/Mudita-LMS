@@ -1,4 +1,4 @@
-import { redirect } from "@/i18n/navigation";
+import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getStudentStats } from "@/services/user.service";
 import { getUserEnrollments } from "@/services/enrollment.service";
@@ -10,7 +10,7 @@ export const metadata = { title: "Student Dashboard | Mudita LMS" };
 
 export default async function StudentDashboardPage() {
   const session = await auth();
-  if (!session?.user) redirect({ href: "/login", locale: "en" });
+  if (!session?.user) redirect("/login");
 
   const [stats, enrollments] = await Promise.all([
     getStudentStats(session.user.id),
@@ -34,25 +34,21 @@ export default async function StudentDashboardPage() {
           title="Courses Enrolled"
           value={stats.enrollments}
           icon={<BookOpen className="h-5 w-5" />}
-          color="blue"
         />
         <StatsCard
           title="Badges Earned"
           value={stats.badges}
           icon={<Award className="h-5 w-5" />}
-          color="yellow"
         />
         <StatsCard
           title="Total Points"
           value={stats.totalPoints}
           icon={<Star className="h-5 w-5" />}
-          color="purple"
         />
         <StatsCard
           title="Certificates"
           value={stats.certificates}
           icon={<FileText className="h-5 w-5" />}
-          color="green"
         />
       </div>
 

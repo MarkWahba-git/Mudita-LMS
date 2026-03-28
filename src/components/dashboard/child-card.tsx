@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 
 interface ChildCardProps {
@@ -38,13 +38,7 @@ export function ChildCard({ child }: ChildCardProps) {
       className="block rounded-xl border bg-white p-5 transition-shadow hover:shadow-md"
     >
       <div className="flex items-center gap-3">
-        <Avatar className="h-12 w-12">
-          {child.avatar ? (
-            <img src={child.avatar} alt={child.name} className="h-full w-full rounded-full object-cover" />
-          ) : (
-            <AvatarFallback>{initials}</AvatarFallback>
-          )}
-        </Avatar>
+        <Avatar src={child.avatar ?? undefined} alt={child.name} fallback={initials} size="lg" />
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{child.name}</p>
           <p className="text-sm text-muted-foreground">

@@ -42,7 +42,7 @@ export default async function StudentBadgesPage() {
                 key={badge.id}
                 badge={badge}
                 earned={earned}
-                awardedAt={userBadge?.awardedAt}
+                earnedAt={userBadge?.earnedAt}
               />
             );
           })}
