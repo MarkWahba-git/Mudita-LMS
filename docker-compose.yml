@@ -1,0 +1,7 @@
+services:
+  web:
+    image: ghcr.io/markwahba-git/mudita-lms:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3020:3000"
+    env_file: .env
