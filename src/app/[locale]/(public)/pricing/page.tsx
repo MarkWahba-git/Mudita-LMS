@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Check } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Pricing | Mudita LMS",
+  description:
+    "Explore flexible pricing plans for Mudita LMS STEM education programs for children ages 3-18.",
+};
 import {
   Card,
   CardHeader,

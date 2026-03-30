@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { getCourseBySlug } from "@/services/course.service";
@@ -9,7 +10,7 @@ interface CourseDetailPageProps {
   params: Promise<{ slug: string; locale: string }>;
 }
 
-export async function generateMetadata({ params }: CourseDetailPageProps) {
+export async function generateMetadata({ params }: CourseDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const course = await getCourseBySlug(slug);
   if (!course) return { title: "Course Not Found" };

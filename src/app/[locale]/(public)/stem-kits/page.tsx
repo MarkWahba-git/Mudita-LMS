@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { getProducts } from "@/services/product.service";
 
-export const metadata = { title: "STEM Kits | Mudita LMS" };
+export const metadata: Metadata = {
+  title: "STEM Kits | Mudita LMS",
+  description:
+    "Browse hands-on STEM kits for children ages 3-18. Science, engineering, and technology kits delivered to your door.",
+};
 
 interface StemKitsPageProps {
   searchParams: Promise<{ ageGroup?: string }>;

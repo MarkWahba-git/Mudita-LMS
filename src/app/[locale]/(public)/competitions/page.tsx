@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { getCompetitions } from "@/services/competition.service";
 
-export const metadata = { title: "Competitions | Mudita LMS" };
+export const metadata: Metadata = {
+  title: "Competitions | Mudita LMS",
+  description:
+    "Join STEM competitions on Mudita LMS. Showcase your skills and compete with students worldwide.",
+};
 
 const statusConfig: Record<string, { label: string; color: string }> = {
   UPCOMING: { label: "Upcoming", color: "bg-blue-100 text-blue-700" },
