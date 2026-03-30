@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { User } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About Us | Mudita LMS",
+  description:
+    "Learn about Mudita LMS, our mission, vision, and the team behind STEM education for children ages 3-18.",
+};
 
 export default function AboutPage() {
   const t = useTranslations("about");

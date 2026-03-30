@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { getTutors } from "@/services/tutor.service";
 import { TutorCard } from "@/components/booking/tutor-card";
 
-export const metadata = { title: "Find a Tutor | Mudita LMS" };
+export const metadata: Metadata = {
+  title: "Find a Tutor | Mudita LMS",
+  description:
+    "Browse verified STEM tutors and book personalized sessions for children ages 3-18 on Mudita LMS.",
+};
 
 interface TutorsPageProps {
   searchParams: Promise<{ subject?: string; language?: string }>;
