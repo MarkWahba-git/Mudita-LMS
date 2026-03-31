@@ -10,6 +10,8 @@ RUN npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
+# Prisma requires openssl at runtime on Alpine (musl libc)
+RUN apk add --no-cache openssl
 ENV NODE_ENV=production
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
@@ -18,5 +20,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/messages ./messages
 # Prisma generated client needed at runtime
 COPY --from=builder /app/src/generated ./src/generated
+# Prisma schema needed for db push / migrations at runtime
+COPY --from=builder /app/prisma ./prisma
 EXPOSE 3000
 CMD ["node", "server.js"]
