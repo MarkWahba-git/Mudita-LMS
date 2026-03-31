@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { SessionProvider } from "next-auth/react";
 import { locales, isRtl, type Locale } from "@/i18n/config";
 
 export function generateStaticParams() {
@@ -26,9 +27,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={rtl ? "rtl" : "ltr"} className="h-full antialiased">
       <body className="min-h-full flex flex-col font-sans">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );
