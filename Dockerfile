@@ -1,7 +1,7 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
 # Prisma v7 needs a DATABASE_URL to generate the client (no actual connection)
 ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
@@ -23,5 +23,7 @@ COPY --from=builder /app/src/generated ./src/generated
 # Prisma schema + plain-JS config needed for db push at runtime
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.runner.js ./prisma.config.js
+# tsx needed to run seed.ts at runtime
+COPY --from=builder /app/node_modules ./node_modules
 EXPOSE 3000
 CMD ["node", "server.js"]
