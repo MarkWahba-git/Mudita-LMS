@@ -20,7 +20,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/messages ./messages
 # Prisma generated client needed at runtime
 COPY --from=builder /app/src/generated ./src/generated
-# Prisma schema needed for db push / migrations at runtime
+# Prisma schema + config needed for db push at runtime
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 EXPOSE 3000
 CMD ["node", "server.js"]

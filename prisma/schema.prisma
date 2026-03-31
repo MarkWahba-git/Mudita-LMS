@@ -6,7 +6,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ========== AUTH & USERS ==========
@@ -381,7 +380,7 @@ model Booking {
   endTime    DateTime
   status     BookingStatus @default(PENDING)
   meetingUrl String?
-  meetingId  String?  
+  meetingId  String?
   notes      String?       @db.Text
   rating     Int?
   review     String?       @db.Text
