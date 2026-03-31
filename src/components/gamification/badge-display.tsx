@@ -1,4 +1,4 @@
-import { CheckCircle, Lock } from "lucide-react";
+import { CheckCircle, Lock, Sparkles } from "lucide-react";
 
 interface BadgeDisplayProps {
   badge: {
@@ -15,39 +15,60 @@ interface BadgeDisplayProps {
 export function BadgeDisplay({ badge, earned, earnedAt }: BadgeDisplayProps) {
   return (
     <div
-      className={`relative rounded-xl border bg-card p-5 text-center transition-all ${
-        earned ? "border-primary/30 shadow-sm" : "opacity-50 grayscale"
+      className={`group relative overflow-hidden rounded-2xl border-2 bg-card p-6 text-center transition-all ${
+        earned
+          ? "border-amber-300 shadow-md hover:shadow-lg hover-lift"
+          : "border-border opacity-60 grayscale hover:opacity-80"
       }`}
     >
+      {/* Earned glow effect */}
       {earned && (
-        <div className="absolute right-3 top-3">
-          <CheckCircle className="h-4 w-4 text-green-500" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-50/50 to-transparent" />
       )}
-      {!earned && (
+
+      {/* Status icon */}
+      {earned ? (
+        <div className="absolute right-3 top-3">
+          <div className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5">
+            <CheckCircle className="h-3.5 w-3.5 text-green-600" />
+            <span className="text-[10px] font-semibold text-green-700">Earned</span>
+          </div>
+        </div>
+      ) : (
         <div className="absolute right-3 top-3">
           <Lock className="h-4 w-4 text-muted-foreground" />
         </div>
       )}
 
+      {/* Badge icon */}
       <div
-        className={`mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full text-3xl ${
-          earned ? "bg-primary/10" : "bg-muted"
+        className={`relative mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-4xl transition-transform group-hover:scale-110 ${
+          earned
+            ? "bg-gradient-to-br from-amber-100 to-orange-100 shadow-inner"
+            : "bg-muted"
         }`}
       >
         {badge.icon || "🏅"}
+        {earned && (
+          <Sparkles className="absolute -right-1 -top-1 h-5 w-5 text-amber-400 animate-sparkle" />
+        )}
       </div>
 
-      <h3 className="font-semibold text-sm">{badge.name}</h3>
-      <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{badge.description}</p>
+      <h3 className="relative font-display text-sm font-bold text-foreground">{badge.name}</h3>
+      <p className="relative mt-1 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+        {badge.description}
+      </p>
+
+      {badge.points && (
+        <div className="relative mt-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+          +{badge.points} XP
+        </div>
+      )}
 
       {earned && earnedAt && (
-        <p className="mt-2 text-xs text-green-600">
-          Earned {new Date(earnedAt).toLocaleDateString()}
+        <p className="relative mt-2 text-[11px] text-green-600 font-medium">
+          {new Date(earnedAt).toLocaleDateString()}
         </p>
-      )}
-      {!earned && (
-        <p className="mt-2 text-xs text-muted-foreground">Locked</p>
       )}
     </div>
   );
