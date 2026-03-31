@@ -6,6 +6,7 @@ import { Rocket } from "lucide-react";
 
 export function Footer() {
   const t = useTranslations("footer");
+  const nav = useTranslations("nav");
 
   return (
     <footer className="bg-foreground text-white/70">
@@ -34,23 +35,23 @@ export function Footer() {
                   href="/courses"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("courses")}
+                  {nav("courses")}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/stem-kits"
+                  href="/how-it-works"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("stemKits")}
+                  {nav("howItWorks")}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/competitions"
+                  href="/for-schools"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("competitions")}
+                  {nav("forSchools")}
                 </Link>
               </li>
               <li>
@@ -58,7 +59,7 @@ export function Footer() {
                   href="/pricing"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("pricing")}
+                  {nav("pricing")}
                 </Link>
               </li>
             </ul>
@@ -72,7 +73,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/pages/faq"
+                  href="/faq"
                   className="text-sm transition-colors hover:text-white"
                 >
                   {t("faq")}
@@ -80,7 +81,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/pages/help"
+                  href="/faq"
                   className="text-sm transition-colors hover:text-white"
                 >
                   {t("helpCenter")}
@@ -91,7 +92,7 @@ export function Footer() {
                   href="/contact"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("contact")}
+                  {nav("contact")}
                 </Link>
               </li>
             </ul>
@@ -105,15 +106,15 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/pages/privacy"
+                  href="/privacy"
                   className="text-sm transition-colors hover:text-white"
                 >
-                  {t("privacyPolicy")}
+                  {t("privacy")}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/pages/terms"
+                  href="/terms"
                   className="text-sm transition-colors hover:text-white"
                 >
                   {t("terms")}

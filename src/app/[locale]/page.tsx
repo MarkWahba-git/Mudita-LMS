@@ -1,15 +1,30 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import {
   GraduationCap,
-  Users,
+  BookOpen,
   BarChart3,
   Globe,
-  BookOpen,
-  Award,
-  Rocket,
+  Search,
+  Trophy,
+  Video,
+  Wrench,
+  Gamepad2,
   ArrowRight,
+  CheckCircle2,
+  Quote,
+  Building2,
+  Monitor,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Mudita — Joyful STEM Learning for Children Ages 3–18",
+  description:
+    "Interactive STEM courses, live expert tutoring, and hands-on science kits for children ages 3 to 18. Available in English, Arabic, and German.",
+};
 
 const stats = [
   { value: "5,000+", key: "students" },
@@ -19,17 +34,53 @@ const stats = [
 ];
 
 const ageGroups = [
-  { range: "3–5", label: "Early Learners", color: "bg-pink-100 text-pink-700", emoji: "🧒" },
-  { range: "6–8", label: "Kids", color: "bg-blue-100 text-blue-700", emoji: "👦" },
-  { range: "9–12", label: "Juniors", color: "bg-green-100 text-green-700", emoji: "🧑" },
-  { range: "13–18", label: "Teens", color: "bg-purple-100 text-purple-700", emoji: "🎓" },
+  {
+    range: "3–5",
+    label: "Early Learners",
+    color: "bg-pink-100 text-pink-700 border-pink-200",
+    iconBg: "bg-pink-50",
+    icon: "🧒",
+  },
+  {
+    range: "6–8",
+    label: "Kids",
+    color: "bg-blue-100 text-blue-700 border-blue-200",
+    iconBg: "bg-blue-50",
+    icon: "👦",
+  },
+  {
+    range: "9–12",
+    label: "Juniors",
+    color: "bg-green-100 text-green-700 border-green-200",
+    iconBg: "bg-green-50",
+    icon: "🧑",
+  },
+  {
+    range: "13–18",
+    label: "Teens",
+    color: "bg-purple-100 text-purple-700 border-purple-200",
+    iconBg: "bg-purple-50",
+    icon: "🎓",
+  },
 ];
 
-const whyReasons = [
-  { icon: GraduationCap, titleKey: "whyReason1Title", descKey: "whyReason1Desc", color: "text-blue-500" },
-  { icon: BookOpen, titleKey: "whyReason2Title", descKey: "whyReason2Desc", color: "text-purple-500" },
-  { icon: BarChart3, titleKey: "whyReason3Title", descKey: "whyReason3Desc", color: "text-green-500" },
-  { icon: Globe, titleKey: "whyReason4Title", descKey: "whyReason4Desc", color: "text-orange-500" },
+const howSteps = [
+  { num: "1", icon: Search, titleKey: "howStep1Title", descKey: "howStep1Desc" },
+  { num: "2", icon: BookOpen, titleKey: "howStep2Title", descKey: "howStep2Desc" },
+  { num: "3", icon: Trophy, titleKey: "howStep3Title", descKey: "howStep3Desc" },
+];
+
+const differentiators = [
+  { icon: Video, titleKey: "whyReason1Title", descKey: "whyReason1Desc", color: "text-blue-500", bg: "bg-blue-50" },
+  { icon: Wrench, titleKey: "whyReason2Title", descKey: "whyReason2Desc", color: "text-purple-500", bg: "bg-purple-50" },
+  { icon: BarChart3, titleKey: "whyReason3Title", descKey: "whyReason3Desc", color: "text-green-500", bg: "bg-green-50" },
+  { icon: Globe, titleKey: "whyReason4Title", descKey: "whyReason4Desc", color: "text-orange-500", bg: "bg-orange-50" },
+];
+
+const testimonials = [
+  { quoteKey: "testimonial1Quote", nameKey: "testimonial1Name", roleKey: "testimonial1Role" },
+  { quoteKey: "testimonial2Quote", nameKey: "testimonial2Name", roleKey: "testimonial2Role" },
+  { quoteKey: "testimonial3Quote", nameKey: "testimonial3Name", roleKey: "testimonial3Role" },
 ];
 
 export default function HomePage() {
@@ -38,26 +89,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col">
-      {/* Navbar placeholder for home - will be replaced in public layout */}
-      <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2">
-            <Rocket className="h-7 w-7 text-primary" />
-            <span className="text-xl font-bold text-primary">Mudita</span>
-          </Link>
-          <nav className="hidden items-center gap-6 md:flex">
-            <Link href="/courses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              {tc("enrollNow").replace("Enroll Now", "Courses")}
-            </Link>
-            <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              {tc("login")}
-            </Link>
-            <Link href="/register" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 transition-colors">
-              {tc("register")}
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -78,21 +110,29 @@ export default function HomePage() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
-                href="/about"
+                href="/how-it-works"
                 className="inline-flex items-center gap-2 rounded-xl border border-border px-8 py-3.5 text-base font-semibold text-foreground hover:bg-muted transition-colors"
               >
-                {tc("learnMore")}
+                {t("heroCtaSecondary")}
               </Link>
             </div>
           </div>
         </div>
-        {/* Decorative gradient blobs */}
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-200/30 blur-3xl" />
         <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-purple-200/30 blur-3xl" />
       </section>
 
-      {/* Stats */}
+      {/* Trust Bar */}
       <section className="border-y bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <p className="text-center text-sm font-medium text-muted-foreground">
+            {t("trustBar")}
+          </p>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
           {stats.map((stat) => (
             <div key={stat.key} className="text-center">
@@ -103,10 +143,37 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How It Works */}
+      <section className="bg-muted/30 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">
+            {t("howItWorks")}
+          </h2>
+          <div className="mt-14 grid gap-8 md:grid-cols-3">
+            {howSteps.map((step) => (
+              <div key={step.num} className="relative text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-2xl font-bold text-white shadow-md">
+                  {step.num}
+                </div>
+                <h3 className="mt-6 text-xl font-semibold text-foreground">
+                  {t(step.titleKey)}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {t(step.descKey)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Age Groups */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">{t("ageGroups")}</h2>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">{t("ageGroups")}</h2>
+            <p className="mt-4 text-muted-foreground">{t("ageGroupsSubtitle")}</p>
+          </div>
           <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-4">
             {ageGroups.map((group) => (
               <Link
@@ -114,9 +181,11 @@ export default function HomePage() {
                 href="/courses"
                 className="group flex flex-col items-center rounded-2xl border border-border p-8 text-center transition-all hover:border-primary hover:shadow-lg"
               >
-                <span className="text-4xl">{group.emoji}</span>
-                <span className={`mt-4 inline-block rounded-full px-4 py-1 text-sm font-semibold ${group.color}`}>
-                  {group.range}
+                <span className="text-4xl">{group.icon}</span>
+                <span
+                  className={`mt-4 inline-block rounded-full px-4 py-1 text-sm font-semibold ${group.color}`}
+                >
+                  Ages {group.range}
                 </span>
                 <span className="mt-2 text-sm font-medium text-muted-foreground group-hover:text-foreground">
                   {group.label}
@@ -127,23 +196,91 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Mudita */}
+      {/* What Makes Mudita Different */}
       <section className="bg-muted/50 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">{t("whyMudita")}</h2>
+          <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">
+            {t("whyMudita")}
+          </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {whyReasons.map((reason) => (
-              <div key={reason.titleKey} className="rounded-2xl bg-white p-8 shadow-sm">
-                <reason.icon className={`h-10 w-10 ${reason.color}`} />
-                <h3 className="mt-4 text-lg font-semibold text-foreground">{t(reason.titleKey)}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(reason.descKey)}</p>
+            {differentiators.map((item) => (
+              <div key={item.titleKey} className="rounded-2xl bg-white p-8 shadow-sm">
+                <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.bg}`}>
+                  <item.icon className={`h-6 w-6 ${item.color}`} />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">{t(item.titleKey)}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(item.descKey)}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Testimonials */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">
+            {t("testimonials")}
+          </h2>
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {testimonials.map((item) => (
+              <div
+                key={item.nameKey}
+                className="rounded-2xl border border-border p-8"
+              >
+                <Quote className="h-8 w-8 text-primary/30" />
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground italic">
+                  &ldquo;{t(item.quoteKey)}&rdquo;
+                </p>
+                <div className="mt-6">
+                  <p className="text-sm font-semibold text-foreground">{t(item.nameKey)}</p>
+                  <p className="text-xs text-muted-foreground">{t(item.roleKey)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* For Schools Teaser */}
+      <section className="bg-foreground py-20 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <div>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/10">
+                <Building2 className="h-6 w-6 text-white" />
+              </div>
+              <h2 className="text-3xl font-bold sm:text-4xl">{t("forSchools")}</h2>
+              <p className="mt-4 text-lg text-white/70">{t("forSchoolsDesc")}</p>
+              <Link
+                href="/for-schools"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-foreground hover:bg-white/90 transition-colors"
+              >
+                {t("forSchoolsCta")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: Monitor, label: "Admin Dashboard" },
+                { icon: GraduationCap, label: "120+ Courses" },
+                { icon: BarChart3, label: "Analytics & Reports" },
+                { icon: Gamepad2, label: "Gamified Learning" },
+              ].map((feature) => (
+                <div
+                  key={feature.label}
+                  className="rounded-xl bg-white/10 p-5"
+                >
+                  <feature.icon className="h-6 w-6 text-white/80" />
+                  <p className="mt-2 text-sm font-medium text-white/80">{feature.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
       <section className="bg-gradient-to-r from-primary to-secondary py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">{t("ctaTitle")}</h2>
@@ -158,18 +295,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer placeholder */}
-      <footer className="border-t bg-foreground py-12 text-white/70">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex items-center gap-2">
-              <Rocket className="h-6 w-6 text-primary" />
-              <span className="font-bold text-white">Mudita</span>
-            </div>
-            <p className="text-sm">© 2026 Mudita. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

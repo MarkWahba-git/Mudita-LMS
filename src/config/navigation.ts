@@ -1,7 +1,7 @@
 export const publicNavItems = [
   { href: "/courses", labelKey: "nav.courses" },
-  { href: "/stem-kits", labelKey: "nav.stemKits" },
-  { href: "/competitions", labelKey: "nav.competitions" },
+  { href: "/how-it-works", labelKey: "nav.howItWorks" },
+  { href: "/for-schools", labelKey: "nav.forSchools" },
   { href: "/pricing", labelKey: "nav.pricing" },
   { href: "/about", labelKey: "nav.about" },
   { href: "/contact", labelKey: "nav.contact" },
