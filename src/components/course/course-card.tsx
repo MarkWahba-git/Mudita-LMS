@@ -19,16 +19,16 @@ interface CourseCardProps {
 }
 
 const categoryGradients: Record<string, string> = {
-  math: "from-blue-500 to-indigo-600",
-  coding: "from-green-500 to-emerald-600",
-  science: "from-purple-500 to-violet-600",
-  robotics: "from-orange-500 to-red-600",
-  engineering: "from-yellow-500 to-amber-600",
-  ai: "from-cyan-500 to-blue-600",
-  electronics: "from-teal-500 to-green-600",
-  biology: "from-lime-500 to-green-600",
-  chemistry: "from-pink-500 to-rose-600",
-  physics: "from-slate-500 to-gray-600",
+  math: "from-amber-400 to-orange-500",
+  coding: "from-emerald-400 to-green-600",
+  science: "from-cyan-400 to-blue-500",
+  robotics: "from-violet-400 to-purple-600",
+  engineering: "from-orange-400 to-red-500",
+  ai: "from-blue-400 to-indigo-600",
+  electronics: "from-teal-400 to-cyan-600",
+  biology: "from-lime-400 to-emerald-600",
+  chemistry: "from-pink-400 to-rose-600",
+  physics: "from-slate-400 to-indigo-500",
 };
 
 const categoryIcons: Record<string, string> = {
@@ -52,56 +52,81 @@ const ageGroupLabels: Record<string, string> = {
   AGES_16_18: "Ages 16-18",
 };
 
+const ageGroupColors: Record<string, string> = {
+  AGES_3_5: "bg-pink-100 text-pink-700 border-pink-200",
+  AGES_6_8: "bg-blue-100 text-blue-700 border-blue-200",
+  AGES_9_12: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  AGES_13_15: "bg-purple-100 text-purple-700 border-purple-200",
+  AGES_16_18: "bg-indigo-100 text-indigo-700 border-indigo-200",
+};
+
 const levelLabels: Record<string, string> = {
   BEGINNER: "Beginner",
   INTERMEDIATE: "Intermediate",
   ADVANCED: "Advanced",
 };
 
+const levelColors: Record<string, string> = {
+  BEGINNER: "bg-green-100 text-green-700 border-green-200",
+  INTERMEDIATE: "bg-amber-100 text-amber-700 border-amber-200",
+  ADVANCED: "bg-red-100 text-red-700 border-red-200",
+};
+
 export function CourseCard({ course }: CourseCardProps) {
   const gradient =
-    categoryGradients[course.category] ?? "from-gray-500 to-gray-600";
+    categoryGradients[course.category] ?? "from-gray-400 to-gray-600";
   const icon = categoryIcons[course.category] ?? "📚";
+  const ageColor = ageGroupColors[course.ageGroup] ?? "bg-gray-100 text-gray-700";
+  const lvlColor = levelColors[course.level] ?? "bg-gray-100 text-gray-700";
 
   return (
     <Link href={`/courses/${course.slug}`}>
-      <Card className="group h-full overflow-hidden transition-shadow hover:shadow-lg">
+      <Card className="card-stem group h-full overflow-hidden hover-lift">
+        {/* Gradient header with icon */}
         <div
           className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${gradient}`}
         >
-          <span className="text-5xl opacity-80">{icon}</span>
+          <span className="text-6xl opacity-80 transition-transform duration-300 group-hover:scale-110">
+            {icon}
+          </span>
           <div className="absolute top-3 right-3">
-            <Badge variant="secondary" className="bg-white/90 text-xs">
+            <Badge variant="secondary" className="bg-white/90 text-xs font-semibold shadow-sm">
               {course.category}
             </Badge>
           </div>
+          {/* Bottom curve */}
+          <div className="absolute -bottom-1 left-0 right-0">
+            <svg viewBox="0 0 400 20" className="w-full" preserveAspectRatio="none">
+              <path d="M0 20 Q200 0 400 20 L400 20 L0 20Z" fill="white" />
+            </svg>
+          </div>
         </div>
 
-        <CardContent className="p-4">
-          <h3 className="mb-2 line-clamp-2 text-lg font-semibold group-hover:text-primary">
+        <CardContent className="p-5">
+          <h3 className="mb-3 line-clamp-2 font-display text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">
             {course.title}
           </h3>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="text-xs">
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${ageColor}`}>
               {ageGroupLabels[course.ageGroup] ?? course.ageGroup}
-            </Badge>
-            <Badge variant="secondary" className="text-xs">
+            </span>
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${lvlColor}`}>
               {levelLabels[course.level] ?? course.level}
-            </Badge>
+            </span>
           </div>
         </CardContent>
 
-        <CardFooter className="flex items-center gap-4 border-t px-4 py-3 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
+        <CardFooter className="flex items-center gap-4 border-t border-border/50 px-5 py-3 text-sm text-muted-foreground">
+          <span className="flex items-center gap-1.5">
             <BookOpen className="h-4 w-4" />
             {course.lessonCount} lessons
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1.5">
             <Users className="h-4 w-4" />
             {course.enrollmentCount}
           </span>
           {course.duration != null && (
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1.5">
               <Clock className="h-4 w-4" />
               {course.duration}m
             </span>

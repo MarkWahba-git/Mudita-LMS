@@ -21,9 +21,9 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+        <Link href="/" className="flex items-center gap-2 font-display text-xl font-extrabold">
           <Rocket className="h-6 w-6 text-primary" />
-          <span>Mudita</span>
+          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Mudita</span>
         </Link>
 
         {/* Desktop Navigation */}
