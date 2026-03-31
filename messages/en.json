@@ -27,7 +27,8 @@
     "enrolled": "Enrolled",
     "completed": "Completed",
     "inProgress": "In Progress",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "startLearning": "Start Learning for Free"
   },
   "nav": {
     "courses": "Courses",
@@ -36,6 +37,8 @@
     "pricing": "Pricing",
     "about": "About",
     "contact": "Contact",
+    "howItWorks": "How It Works",
+    "forSchools": "For Schools",
     "dashboard": "Dashboard",
     "myCourses": "My Courses",
     "badges": "Badges",
@@ -54,23 +57,47 @@
     "becomeTutor": "Become a Tutor"
   },
   "home": {
-    "heroTitle": "Unlock Your Child's STEM Potential",
-    "heroSubtitle": "Interactive courses, live tutoring, and hands-on kits for ages 3–18. Learn science, coding, robotics, and more — in English, Arabic, and German.",
-    "heroCta": "Explore Courses",
+    "heroTitle": "Where Curiosity Becomes Confidence",
+    "heroSubtitle": "Interactive STEM courses, live expert tutoring, and hands-on science kits — designed for children ages 3 to 18. Available in English, Arabic, and German.",
+    "heroCta": "Find Your Child's Course",
+    "heroCtaSecondary": "See How It Works",
+    "trustBar": "Trusted by families in 30+ countries",
     "featuredCourses": "Featured Courses",
+    "featuredCoursesSubtitle": "Popular courses chosen by thousands of young learners.",
     "ageGroups": "Learning Paths by Age",
-    "whyMudita": "Why Mudita?",
-    "whyReason1Title": "Expert Tutors",
-    "whyReason1Desc": "Learn from qualified STEM educators with real-world experience.",
-    "whyReason2Title": "Interactive Learning",
-    "whyReason2Desc": "Engaging video lessons, quizzes, and hands-on STEM kits.",
-    "whyReason3Title": "Track Progress",
-    "whyReason3Desc": "Parents can monitor their child's learning journey in real-time.",
-    "whyReason4Title": "Multilingual",
-    "whyReason4Desc": "Content available in English, Arabic, and German.",
-    "ctaTitle": "Ready to Start Learning?",
-    "ctaSubtitle": "Join thousands of students on their STEM journey.",
-    "ctaButton": "Create Free Account",
+    "ageGroupsSubtitle": "Every child learns differently. That's why we organize courses by age group, with content designed for each stage of development.",
+    "howItWorks": "How It Works",
+    "howStep1Title": "Browse & Enroll",
+    "howStep1Desc": "Explore STEM courses by age, subject, and level. Enroll your child in seconds.",
+    "howStep2Title": "Learn & Practice",
+    "howStep2Desc": "Interactive video lessons, quizzes, and hands-on STEM kits. Plus live tutoring when needed.",
+    "howStep3Title": "Achieve & Grow",
+    "howStep3Desc": "Track progress, earn badges and certificates. Watch your child build real STEM skills.",
+    "whyMudita": "What Makes Mudita Different",
+    "whyReason1Title": "Live Expert Tutoring",
+    "whyReason1Desc": "One-on-one sessions with verified STEM educators. Personalized support at your child's pace.",
+    "whyReason2Title": "Hands-On STEM Kits",
+    "whyReason2Desc": "Physical science kits delivered to your door. Real experiments that bring learning to life.",
+    "whyReason3Title": "Parent Dashboard",
+    "whyReason3Desc": "Monitor your child's courses, progress, badges, and achievements in real-time.",
+    "whyReason4Title": "Multilingual Learning",
+    "whyReason4Desc": "Full platform in English, Arabic, and German. Learn in the language your child is most comfortable with.",
+    "testimonials": "What Parents Say",
+    "testimonial1Quote": "My daughter went from being afraid of math to building her own calculator app. Mudita made STEM feel like play, not work.",
+    "testimonial1Name": "Sarah M.",
+    "testimonial1Role": "Parent of 2, Dubai",
+    "testimonial2Quote": "The STEM kits are incredible. My son looks forward to his weekend science experiments more than anything else.",
+    "testimonial2Name": "Ahmed K.",
+    "testimonial2Role": "Parent of 1, Berlin",
+    "testimonial3Quote": "As a homeschooling parent, Mudita gives me a structured STEM curriculum I can trust. The progress tracking is a game-changer.",
+    "testimonial3Name": "Lisa R.",
+    "testimonial3Role": "Homeschool Parent, London",
+    "forSchools": "STEM Education for Schools",
+    "forSchoolsDesc": "Custom plans for schools and learning centers. Admin dashboards, bulk enrollment, teacher tools, and dedicated support.",
+    "forSchoolsCta": "Learn More",
+    "ctaTitle": "Start Your Child's STEM Journey Today",
+    "ctaSubtitle": "Join thousands of families building future-ready skills through joyful learning.",
+    "ctaButton": "Start Learning for Free",
     "stats": {
       "students": "Active Students",
       "courses": "STEM Courses",
@@ -80,14 +107,52 @@
   },
   "about": {
     "title": "About Mudita",
-    "subtitle": "We believe every child deserves access to joyful, high-quality STEM education.",
-    "mission": "Our Mission",
-    "missionText": "Mudita's mission is to make STEM education accessible, engaging, and fun for children worldwide. We combine expert instruction with interactive technology to spark curiosity and build future-ready skills.",
-    "vision": "Our Vision",
-    "visionText": "A world where every child has the opportunity to explore science, technology, engineering, and mathematics through joyful learning experiences."
+    "subtitle": "We believe every child deserves access to joyful, high-quality STEM education — no matter where they live or what language they speak.",
+    "storyTitle": "Our Story",
+    "storyText": "Mudita was born from a simple observation: children are naturally curious, but too often, STEM education feels intimidating or inaccessible. We set out to change that. By combining expert instruction, interactive technology, and hands-on learning, we created a platform where science, coding, and engineering feel like an adventure — not a chore.",
+    "mission": {
+      "title": "Our Mission",
+      "text": "To make STEM education accessible, engaging, and fun for every child worldwide. We combine expert instruction with interactive technology and hands-on kits to spark curiosity and build future-ready skills."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "A world where every child — regardless of background, language, or location — has the opportunity to explore science, technology, engineering, and mathematics through joyful learning experiences."
+    },
+    "values": {
+      "title": "Our Values",
+      "joy": "Joy First",
+      "joyDesc": "Learning should feel like play. We design every experience to spark excitement and wonder.",
+      "access": "Accessibility",
+      "accessDesc": "STEM education for every child, everywhere. Multilingual, affordable, and inclusive.",
+      "quality": "Quality",
+      "qualityDesc": "Expert-designed courses, vetted tutors, and rigorous content standards.",
+      "safety": "Safety",
+      "safetyDesc": "Children's privacy and safety are non-negotiable. We exceed industry standards."
+    },
+    "methodology": {
+      "title": "Our Approach to Learning",
+      "text": "Every Mudita course follows a proven learn-practice-apply framework. Children watch engaging video lessons, reinforce concepts through interactive quizzes, and then apply what they've learned through hands-on projects and STEM kit activities. This multi-modal approach ensures deeper understanding and retention."
+    },
+    "team": {
+      "title": "Our Team",
+      "member1": { "name": "Dr. Maya Chen", "role": "Co-Founder & CEO" },
+      "member2": { "name": "Omar Hassan", "role": "Head of Curriculum" },
+      "member3": { "name": "Julia Weber", "role": "Head of Engineering" }
+    },
+    "impact": {
+      "title": "Our Impact",
+      "stat1Value": "5,000+",
+      "stat1Label": "Active learners worldwide",
+      "stat2Value": "120+",
+      "stat2Label": "Structured STEM courses",
+      "stat3Value": "30+",
+      "stat3Label": "Countries reached",
+      "stat4Value": "92%",
+      "stat4Label": "Parent satisfaction rate"
+    }
   },
   "courses": {
-    "title": "Explore Courses",
+    "title": "Course Catalog",
     "subtitle": "Discover engaging STEM courses designed for every age group.",
     "filterAge": "Age Group",
     "filterCategory": "Subject",
@@ -101,40 +166,58 @@
   },
   "pricing": {
     "title": "Simple, Transparent Pricing",
-    "subtitle": "Choose the plan that works best for your family.",
+    "subtitle": "Choose the plan that works best for your family. Start free, upgrade anytime.",
+    "guarantee": "14-day money-back guarantee on all paid plans",
     "free": {
       "name": "Free",
       "price": "$0",
       "period": "forever",
       "features": ["Access to free courses", "Basic progress tracking", "Community access", "1 child account"],
-      "cta": "Get Started Free"
+      "cta": "Create Free Account"
     },
     "pro": {
       "name": "Pro",
       "price": "$19",
       "period": "per month",
-      "features": ["All free courses + premium", "Advanced progress tracking", "Certificates of completion", "Up to 3 child accounts", "Priority support"],
-      "cta": "Start Pro Trial"
+      "features": ["All free courses + premium content", "Advanced progress tracking & analytics", "Certificates of completion", "Up to 3 child accounts", "Priority support", "Live tutoring discounts"],
+      "cta": "Try Pro Free for 7 Days"
     },
     "school": {
       "name": "School",
       "price": "Custom",
-      "period": "per school",
-      "features": ["Unlimited student accounts", "Admin dashboard", "Custom branding", "Bulk enrollment", "Dedicated support", "API access"],
-      "cta": "Contact Sales"
-    }
+      "period": "per institution",
+      "features": ["Unlimited student accounts", "Admin dashboard & reporting", "Custom branding", "Bulk enrollment tools", "Dedicated account manager", "API access & integrations", "Teacher training resources"],
+      "cta": "Get a Custom Quote"
+    },
+    "faqTitle": "Pricing FAQ",
+    "faq": [
+      { "q": "Can I cancel anytime?", "a": "Yes. You can cancel your subscription at any time from your account settings. Your access continues until the end of the billing period." },
+      { "q": "Is there a free trial for Pro?", "a": "Yes! Pro comes with a 7-day free trial. No charge until the trial ends, and you can cancel anytime." },
+      { "q": "What payment methods do you accept?", "a": "We accept all major credit cards, PayPal, and bank transfers for School plans." },
+      { "q": "Can I switch plans?", "a": "Absolutely. Upgrade or downgrade at any time. If you upgrade, you'll be charged the prorated difference." }
+    ]
   },
   "contact": {
     "title": "Get in Touch",
-    "subtitle": "Have a question? We'd love to hear from you.",
-    "name": "Your Name",
-    "email": "Email Address",
-    "subject": "Subject",
-    "message": "Message",
-    "send": "Send Message",
+    "subtitle": "Have a question about Mudita? We'd love to hear from you. Our team typically responds within 24 hours.",
+    "form": {
+      "name": "Your Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "john@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "How can we help?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us more about your question or request...",
+      "submit": "Send Message",
+      "sending": "Sending..."
+    },
     "info": {
+      "emailTitle": "Email Us",
       "email": "hello@mudita.edu",
+      "phoneTitle": "Call Us",
       "phone": "+1 (555) 123-4567",
+      "addressTitle": "Visit Us",
       "address": "123 Learning Street, Education City"
     }
   },
@@ -176,10 +259,10 @@
     "totalRevenue": "Total Revenue"
   },
   "tutors": {
-    "title": "Our Tutors",
-    "subtitle": "Learn from experienced STEM educators from around the world.",
+    "title": "Find a Tutor",
+    "subtitle": "Browse verified STEM tutors and book personalized one-on-one sessions for your child.",
     "becomeTitle": "Become a Tutor",
-    "becomeSubtitle": "Share your STEM expertise and inspire the next generation.",
+    "becomeSubtitle": "Share your STEM expertise and inspire the next generation of learners.",
     "subjects": "Subjects",
     "languages": "Languages",
     "hourlyRate": "Hourly Rate",
@@ -188,14 +271,14 @@
   },
   "stemKits": {
     "title": "STEM Kits",
-    "subtitle": "Hands-on learning kits that bring science and engineering to life.",
+    "subtitle": "Hands-on science and engineering kits that bring learning to life. Delivered to your door.",
     "addToCart": "Add to Cart",
     "outOfStock": "Out of Stock",
     "inStock": "In Stock"
   },
   "competitions": {
     "title": "STEM Competitions",
-    "subtitle": "Challenge yourself and compete with students worldwide.",
+    "subtitle": "Challenge yourself and compete with students worldwide. Showcase your STEM skills.",
     "registrationOpen": "Registration Open",
     "upcoming": "Upcoming",
     "inProgress": "In Progress",
@@ -213,6 +296,8 @@
     "terms": "Terms of Service",
     "faq": "FAQ",
     "helpCenter": "Help Center",
-    "copyright": "© 2026 Mudita. All rights reserved."
+    "howItWorks": "How It Works",
+    "forSchools": "For Schools",
+    "copyright": "© {year} Mudita. All rights reserved."
   }
 }

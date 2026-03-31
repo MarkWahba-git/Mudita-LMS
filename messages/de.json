@@ -27,7 +27,8 @@
     "enrolled": "Eingeschrieben",
     "completed": "Abgeschlossen",
     "inProgress": "In Bearbeitung",
-    "comingSoon": "Demnächst"
+    "comingSoon": "Demnächst",
+    "startLearning": "Kostenlos lernen"
   },
   "nav": {
     "courses": "Kurse",
@@ -36,6 +37,8 @@
     "pricing": "Preise",
     "about": "Über uns",
     "contact": "Kontakt",
+    "howItWorks": "So funktioniert's",
+    "forSchools": "Für Schulen",
     "dashboard": "Dashboard",
     "myCourses": "Meine Kurse",
     "badges": "Abzeichen",
@@ -54,23 +57,47 @@
     "becomeTutor": "Tutor werden"
   },
   "home": {
-    "heroTitle": "Entfalten Sie das STEM-Potenzial Ihres Kindes",
-    "heroSubtitle": "Interaktive Kurse, Live-Nachhilfe und praktische Kits für Kinder von 3–18 Jahren.",
-    "heroCta": "Kurse entdecken",
+    "heroTitle": "Wo Neugier zu Selbstvertrauen wird",
+    "heroSubtitle": "Interaktive STEM-Kurse, Live-Nachhilfe mit Experten und praktische Experimentier-Kits — für Kinder von 3 bis 18 Jahren. Verfügbar auf Deutsch, Englisch und Arabisch.",
+    "heroCta": "Den passenden Kurs finden",
+    "heroCtaSecondary": "So funktioniert's",
+    "trustBar": "Von Familien in 30+ Ländern vertraut",
     "featuredCourses": "Empfohlene Kurse",
+    "featuredCoursesSubtitle": "Beliebte Kurse, gewählt von Tausenden junger Lernender.",
     "ageGroups": "Lernpfade nach Alter",
-    "whyMudita": "Warum Mudita?",
-    "whyReason1Title": "Experten-Tutoren",
-    "whyReason1Desc": "Lernen Sie von qualifizierten STEM-Pädagogen mit Praxiserfahrung.",
-    "whyReason2Title": "Interaktives Lernen",
-    "whyReason2Desc": "Spannende Videolektionen, Quizze und praktische STEM-Kits.",
-    "whyReason3Title": "Fortschritt verfolgen",
-    "whyReason3Desc": "Eltern können den Lernfortschritt ihres Kindes in Echtzeit verfolgen.",
-    "whyReason4Title": "Mehrsprachig",
-    "whyReason4Desc": "Inhalte in Englisch, Arabisch und Deutsch verfügbar.",
-    "ctaTitle": "Bereit zum Lernen?",
-    "ctaSubtitle": "Schließen Sie sich Tausenden von Schülern auf ihrer STEM-Reise an.",
-    "ctaButton": "Kostenloses Konto erstellen",
+    "ageGroupsSubtitle": "Jedes Kind lernt anders. Deshalb organisieren wir Kurse nach Altersgruppe.",
+    "howItWorks": "So funktioniert's",
+    "howStep1Title": "Durchsuchen & Einschreiben",
+    "howStep1Desc": "Erkunden Sie STEM-Kurse nach Alter, Fach und Niveau. Melden Sie Ihr Kind in Sekunden an.",
+    "howStep2Title": "Lernen & Üben",
+    "howStep2Desc": "Interaktive Videolektionen, Quizze und praktische STEM-Kits. Plus Live-Nachhilfe bei Bedarf.",
+    "howStep3Title": "Erreichen & Wachsen",
+    "howStep3Desc": "Fortschritte verfolgen, Abzeichen und Zertifikate verdienen. Sehen Sie, wie Ihr Kind STEM-Fähigkeiten aufbaut.",
+    "whyMudita": "Was Mudita besonders macht",
+    "whyReason1Title": "Live-Nachhilfe mit Experten",
+    "whyReason1Desc": "Einzelsitzungen mit verifizierten STEM-Pädagogen. Personalisierte Unterstützung im Tempo Ihres Kindes.",
+    "whyReason2Title": "Praktische STEM-Kits",
+    "whyReason2Desc": "Physische Experimentier-Kits an Ihre Haustür geliefert. Echte Experimente, die Lernen lebendig machen.",
+    "whyReason3Title": "Eltern-Dashboard",
+    "whyReason3Desc": "Überwachen Sie Kurse, Fortschritte, Abzeichen und Erfolge Ihres Kindes in Echtzeit.",
+    "whyReason4Title": "Mehrsprachiges Lernen",
+    "whyReason4Desc": "Komplette Plattform auf Deutsch, Englisch und Arabisch.",
+    "testimonials": "Was Eltern sagen",
+    "testimonial1Quote": "Meine Tochter hatte Angst vor Mathe und baut jetzt ihre eigene Taschenrechner-App. Mudita hat STEM wie Spielen wirken lassen.",
+    "testimonial1Name": "Sarah M.",
+    "testimonial1Role": "Mutter von 2, Dubai",
+    "testimonial2Quote": "Die STEM-Kits sind unglaublich. Mein Sohn freut sich auf seine Wochenend-Experimente mehr als auf alles andere.",
+    "testimonial2Name": "Ahmed K.",
+    "testimonial2Role": "Vater von 1, Berlin",
+    "testimonial3Quote": "Als Homeschool-Elternteil gibt mir Mudita einen strukturierten STEM-Lehrplan, dem ich vertrauen kann.",
+    "testimonial3Name": "Lisa R.",
+    "testimonial3Role": "Homeschool-Elternteil, London",
+    "forSchools": "STEM-Bildung für Schulen",
+    "forSchoolsDesc": "Maßgeschneiderte Pläne für Schulen und Lernzentren. Admin-Dashboards, Masseneinschreibung, Lehrertools und dedizierter Support.",
+    "forSchoolsCta": "Mehr erfahren",
+    "ctaTitle": "Starten Sie die STEM-Reise Ihres Kindes heute",
+    "ctaSubtitle": "Schließen Sie sich Tausenden von Familien an, die durch freudvolles Lernen Zukunftskompetenzen aufbauen.",
+    "ctaButton": "Kostenlos lernen",
     "stats": {
       "students": "Aktive Schüler",
       "courses": "STEM-Kurse",
@@ -80,14 +107,52 @@
   },
   "about": {
     "title": "Über Mudita",
-    "subtitle": "Wir glauben, dass jedes Kind Zugang zu freudvollem, hochwertigem STEM-Unterricht verdient.",
-    "mission": "Unsere Mission",
-    "missionText": "Muditas Mission ist es, STEM-Bildung weltweit zugänglich, ansprechend und unterhaltsam zu machen.",
-    "vision": "Unsere Vision",
-    "visionText": "Eine Welt, in der jedes Kind die Möglichkeit hat, Wissenschaft, Technologie, Ingenieurwesen und Mathematik zu erkunden."
+    "subtitle": "Wir glauben, dass jedes Kind Zugang zu freudvollem, hochwertigem STEM-Unterricht verdient — egal wo es lebt oder welche Sprache es spricht.",
+    "storyTitle": "Unsere Geschichte",
+    "storyText": "Mudita entstand aus einer einfachen Beobachtung: Kinder sind von Natur aus neugierig, aber STEM-Bildung fühlt sich oft einschüchternd oder unzugänglich an. Wir wollten das ändern.",
+    "mission": {
+      "title": "Unsere Mission",
+      "text": "STEM-Bildung weltweit zugänglich, ansprechend und unterhaltsam für jedes Kind zu machen. Wir kombinieren Expertenunterricht mit interaktiver Technologie und praktischen Kits."
+    },
+    "vision": {
+      "title": "Unsere Vision",
+      "text": "Eine Welt, in der jedes Kind — unabhängig von Herkunft, Sprache oder Standort — die Möglichkeit hat, Wissenschaft, Technologie, Ingenieurwesen und Mathematik zu erkunden."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "joy": "Freude zuerst",
+      "joyDesc": "Lernen sollte sich wie Spielen anfühlen. Wir gestalten jede Erfahrung, um Begeisterung zu wecken.",
+      "access": "Zugänglichkeit",
+      "accessDesc": "STEM-Bildung für jedes Kind, überall. Mehrsprachig, erschwinglich und inklusiv.",
+      "quality": "Qualität",
+      "qualityDesc": "Von Experten entworfene Kurse, geprüfte Tutoren und strenge Inhaltsstandards.",
+      "safety": "Sicherheit",
+      "safetyDesc": "Datenschutz und Sicherheit von Kindern sind nicht verhandelbar."
+    },
+    "methodology": {
+      "title": "Unser Lernansatz",
+      "text": "Jeder Mudita-Kurs folgt einem bewährten Lernen-Üben-Anwenden-Rahmen. Kinder schauen fesselnde Videolektionen und verstärken Konzepte durch interaktive Quizze."
+    },
+    "team": {
+      "title": "Unser Team",
+      "member1": { "name": "Dr. Maya Chen", "role": "Mitgründerin & CEO" },
+      "member2": { "name": "Omar Hassan", "role": "Leiter Lehrplan" },
+      "member3": { "name": "Julia Weber", "role": "Leiterin Engineering" }
+    },
+    "impact": {
+      "title": "Unsere Wirkung",
+      "stat1Value": "5.000+",
+      "stat1Label": "Aktive Lernende weltweit",
+      "stat2Value": "120+",
+      "stat2Label": "Strukturierte STEM-Kurse",
+      "stat3Value": "30+",
+      "stat3Label": "Erreichte Länder",
+      "stat4Value": "92%",
+      "stat4Label": "Eltern-Zufriedenheitsrate"
+    }
   },
   "courses": {
-    "title": "Kurse entdecken",
+    "title": "Kurskatalog",
     "subtitle": "Entdecken Sie spannende STEM-Kurse für jede Altersgruppe.",
     "filterAge": "Altersgruppe",
     "filterCategory": "Fach",
@@ -101,40 +166,58 @@
   },
   "pricing": {
     "title": "Einfache, transparente Preise",
-    "subtitle": "Wählen Sie den Plan, der am besten zu Ihrer Familie passt.",
+    "subtitle": "Wählen Sie den Plan, der am besten zu Ihrer Familie passt. Kostenlos starten, jederzeit upgraden.",
+    "guarantee": "14-Tage-Geld-zurück-Garantie auf alle bezahlten Pläne",
     "free": {
       "name": "Kostenlos",
       "price": "0€",
       "period": "für immer",
       "features": ["Zugang zu kostenlosen Kursen", "Grundlegende Fortschrittsverfolgung", "Community-Zugang", "1 Kinderkonto"],
-      "cta": "Kostenlos starten"
+      "cta": "Kostenloses Konto erstellen"
     },
     "pro": {
       "name": "Pro",
       "price": "19€",
       "period": "pro Monat",
-      "features": ["Alle kostenlosen + Premium-Kurse", "Erweiterte Fortschrittsverfolgung", "Abschlusszertifikate", "Bis zu 3 Kinderkonten", "Prioritäts-Support"],
-      "cta": "Pro-Testversion starten"
+      "features": ["Alle kostenlosen + Premium-Inhalte", "Erweiterte Fortschrittsverfolgung & Analysen", "Abschlusszertifikate", "Bis zu 3 Kinderkonten", "Prioritäts-Support", "Live-Nachhilfe-Rabatte"],
+      "cta": "Pro 7 Tage kostenlos testen"
     },
     "school": {
       "name": "Schule",
       "price": "Individuell",
-      "period": "pro Schule",
-      "features": ["Unbegrenzte Schülerkonten", "Admin-Dashboard", "Eigenes Branding", "Massen-Einschreibung", "Dedizierter Support", "API-Zugang"],
-      "cta": "Vertrieb kontaktieren"
-    }
+      "period": "pro Institution",
+      "features": ["Unbegrenzte Schülerkonten", "Admin-Dashboard & Berichte", "Eigenes Branding", "Masseneinschreibungs-Tools", "Dedizierter Account Manager", "API-Zugang & Integrationen", "Lehrerfortbildungsressourcen"],
+      "cta": "Individuelles Angebot anfordern"
+    },
+    "faqTitle": "Preis-FAQ",
+    "faq": [
+      { "q": "Kann ich jederzeit kündigen?", "a": "Ja. Sie können Ihr Abonnement jederzeit kündigen. Ihr Zugang bleibt bis zum Ende des Abrechnungszeitraums bestehen." },
+      { "q": "Gibt es eine kostenlose Testphase für Pro?", "a": "Ja! Pro kommt mit einer 7-tägigen kostenlosen Testphase." },
+      { "q": "Welche Zahlungsmethoden werden akzeptiert?", "a": "Wir akzeptieren alle gängigen Kreditkarten, PayPal und Banküberweisungen für Schulpläne." },
+      { "q": "Kann ich den Plan wechseln?", "a": "Absolut. Sie können jederzeit upgraden oder downgraden." }
+    ]
   },
   "contact": {
-    "title": "Kontakt",
-    "subtitle": "Haben Sie eine Frage? Wir freuen uns von Ihnen zu hören.",
-    "name": "Ihr Name",
-    "email": "E-Mail-Adresse",
-    "subject": "Betreff",
-    "message": "Nachricht",
-    "send": "Nachricht senden",
+    "title": "Kontakt aufnehmen",
+    "subtitle": "Haben Sie eine Frage zu Mudita? Wir freuen uns von Ihnen zu hören. Unser Team antwortet normalerweise innerhalb von 24 Stunden.",
+    "form": {
+      "name": "Ihr Name",
+      "namePlaceholder": "Max Mustermann",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "max@beispiel.de",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Wie können wir helfen?",
+      "message": "Nachricht",
+      "messagePlaceholder": "Erzählen Sie uns mehr über Ihre Frage oder Anfrage...",
+      "submit": "Nachricht senden",
+      "sending": "Wird gesendet..."
+    },
     "info": {
+      "emailTitle": "E-Mail",
       "email": "hello@mudita.edu",
+      "phoneTitle": "Telefon",
       "phone": "+1 (555) 123-4567",
+      "addressTitle": "Adresse",
       "address": "123 Lernstraße, Bildungsstadt"
     }
   },
@@ -176,10 +259,10 @@
     "totalRevenue": "Gesamtumsatz"
   },
   "tutors": {
-    "title": "Unsere Tutoren",
-    "subtitle": "Lernen Sie von erfahrenen STEM-Pädagogen aus aller Welt.",
+    "title": "Tutor finden",
+    "subtitle": "Durchsuchen Sie verifizierte STEM-Tutoren und buchen Sie personalisierte Einzelsitzungen für Ihr Kind.",
     "becomeTitle": "Tutor werden",
-    "becomeSubtitle": "Teilen Sie Ihr STEM-Wissen und inspirieren Sie die nächste Generation.",
+    "becomeSubtitle": "Teilen Sie Ihr STEM-Wissen und inspirieren Sie die nächste Generation von Lernenden.",
     "subjects": "Fächer",
     "languages": "Sprachen",
     "hourlyRate": "Stundensatz",
@@ -188,14 +271,14 @@
   },
   "stemKits": {
     "title": "STEM-Kits",
-    "subtitle": "Praktische Lernkits, die Wissenschaft und Technik zum Leben erwecken.",
+    "subtitle": "Praktische Wissenschafts- und Technik-Kits, die Lernen lebendig machen. Direkt an Ihre Haustür geliefert.",
     "addToCart": "In den Warenkorb",
     "outOfStock": "Ausverkauft",
     "inStock": "Auf Lager"
   },
   "competitions": {
     "title": "STEM-Wettbewerbe",
-    "subtitle": "Fordern Sie sich heraus und treten Sie gegen Schüler weltweit an.",
+    "subtitle": "Fordern Sie sich heraus und treten Sie gegen Schüler weltweit an. Zeigen Sie Ihre STEM-Fähigkeiten.",
     "registrationOpen": "Anmeldung offen",
     "upcoming": "Demnächst",
     "inProgress": "Laufend",
@@ -213,6 +296,8 @@
     "terms": "Nutzungsbedingungen",
     "faq": "FAQ",
     "helpCenter": "Hilfezentrum",
-    "copyright": "© 2026 Mudita. Alle Rechte vorbehalten."
+    "howItWorks": "So funktioniert's",
+    "forSchools": "Für Schulen",
+    "copyright": "© {year} Mudita. Alle Rechte vorbehalten."
   }
 }

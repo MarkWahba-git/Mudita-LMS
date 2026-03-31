@@ -2,15 +2,28 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { getCourseBySlug } from "@/services/course.service";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Clock, Users, Award, ChevronDown, Play } from "lucide-react";
+import {
+  BookOpen,
+  Clock,
+  Users,
+  Award,
+  ChevronDown,
+  Play,
+  CheckCircle2,
+  GraduationCap,
+  Globe,
+} from "lucide-react";
 
 interface CourseDetailPageProps {
   params: Promise<{ slug: string; locale: string }>;
 }
 
-export async function generateMetadata({ params }: CourseDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: CourseDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const course = await getCourseBySlug(slug);
   if (!course) return { title: "Course Not Found" };
@@ -20,13 +33,33 @@ export async function generateMetadata({ params }: CourseDetailPageProps): Promi
   };
 }
 
-export default async function CourseDetailPage({ params }: CourseDetailPageProps) {
+export default async function CourseDetailPage({
+  params,
+}: CourseDetailPageProps) {
   const { slug } = await params;
   const [course, session] = await Promise.all([getCourseBySlug(slug), auth()]);
 
   if (!course) notFound();
 
   const totalMinutes = Math.round((course.totalDuration ?? 0) / 60);
+
+  // Fetch related courses (same category, different course)
+  let relatedCourses: { id: string; title: string; slug: string; thumbnail: string | null; category: string | null }[] = [];
+  try {
+    if (course.category) {
+      relatedCourses = await db.course.findMany({
+        where: {
+          category: course.category,
+          status: "PUBLISHED",
+          id: { not: course.id },
+        },
+        select: { id: true, title: true, slug: true, thumbnail: true, category: true },
+        take: 3,
+      });
+    }
+  } catch {
+    // graceful degradation
+  }
 
   const ageLabel: Record<string, string> = {
     AGES_3_5: "3–5",
@@ -41,6 +74,11 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
     INTERMEDIATE: "bg-yellow-100 text-yellow-800",
     ADVANCED: "bg-red-100 text-red-800",
   };
+
+  const totalLessons = course.modules.reduce(
+    (acc, mod) => acc + mod.lessons.length,
+    0
+  );
 
   return (
     <div className="py-12">
@@ -59,7 +97,9 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
 
             <div className="mb-3 flex flex-wrap gap-2">
               {course.ageGroup && (
-                <Badge variant="secondary">Ages {ageLabel[course.ageGroup] ?? course.ageGroup}</Badge>
+                <Badge variant="secondary">
+                  Ages {ageLabel[course.ageGroup] ?? course.ageGroup}
+                </Badge>
               )}
               {course.level && (
                 <span
@@ -75,7 +115,9 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
               )}
             </div>
 
-            <h1 className="text-3xl font-bold tracking-tight">{course.title}</h1>
+            <h1 className="text-3xl font-bold tracking-tight">
+              {course.title}
+            </h1>
 
             <p className="mt-4 text-muted-foreground">{course.description}</p>
 
@@ -83,7 +125,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <BookOpen className="h-4 w-4" />
-                <span>{course.lessonCount} lessons</span>
+                <span>{totalLessons} lessons</span>
               </div>
               {totalMinutes > 0 && (
                 <div className="flex items-center gap-1.5">
@@ -104,7 +146,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
 
           {/* Enroll Card */}
           <div className="lg:col-span-1">
-            <div className="rounded-xl border bg-white p-6 shadow-sm">
+            <div className="sticky top-24 rounded-xl border bg-white p-6 shadow-sm">
               {course.thumbnail ? (
                 <img
                   src={course.thumbnail}
@@ -119,13 +161,17 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
 
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold">
-                  {course.isFree ? "Free" : course.price ? `$${course.price}` : "Free"}
+                  {course.isFree
+                    ? "Free"
+                    : course.price
+                      ? `$${course.price}`
+                      : "Free"}
                 </span>
               </div>
 
               {session?.user ? (
                 <Link
-                  href={`/student/courses`}
+                  href="/student/courses"
                   className="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
                 >
                   Enroll Now
@@ -135,7 +181,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
                   href="/register"
                   className="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
                 >
-                  Sign up to Enroll
+                  Create Free Account to Enroll
                 </Link>
               )}
               <p className="mt-3 text-center text-xs text-muted-foreground">
@@ -145,9 +191,68 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
           </div>
         </div>
 
+        {/* What You'll Learn */}
+        <div className="mt-12 rounded-xl border bg-card p-8">
+          <h2 className="mb-4 text-xl font-bold flex items-center gap-2">
+            <CheckCircle2 className="h-5 w-5 text-primary" />
+            What You&apos;ll Learn
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {course.modules.slice(0, 6).map((mod) => (
+              <div key={mod.id} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
+                <span className="text-sm text-muted-foreground">
+                  {mod.title}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Who This Course Is For */}
+        <div className="mt-8 rounded-xl border bg-card p-8">
+          <h2 className="mb-4 text-xl font-bold flex items-center gap-2">
+            <GraduationCap className="h-5 w-5 text-primary" />
+            Who This Course Is For
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {course.ageGroup && (
+              <div className="flex items-start gap-2">
+                <Users className="mt-0.5 h-4 w-4 shrink-0 text-blue-500" />
+                <span className="text-sm text-muted-foreground">
+                  Children ages {ageLabel[course.ageGroup] ?? course.ageGroup}
+                </span>
+              </div>
+            )}
+            {course.level && (
+              <div className="flex items-start gap-2">
+                <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-blue-500" />
+                <span className="text-sm text-muted-foreground">
+                  {course.level.charAt(0) + course.level.slice(1).toLowerCase()}{" "}
+                  level — {course.level === "BEGINNER" ? "no prior knowledge needed" : "some foundation required"}
+                </span>
+              </div>
+            )}
+            <div className="flex items-start gap-2">
+              <Globe className="mt-0.5 h-4 w-4 shrink-0 text-blue-500" />
+              <span className="text-sm text-muted-foreground">
+                Available in English, Arabic, and German
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <Award className="mt-0.5 h-4 w-4 shrink-0 text-blue-500" />
+              <span className="text-sm text-muted-foreground">
+                Certificate of completion included
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Course Content */}
         <div className="mt-12">
-          <h2 className="mb-4 text-xl font-bold">Course Content</h2>
+          <h2 className="mb-4 text-xl font-bold">
+            Course Content — {course.modules.length} modules, {totalLessons} lessons
+          </h2>
           {course.modules.length === 0 ? (
             <p className="text-muted-foreground">No content available yet.</p>
           ) : (
@@ -187,6 +292,42 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             </div>
           )}
         </div>
+
+        {/* Related Courses */}
+        {relatedCourses.length > 0 && (
+          <div className="mt-12">
+            <h2 className="mb-6 text-xl font-bold">Related Courses</h2>
+            <div className="grid gap-6 sm:grid-cols-3">
+              {relatedCourses.map((related) => (
+                <Link
+                  key={related.id}
+                  href={`/courses/${related.slug}`}
+                  className="group rounded-xl border bg-card p-4 transition-all hover:shadow-md"
+                >
+                  {related.thumbnail ? (
+                    <img
+                      src={related.thumbnail}
+                      alt={related.title}
+                      className="w-full rounded-lg object-cover aspect-video"
+                    />
+                  ) : (
+                    <div className="flex aspect-video items-center justify-center rounded-lg bg-muted">
+                      <BookOpen className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                  )}
+                  <h3 className="mt-3 font-semibold group-hover:text-primary transition-colors">
+                    {related.title}
+                  </h3>
+                  {related.category && (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {related.category}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
