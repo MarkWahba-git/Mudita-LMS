@@ -86,3 +86,87 @@
 - Summary: Children finalize their game, write a description in Scratch's "Instructions" and "Notes" fields, and publish it. This is their first public creative work — something they can share with pride.
 - Activity: Publish game to Scratch with title, description, instructions, and custom thumbnail
 - Assessment: Game is published, all required fields are complete, game is fully playable by a first-time player
+
+---
+
+## Course 12: Junior Robotics & Automation
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 9–12 (Future Innovators) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 5 weeks (9 lessons, ~30 min each) |
+| **Prerequisite** | None (Coding Adventures with Blocks recommended) |
+| **Course Promise** | Your child will understand how real robots work — sensors, decision logic, loops — and complete a delivery robot challenge using simulation or physical kits. |
+| **Parent-Facing Value** | Robotics combines coding, engineering, and logical thinking. This course uses the same concepts found in professional robotics education (VEX, LEGO Mindstorms, WeDo) to build systems thinking and iterative problem-solving in a structured, achievable format. |
+| **Completion Criteria** | Complete all 9 lessons + complete a robot delivery challenge |
+| **Badge** | "Robot Engineer" — awarded on completion |
+| **Certificate** | "Future Innovator: Junior Robotics & Automation" |
+
+### Learner Outcomes
+1. Describe a robot as a system with inputs, processing, and outputs
+2. Explain how sensors give robots information about the world
+3. Write an if-then decision rule for robot behavior
+4. Use a loop to repeat a robot behavior multiple times
+5. Design, build, and test a robot that completes a delivery mission
+
+### Module 1: Robot Systems (Lessons 1–3)
+
+**Lesson 1: Inputs and Outputs**
+- Objective: Identify inputs (sensors) and outputs (motors, lights, sounds) in robot systems
+- Summary: Every robot takes in information (input) and does something with it (output). A touch sensor is an input. A spinning wheel is an output. Children analyze 5 real robots and identify their inputs and outputs.
+- Activity: Analyze 5 robot diagrams — label each input and output; draw arrows showing the flow
+- Assessment: Child correctly identifies inputs and outputs for at least 4 of 5 robots
+
+**Lesson 2: Sensors and Actions**
+- Objective: Explain how specific sensors detect specific conditions
+- Summary: Different sensors detect different things — distance sensors see objects, light sensors detect brightness, touch sensors feel pressure. Children match sensors to their uses and design a sensor setup for a simple task.
+- Activity: Match 6 sensor types to their use cases, then design which sensors a "library robot" would need
+- Assessment: All 6 matches correct; library robot design includes at least 3 appropriate sensors
+
+**Lesson 3: My Robot's Job**
+- Objective: Design the input-output specification for a simple robot
+- Summary: Before building a robot, engineers write a specification — what information it needs, what it should do with it. Children write a simple "robot spec" for a chosen task.
+- Activity: Write a robot spec for one of: a pet-feeding robot, a door-opening robot, or a homework-reminder robot
+- Assessment: Spec includes at least 2 inputs, 2 outputs, and a clear description of the task
+
+### Module 2: Control Logic (Lessons 4–6)
+
+**Lesson 4: If This, Then That**
+- Objective: Write if-then decision rules for robot behavior
+- Summary: The most important logic in robotics is the if-then statement. "If the sensor detects an obstacle, then stop and turn." Children write, read, and trace if-then rules in pseudocode and flowcharts.
+- Activity: Write 5 if-then rules for a delivery robot navigating a warehouse
+- Assessment: All 5 rules are logical and follow correct if-then syntax
+
+**Lesson 5: Loops in Robot Behavior**
+- Objective: Use loops to make a robot repeat a behavior
+- Summary: Robots on an assembly line do the same thing thousands of times — that's a loop. Children design looping behaviors and trace what happens when a robot loops forever vs a set number of times.
+- Activity: Design a "patrol robot" behavior using a loop — walks forward 5 steps, turns 90°, repeats 4 times
+- Assessment: Loop correctly produces a square patrol path when traced on paper or simulated
+
+**Lesson 6: Combining Logic**
+- Objective: Combine if-then rules and loops to handle multiple robot scenarios
+- Summary: Real robot programs combine loops and conditionals. A robot patrols (loop) but stops if it hits something (if-then). Children combine both concepts in a flowchart for their delivery robot.
+- Activity: Design a complete flowchart for a delivery robot that: patrols, avoids obstacles, picks up packages, delivers them
+- Assessment: Flowchart includes at least one loop and one if-then branch; logic is valid
+
+### Module 3: Mission Build (Lessons 7–9)
+
+**Lesson 7: Solve a Delivery Challenge**
+- Objective: Build or simulate a robot that can navigate from start to goal
+- Summary: Using a simulation tool, coding environment, or physical kit, children build their delivery robot — programming it to navigate from a start point to a delivery zone.
+- Activity: Build/program a robot (simulation or physical) to travel from A to B while avoiding one obstacle
+- Assessment: Robot reaches the destination at least once without hitting the obstacle
+
+**Lesson 8: Test, Debug, Compete**
+- Objective: Identify failures, debug the robot's program, and improve performance
+- Summary: Robots rarely work perfectly the first time. Children test their delivery robot 5 times, log each attempt, identify the most common failure, and fix it.
+- Activity: 5 test runs — log result (success/fail + what went wrong), identify the #1 bug, implement fix
+- Assessment: Bug is correctly identified from test log; Version 2 performs better than Version 1
+
+**Lesson 9: Robot Mission Showcase (Final Project)**
+- Objective: Demonstrate the completed delivery robot and present the engineering process
+- Summary: Children run their delivery robot in front of an audience (family or class), explain how it works, what problems they solved, and what they would improve with more time.
+- Activity: Live or recorded robot demo + 3-minute presentation covering: how it works / biggest challenge / what's next
+- Assessment: Robot completes the delivery at least once during the demo; presentation covers all 3 topics
