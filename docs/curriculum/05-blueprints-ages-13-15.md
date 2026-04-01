@@ -170,3 +170,87 @@
 - Summary: Children choose to present either the quiz app or a calculator they build in this lesson, explaining how their code works to a non-technical audience.
 - Activity: Present the app live (or recorded): run it, explain what each major section does, describe the biggest bug they fixed
 - Assessment: App runs without errors; explanation covers variables, a conditional, and a loop; child can answer "what would you add next?"
+
+---
+
+## Course 18: AI Literacy & Ethics
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 13–15 (Tech Builders) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 5 weeks (9 lessons, ~35 min each) |
+| **Prerequisite** | None (AI Around Us helpful background) |
+| **Course Promise** | Your teen will understand how machine learning works, what risks AI creates, how to use AI tools responsibly, and how to write a classroom AI code of ethics. |
+| **Parent-Facing Value** | Aligned with UNESCO's AI competency framework for youth, this course equips teens with the vocabulary, critical thinking, and ethical framework to navigate AI tools they will encounter in school, work, and daily life — not as passive users, but as informed, responsible citizens. |
+| **Completion Criteria** | Complete all 9 lessons + write a Classroom AI Code of Ethics |
+| **Badge** | "AI Ethics Champion" — awarded on completion |
+| **Certificate** | "Tech Builder: AI Literacy & Ethics" |
+
+### Learner Outcomes
+1. Explain machine learning as pattern recognition from labeled training data
+2. Describe how neural networks learn from examples at a conceptual level
+3. Identify real-world AI bias cases and explain their root causes
+4. Apply responsible AI use practices: prompt carefully, check outputs, cite sources
+5. Write an AI code of ethics for a school or classroom context
+
+### Module 1: How AI Works (Lessons 1–3)
+
+**Lesson 1: Machine Learning Basics**
+- Objective: Explain the difference between rule-based programming and machine learning
+- Summary: Traditional programs follow explicit rules. ML programs learn rules from data. Children contrast these two approaches using relatable examples (spam filters, recommendation engines, medical diagnosis).
+- Activity: Classify 10 software examples as "rule-based" or "machine learning" with justification
+- Assessment: At least 8 correctly classified with a valid reason
+
+**Lesson 2: Training Data and Pattern Recognition**
+- Objective: Describe how training data is used to teach an ML model to recognize patterns
+- Summary: An image classifier learns "cat" by seeing thousands of labeled cat photos. The model finds patterns that distinguish cats from dogs. Children work through a simplified training simulation.
+- Activity: Play a visual pattern recognition game — train a rule from 15 labeled examples, predict 5 test cases, compare accuracy
+- Assessment: Child describes what "labeled training data" means; achieves at least 80% accuracy in the activity
+
+**Lesson 3: Types of AI in the Real World**
+- Objective: Identify and describe 5 types of AI applications across different domains
+- Summary: Computer vision, natural language processing, recommendation systems, autonomous vehicles, generative AI — different tools for different tasks. Children map AI applications to their domain and function.
+- Activity: Research 5 real AI applications and complete a card for each: name, type, what it does, domain, one risk
+- Assessment: All 5 cards complete and accurate; at least 3 different AI types represented
+
+### Module 2: Risks and Responsibilities (Lessons 4–6)
+
+**Lesson 4: Bias, Fairness, and Error**
+- Objective: Explain what algorithmic bias is and identify a real-world case
+- Summary: When training data reflects historical inequalities, AI can amplify them. Children examine real cases: facial recognition less accurate on darker skin, hiring tools that penalized women's CVs, loan AI that redlined neighborhoods.
+- Activity: Analyze 2 real AI bias cases — for each: what was the bias, what data caused it, who was harmed, what should be done?
+- Assessment: Both cases analyzed correctly with a realistic remediation suggestion
+
+**Lesson 5: Privacy and Human Oversight**
+- Objective: Describe how AI systems collect personal data and explain why human oversight is essential
+- Summary: AI learns from data — often our data. Facial recognition databases, social media tracking, smart speaker recordings. Children evaluate privacy tradeoffs and design oversight mechanisms.
+- Activity: Evaluate 3 AI tools for privacy risks: what data is collected, who has access, what could go wrong?
+- Assessment: All 3 tools evaluated; child identifies at least one concrete privacy risk per tool
+
+**Lesson 6: When AI Gets It Wrong**
+- Objective: Evaluate AI output critically and identify cases where human judgment is required
+- Summary: AI makes confident-sounding mistakes. Children test an AI chatbot or text tool, identify factual errors, and discuss: in what situations should humans never delegate to AI?
+- Activity: Test an AI tool on 5 factual questions, verify answers, document any errors, discuss which errors could be harmful
+- Assessment: At least 2 errors identified and verified; child names 3 situations where AI should never decide alone
+
+### Module 3: Use AI Well (Lessons 7–9)
+
+**Lesson 7: Prompting, Checking, Citing**
+- Objective: Apply responsible AI use practices: write clear prompts, verify outputs, cite AI assistance
+- Summary: Using AI tools responsibly means knowing how to ask well, verify what it says, and be honest about AI's role in your work. Children practice prompt engineering and output verification.
+- Activity: Write 3 prompts on the same topic — compare quality of outputs, identify inaccuracies, practice citing AI assistance in a bibliography
+- Assessment: Prompts show clear improvement across 3 iterations; at least one factual error identified and corrected; citation format used
+
+**Lesson 8: AI in Your School Context**
+- Objective: Evaluate appropriate and inappropriate uses of AI in schoolwork
+- Summary: Using AI to generate an entire essay is different from using AI to brainstorm ideas. Children map a spectrum of AI use in school from "clearly helpful" to "clearly dishonest."
+- Activity: Sort 12 school AI use scenarios on a spectrum from "great use" to "academic dishonesty" — justify each placement
+- Assessment: Placements are reasonable; child can articulate the key distinction between AI-as-tool vs AI-as-replacement
+
+**Lesson 9: Classroom AI Code of Ethics (Final Project)**
+- Objective: Write a practical AI code of ethics for a school or classroom setting
+- Summary: Children write a 5-point AI code of ethics for their classroom — covering fairness, honesty, privacy, human oversight, and creativity. The code must be specific, practical, and defensible.
+- Activity: Write a 5-clause AI code of ethics with a 2-sentence explanation for each clause
+- Assessment: All 5 clauses present; each is specific (not vague); covers at least fairness, honesty, and privacy
