@@ -567,6 +567,237 @@ async function main() {
     },
   ]);
 
+  // ── Ages 9–12 Courses ─────────────────────────────────────────────────────
+
+  const c11 = await db.course.upsert({
+    where: { slug: "scratch-game-studio" },
+    update: {},
+    create: {
+      title: "Scratch Game Studio",
+      slug: "scratch-game-studio",
+      description: "Design and build complete Scratch games with scoring, levels, and sound.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c11.id, [
+    {
+      title: "Game Design Foundations",
+      order: 1,
+      lessons: [
+        { title: "Game Ideas & Design Docs", order: 1, isFree: true, duration: 1800 },
+        { title: "Sprites, Costumes & Sounds", order: 2, isFree: true, duration: 1800 },
+        { title: "Movement & Controls", order: 3, isFree: true, duration: 2400 },
+      ],
+    },
+    {
+      title: "Game Mechanics",
+      order: 2,
+      lessons: [
+        { title: "Collision Detection", order: 1, duration: 2400 },
+        { title: "Score & Lives", order: 2, duration: 2400 },
+        { title: "Levels & Difficulty", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Polish & Publish",
+      order: 3,
+      lessons: [
+        { title: "Music & Sound Effects", order: 1, duration: 1800 },
+        { title: "Start Screen & Game Over", order: 2, duration: 1800 },
+        { title: "Publish & Get Feedback", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c12 = await db.course.upsert({
+    where: { slug: "junior-robotics-automation" },
+    update: {},
+    create: {
+      title: "Junior Robotics & Automation",
+      slug: "junior-robotics-automation",
+      description: "Program real or simulated robots to complete missions using block coding.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "ROBOTICS",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 49,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c12.id, [
+    {
+      title: "Robot Basics",
+      order: 1,
+      lessons: [
+        { title: "How Robots Work", order: 1, duration: 1800 },
+        { title: "Sensors & Actuators", order: 2, duration: 1800 },
+        { title: "Your First Robot Program", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Robot Missions",
+      order: 2,
+      lessons: [
+        { title: "Navigate a Maze", order: 1, duration: 2400 },
+        { title: "Delivery Mission", order: 2, duration: 2400 },
+        { title: "Sort by Colour", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Automation",
+      order: 3,
+      lessons: [
+        { title: "Loops and Repetition", order: 1, duration: 1800 },
+        { title: "Condition-Based Actions", order: 2, duration: 2400 },
+        { title: "Design Your Own Mission", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c13 = await db.course.upsert({
+    where: { slug: "space-science-missions" },
+    update: {},
+    create: {
+      title: "Space Science & Missions",
+      slug: "space-science-missions",
+      description: "Explore the solar system, design space missions, and learn real orbital mechanics.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 45,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c13.id, [
+    {
+      title: "Our Solar System",
+      order: 1,
+      lessons: [
+        { title: "Scale of the Solar System", order: 1, duration: 1800 },
+        { title: "Rocky vs. Gas Planets", order: 2, duration: 1800 },
+        { title: "Dwarf Planets & Moons", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Spacecraft & Missions",
+      order: 2,
+      lessons: [
+        { title: "How Rockets Work", order: 1, duration: 1800 },
+        { title: "Famous Space Missions", order: 2, duration: 1800 },
+        { title: "Design a Mars Mission", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Life in Space",
+      order: 3,
+      lessons: [
+        { title: "Living on the ISS", order: 1, duration: 1800 },
+        { title: "Could We Live on Mars?", order: 2, duration: 1800 },
+        { title: "Search for Life", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c14 = await db.course.upsert({
+    where: { slug: "data-detectives" },
+    update: {},
+    create: {
+      title: "Data Detectives",
+      slug: "data-detectives",
+      description: "Collect, chart, and interpret real data to answer questions that matter.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "DATA_SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 45,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c14.id, [
+    {
+      title: "Collecting Data",
+      order: 1,
+      lessons: [
+        { title: "What Is Data?", order: 1, duration: 1800 },
+        { title: "Surveys & Tally Charts", order: 2, duration: 1800 },
+        { title: "Organising Your Data", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Visualising Data",
+      order: 2,
+      lessons: [
+        { title: "Bar Charts & Pie Charts", order: 1, duration: 1800 },
+        { title: "Line Graphs", order: 2, duration: 1800 },
+        { title: "Choosing the Right Chart", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Interpreting Data",
+      order: 3,
+      lessons: [
+        { title: "Averages & Ranges", order: 1, duration: 1800 },
+        { title: "Spotting Patterns", order: 2, duration: 1800 },
+        { title: "Data Investigation Project", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c15 = await db.course.upsert({
+    where: { slug: "media-smart-kids" },
+    update: {},
+    create: {
+      title: "Media Smart Kids",
+      slug: "media-smart-kids",
+      description: "Create, critique, and fact-check media like a professional journalist.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "DIGITAL_LITERACY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 45,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c15.id, [
+    {
+      title: "Understanding Media",
+      order: 1,
+      lessons: [
+        { title: "What Is Media?", order: 1, duration: 1800 },
+        { title: "Who Makes the News?", order: 2, duration: 1800 },
+        { title: "Media Ownership & Bias", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Fact-Checking",
+      order: 2,
+      lessons: [
+        { title: "True, False, or Opinion?", order: 1, duration: 1800 },
+        { title: "Fact-Check a Story", order: 2, duration: 2400 },
+        { title: "Deepfakes & Manipulation", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Create Media",
+      order: 3,
+      lessons: [
+        { title: "Write a News Article", order: 1, duration: 2400 },
+        { title: "Film a Short Video Report", order: 2, duration: 2400 },
+        { title: "Publish Responsibly", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
   // ── Enrollments ───────────────────────────────────────────────────────────
   await db.enrollment.upsert({
     where: { userId_courseId: { userId: student1.id, courseId: c1.id } },
