@@ -254,3 +254,87 @@
 - Summary: Children present their invention to family or classmates: what problem they solved, how they built it, what they learned from testing, and what they changed.
 - Activity: 3-minute showcase presentation covering problem → idea → prototype → test → improve → Version 2
 - Assessment: Presentation covers all 6 stages; child can answer "what would you do next?"
+
+---
+
+## Course 9: AI Around Us
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 6–8 (Young Creators) |
+| **Type** | PAID |
+| **Difficulty** | Beginner |
+| **Duration** | 4 weeks (9 lessons, ~20 min each) |
+| **Prerequisite** | None |
+| **Course Promise** | Your child will understand what AI is, how it learns from examples, and how humans stay in charge — giving them a safe, accurate foundation for a world full of AI tools. |
+| **Parent-Facing Value** | AI literacy for young children focuses on demystifying — not glorifying — AI. Aligned with UNESCO's AI competency framework for children, this course ensures your child sees AI as a tool made by people, not magic. Human oversight and fairness are central themes. |
+| **Completion Criteria** | Complete all 9 lessons + Train a Sorting Game activity |
+| **Badge** | "AI Explorer" — awarded on completion |
+| **Certificate** | "Young Creator: AI Around Us" |
+
+### Learner Outcomes
+1. Describe AI as a tool built by people that learns from examples
+2. Give examples of AI they encounter in everyday life
+3. Explain that computers can make mistakes and need human checking
+4. Describe what "fair" means in the context of AI suggestions
+5. Participate in a simple AI training activity
+
+### Module 1: What Is AI? (Lessons 1–3)
+
+**Lesson 1: Smart Helpers**
+- Objective: Identify AI tools in everyday life
+- Summary: AI is in our phones, in voice assistants, in streaming recommendations. But what is it? Children learn: AI is a computer program that can do tasks that usually need human thinking — like recognizing a face or suggesting a song.
+- Activity: Spot the AI — look at 10 everyday objects/services and decide: "Is this AI or not AI?"
+- Assessment: Child correctly identifies at least 7 of 10 AI vs non-AI examples
+
+**Lesson 2: AI Learns from Examples**
+- Objective: Understand that AI learns by seeing many examples, not by thinking
+- Summary: How does a phone know a dog photo is a dog? It was shown thousands of dog photos until it learned the pattern. Children act out this idea by teaching a "game AI" to sort shapes.
+- Activity: Play "teach the sorter" — show 10 example cards (circles vs squares), then test whether the "AI" (a classmate) can sort new cards correctly
+- Assessment: Child explains "AI learns from examples" in their own words
+
+**Lesson 3: AI Can Be Wrong**
+- Objective: Understand that AI makes mistakes and needs humans to check
+- Summary: AI isn't always right. It can confuse a cat with a dog, suggest something inappropriate, or make unfair decisions. Children explore examples of AI mistakes and learn why human checking matters.
+- Activity: Review 3 real AI mistake stories (age-appropriate), discuss: what should the human have done?
+- Assessment: Child can give one example of why humans need to check AI output
+
+### Module 2: Good Choices, Bad Choices (Lessons 4–6)
+
+**Lesson 4: When Computers Guess**
+- Objective: Understand that AI outputs are predictions, not facts
+- Summary: When AI "recommends" a video or "recognizes" a face, it is making its best guess based on patterns. Sometimes the guess is wrong. Children explore the concept of probability in a playful way.
+- Activity: "Guess the pattern" card game — predict the next card in a pattern, discuss how certain you are (very sure / a bit sure / not sure)
+- Assessment: Child can use "I think… because I've seen…" to express uncertain predictions
+
+**Lesson 5: Fair for Everyone?**
+- Objective: Understand that AI can be unfair if its training data is biased
+- Summary: If an AI is only trained on photos of cats from one country, it might not recognize cats from another. Children explore the idea of fairness — does the AI work for everyone?
+- Activity: Sort and analyze a simple "training dataset" — notice if it's missing anyone, suggest what to add
+- Assessment: Child identifies at least one group "missing" from the example training set
+
+**Lesson 6: Humans Stay in Charge**
+- Objective: Understand that humans must always be responsible for AI decisions
+- Summary: AI can help a doctor look at an X-ray, but the doctor decides. AI can suggest a movie, but you choose. The big idea: AI is a helper, not a decider. Humans are responsible.
+- Activity: Role-play scenarios — decide who should make the final call: the AI or the human?
+- Assessment: Child correctly identifies "human decides" in at least 4 of 5 scenarios
+
+### Module 3: Create with AI Ideas (Lessons 7–9)
+
+**Lesson 7: Train a Sorting Game**
+- Objective: Experience the process of training a simple classifier
+- Summary: Using a beginner-friendly tool (like Teachable Machine or a paper simulation), children "train" a classifier by giving it examples and then test its accuracy.
+- Activity: Train a paper-based classifier with 10 examples of 2 categories, then test with 5 new examples — record accuracy
+- Assessment: Child completes the training activity and records how accurate the results were
+
+**Lesson 8: Human Checkers**
+- Objective: Practice the role of a human reviewer checking AI output
+- Summary: Children take the role of a human checker — reviewing AI-suggested answers and deciding whether to approve, fix, or reject each one.
+- Activity: Review 8 "AI suggestions" (some correct, some wrong, some unfair) and make accept/fix/reject decisions with reasons
+- Assessment: Child correctly identifies at least 5 issues and gives a reason for each decision
+
+**Lesson 9: My AI Idea (Final Project)**
+- Objective: Design a helpful, fair AI tool and explain the human oversight
+- Summary: Children design their own AI helper — what would it do, what examples would it learn from, how would a human check it? They present their design.
+- Activity: Complete an "AI design card": name, purpose, training examples, human checker role, one risk
+- Assessment: All 5 fields completed; design is realistic and includes a human oversight role
