@@ -338,3 +338,87 @@
 - Summary: Children present their survey data investigation: the question they asked, how they collected data fairly, what their chart shows, what they found, and what they'd investigate next.
 - Activity: Data Story presentation: question → collection method → chart → findings → next question
 - Assessment: All 5 sections complete; chart is accurate; child can answer "what does this outlier mean?"
+
+---
+
+## Course 15: Media Smart Kids
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 9–12 (Future Innovators) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 4 weeks (9 lessons, ~25 min each) |
+| **Prerequisite** | None |
+| **Course Promise** | Your child will learn to question what they see, read, and share — identifying who made it, why, whether it's trustworthy, and how to create and share responsibly. |
+| **Parent-Facing Value** | Media literacy is ranked by the World Economic Forum and UNESCO as one of the most critical skills for the 21st century. This course gives children a practical toolkit for navigating news, social media, and digital content with confidence and healthy skepticism. |
+| **Completion Criteria** | Complete all 9 lessons + create and publish a fact-checked media piece |
+| **Badge** | "Media Critic" — awarded on completion |
+| **Certificate** | "Future Innovator: Media Smart Kids" |
+
+### Learner Outcomes
+1. Identify the creator, purpose, and intended audience of any media piece
+2. Distinguish between advertising, entertainment, news, and opinion content
+3. Evaluate a claim by checking sources and evidence
+4. Spot weak evidence, manipulation techniques, and misleading headlines
+5. Create a responsible, fact-checked informational piece on a chosen topic
+
+### Module 1: Who Made This? (Lessons 1–3)
+
+**Lesson 1: Creator, Purpose, Audience**
+- Objective: Identify the creator, purpose, and intended audience of a media piece
+- Summary: Everything was made by someone, for a reason, aimed at specific people. A toy commercial was made by a company to sell toys to children. A news article was made by a journalist to inform adults. Children apply this lens to 5 different media pieces.
+- Activity: Analyze 5 media pieces (video, article, image, ad, social post) — identify creator, purpose, audience for each
+- Assessment: All 3 elements correctly identified for at least 4 of 5 pieces
+
+**Lesson 2: Ads, Entertainment, Information**
+- Objective: Classify media as advertising, entertainment, information, or opinion
+- Summary: Not all content has the same job. Ads want you to buy. Entertainment wants you to enjoy. News wants to inform. Opinion wants to persuade. Children classify 12 examples.
+- Activity: Sort 12 media examples into the 4 categories; discuss any that are hard to classify
+- Assessment: At least 10 of 12 correctly classified; child can explain one difficult case
+
+**Lesson 3: Who Benefits?**
+- Objective: Identify what the creator gains from the audience seeing their content
+- Summary: Every piece of media benefits someone. Ads sell products. Viral videos get views. Political content builds support. Children ask "who benefits?" about 6 media examples.
+- Activity: For 6 media pieces, write: who benefits, and what do they gain?
+- Assessment: All 6 answers are plausible and specific (not just "the creator")
+
+### Module 2: Can I Trust It? (Lessons 4–6)
+
+**Lesson 4: Check the Claim**
+- Objective: Verify a factual claim using at least 2 independent sources
+- Summary: Before believing or sharing a claim, check it. Children learn the SIFT method (Stop, Investigate the source, Find better coverage, Trace claims) and apply it to 3 suspicious claims.
+- Activity: Apply the SIFT method to 3 claims — search for evidence, find 2 sources, decide: true, false, or unclear
+- Assessment: All 3 claims evaluated with 2 sources cited; conclusion is reasoned
+
+**Lesson 5: Spot Weak Evidence**
+- Objective: Identify manipulation techniques: cherry-picking, false urgency, emotional language, missing context
+- Summary: Even real facts can mislead. "9 out of 10 dentists recommend..." — but recommend what? Children identify 4 manipulation techniques in real-style media examples.
+- Activity: Spot the manipulation in 5 headlines/claims — name the technique and explain the problem
+- Assessment: Technique correctly identified in at least 4 of 5 examples
+
+**Lesson 6: Misleading Headlines**
+- Objective: Rewrite a misleading headline to be accurate and fair
+- Summary: Headlines are designed to get clicks, not inform. "Scientists Say Chocolate Cures Cancer" is probably misleading. Children analyze 5 sensational headlines, find the real story, and rewrite them.
+- Activity: Find the real article behind 5 misleading headlines, compare, rewrite each accurately
+- Assessment: All 5 rewritten headlines are accurate and non-sensationalized
+
+### Module 3: Create Responsibly (Lessons 7–9)
+
+**Lesson 7: Make a Fact Poster**
+- Objective: Research a topic and create an accurate, well-sourced informational poster
+- Summary: Creating responsible media means knowing your facts and citing sources. Children choose a STEM topic, research it using credible sources, and create a fact poster.
+- Activity: Research 5 facts about a chosen STEM topic, cite at least 2 sources, create an informational poster
+- Assessment: All 5 facts are accurate, 2 sources cited, poster is clearly labeled as information (not opinion)
+
+**Lesson 8: Share with Care**
+- Objective: Apply responsible sharing criteria before publishing any media
+- Summary: Before posting or sharing, ask: Is it true? Is it kind? Is it necessary? Does it respect others' privacy? Does it credit the original creator? Children review a sharing checklist and apply it.
+- Activity: Apply a 5-point sharing checklist to 5 pieces of content — decide: share as-is, edit first, or don't share
+- Assessment: All 5 decisions are justified with reference to specific checklist criteria
+
+**Lesson 9: Responsible Media Project (Final Project)**
+- Objective: Create, fact-check, and publish a responsible informational piece
+- Summary: Children create their own short informational media piece on a chosen topic — a short article, a video script, or an infographic — applying everything from the course: clear purpose, accurate facts, cited sources, responsible framing.
+- Activity: Create a 200-word article or 5-panel infographic on a chosen STEM topic with 3 cited sources, a clear audience, and a stated purpose
+- Assessment: Piece is accurate, sources are cited, purpose is clear, no manipulation techniques used
