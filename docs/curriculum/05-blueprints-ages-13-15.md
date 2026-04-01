@@ -86,3 +86,87 @@
 - Summary: Children build a personal page showcasing who they are, their interests, and their work — using all the HTML, CSS, and JavaScript skills from the course. They publish it using GitHub Pages or a similar free host.
 - Activity: Build a 3-section personal page: About Me / Projects / Contact Form. Publish online.
 - Assessment: Published URL is accessible; page has 3 sections, semantic HTML, custom CSS, at least 1 interactive element
+
+---
+
+## Course 17: Python Logic Lab
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 13–15 (Tech Builders) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 6 weeks (9 lessons, ~40 min each) |
+| **Prerequisite** | Web Builders Bootcamp (recommended) |
+| **Course Promise** | Your teen will learn Python's core concepts — variables, conditionals, loops, and functions — and build 2 working mini-apps that demonstrate real programming ability. |
+| **Parent-Facing Value** | Python is the world's most widely used programming language and is taught in top universities, used by Google, NASA, and researchers worldwide. This course provides a structured, project-based entry point that develops genuine computational thinking alongside real coding syntax. |
+| **Completion Criteria** | Complete all 9 lessons + build a Quiz or Calculator mini-app |
+| **Badge** | "Pythonista" — awarded on completion |
+| **Certificate** | "Tech Builder: Python Logic Lab" |
+
+### Learner Outcomes
+1. Write Python code using variables, strings, integers, and print statements
+2. Collect user input and use it in conditional (if/elif/else) logic
+3. Use for and while loops to repeat operations
+4. Define and call functions with parameters and return values
+5. Build, test, and debug a complete mini-application
+
+### Module 1: Core Python Thinking (Lessons 1–3)
+
+**Lesson 1: Variables and Inputs**
+- Objective: Create variables, assign values, and collect user input with input()
+- Summary: Python stores information in variables. `name = "Aisha"` stores a name. `age = int(input("Your age?"))` asks the user. Children write their first Python programs using variables and input.
+- Activity: Write a program that asks for the user's name and age, then prints a personalized greeting
+- Assessment: Program runs without errors; greeting includes both the name and age
+
+**Lesson 2: Conditionals and Decisions**
+- Objective: Write if/elif/else statements to make decisions based on input
+- Summary: Programs make decisions. If the score is over 90, print "Excellent." Otherwise, if over 70, print "Good." Children write a grade classifier and a simple age-gate program.
+- Activity: Write a grade classifier: input a score, output the correct grade label (A/B/C/D/F)
+- Assessment: All 5 grade levels output correctly for valid inputs; program handles edge cases (100, 0)
+
+**Lesson 3: String Operations**
+- Objective: Use string methods (upper, lower, len, strip, replace) to manipulate text
+- Summary: Python has built-in tools for working with text. Children build a text transformation mini-tool — input a sentence, output it transformed in multiple ways.
+- Activity: Build a text transformer: input any sentence, output it in ALL CAPS, reversed word order, and with word count
+- Assessment: All 3 transformations work correctly on any input string
+
+### Module 2: Repetition and Reuse (Lessons 4–6)
+
+**Lesson 4: For Loops**
+- Objective: Use for loops to iterate over a range and over a list
+- Summary: For loops repeat an operation a set number of times or once for each item in a list. Children use for loops to print multiplication tables and to process a list of names.
+- Activity: Write a program that prints the 7× multiplication table using a for loop; then iterate over a list of 5 friends and print a personalized message for each
+- Assessment: Both loops run correctly; output matches expected results
+
+**Lesson 5: While Loops**
+- Objective: Use while loops to repeat until a condition is met
+- Summary: While loops run as long as something is true. They're perfect for "keep asking until the user gets it right." Children build a guessing game using a while loop.
+- Activity: Build a number guessing game: computer picks a random number 1–20, player guesses until correct, program counts attempts
+- Assessment: Game runs correctly; loop ends when correct guess is made; attempt count is accurate
+
+**Lesson 6: Functions**
+- Objective: Define and call functions with parameters and return values
+- Summary: Functions package reusable code. `def greet(name): return "Hello, " + name`. Children refactor previous programs to use functions, discovering how functions reduce repetition.
+- Activity: Refactor the grade classifier into a function called `get_grade(score)` that returns the grade; call it 5 times with different scores
+- Assessment: Function is defined correctly; returns the right grade for all 5 test inputs
+
+### Module 3: Mini Apps (Lessons 7–9)
+
+**Lesson 7: Build a Quiz App**
+- Objective: Build a multiple-choice quiz app using all core Python concepts
+- Summary: Children build a 5-question quiz app — questions, answer choices, scoring, and a results message at the end — combining variables, conditionals, loops, and functions.
+- Activity: Build a quiz with 5 questions, input for A/B/C/D answers, a score counter, and a final results message
+- Assessment: Quiz runs completely; score is tracked correctly; final message reflects the score
+
+**Lesson 8: Refactor and Debug**
+- Objective: Improve code structure by identifying redundancy and adding error handling
+- Summary: Good code is readable and robust. Children refactor their quiz app — extract repeated code into functions, add input validation (what if the user types "Z"?), and improve the user experience.
+- Activity: Refactor quiz into functions; add input validation that rejects invalid answers; add a "try again" loop
+- Assessment: At least 2 functions used; invalid input no longer crashes the program
+
+**Lesson 9: Mini App Showcase (Final Project)**
+- Objective: Present a complete, working Python mini-app with an explanation of the code
+- Summary: Children choose to present either the quiz app or a calculator they build in this lesson, explaining how their code works to a non-technical audience.
+- Activity: Present the app live (or recorded): run it, explain what each major section does, describe the biggest bug they fixed
+- Assessment: App runs without errors; explanation covers variables, a conditional, and a loop; child can answer "what would you add next?"
