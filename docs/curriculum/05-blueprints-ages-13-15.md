@@ -254,3 +254,87 @@
 - Summary: Children write a 5-point AI code of ethics for their classroom — covering fairness, honesty, privacy, human oversight, and creativity. The code must be specific, practical, and defensible.
 - Activity: Write a 5-clause AI code of ethics with a 2-sentence explanation for each clause
 - Assessment: All 5 clauses present; each is specific (not vague); covers at least fairness, honesty, and privacy
+
+---
+
+## Course 19: Cyber Basics for Teens
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 13–15 (Tech Builders) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 5 weeks (9 lessons, ~35 min each) |
+| **Prerequisite** | None (Smart & Safe Online is helpful background) |
+| **Course Promise** | Your teen will learn how real cybersecurity threats work, how to protect their accounts and devices, and how to think like a defender — building habits that protect them for life. |
+| **Parent-Facing Value** | Cybersecurity incidents affecting teenagers are rising rapidly. This course — aligned with NCSC, CISA, and common cybersecurity education frameworks — gives teens the vocabulary and practical habits to protect themselves, their family, and their future work. |
+| **Completion Criteria** | Complete all 9 lessons + create a Personal Digital Safety Plan |
+| **Badge** | "Cyber Defender" — awarded on completion |
+| **Certificate** | "Tech Builder: Cyber Basics for Teens" |
+
+### Learner Outcomes
+1. Explain what cybersecurity is and why it matters
+2. Create strong passwords and set up two-factor authentication
+3. Identify phishing attempts and social engineering tactics
+4. Describe how personal data is tracked and how to limit exposure
+5. Create a personal digital safety plan covering accounts, devices, and data
+
+### Module 1: Protect Your Accounts (Lessons 1–3)
+
+**Lesson 1: Passwords and Authentication**
+- Objective: Explain what makes a password strong and set up two-factor authentication
+- Summary: "password123" is not a password — it's an invitation. Children learn what makes passwords strong (length, randomness, uniqueness) and why 2FA adds a critical second layer of protection.
+- Activity: Evaluate 5 passwords using a strength checklist; set up 2FA on a practice account or describe the process step by step
+- Assessment: All 5 passwords evaluated correctly; child correctly describes 2FA setup process
+
+**Lesson 2: Phishing and Scams**
+- Objective: Identify phishing emails, SMS scams, and social engineering tactics
+- Summary: Phishing is when attackers pretend to be someone trusted to steal information. Children examine real phishing examples (anonymized) and learn the warning signs: urgency, suspicious sender, odd links, requests for passwords.
+- Activity: Analyze 6 sample emails/messages — decide: real or phishing? Mark the red flags.
+- Assessment: At least 5 of 6 correctly identified; at least 2 red flags named for each phishing example
+
+**Lesson 3: Account Hygiene**
+- Objective: Apply account security best practices: unique passwords, recovery options, session management
+- Summary: Good account hygiene means not reusing passwords, knowing your recovery options, and logging out of shared devices. Children audit a fictional "bad security profile" and fix it.
+- Activity: Review a fictional teen's account profile (6 security mistakes), identify each problem, describe the fix
+- Assessment: All 6 problems identified; fixes are correct and specific
+
+### Module 2: Protect Your Data (Lessons 4–6)
+
+**Lesson 4: Personal Data and Tracking**
+- Objective: Describe how apps and websites track personal data and what it is used for
+- Summary: Every app you install asks for permissions. Websites use cookies. Data brokers collect and sell profiles. Children learn what data is collected about them and by whom.
+- Activity: Audit app permissions on a phone (real or simulated) — list 5 apps, their permissions, and assess: is this permission necessary?
+- Assessment: 5 apps audited; at least 2 unnecessary permissions identified with reasoning
+
+**Lesson 5: Secure Sharing and Device Safety**
+- Objective: Apply practices for sharing files securely and keeping devices safe
+- Summary: Sending a file over a public WiFi network without encryption is like shouting a secret in a crowd. Children learn about encryption basics, VPN concepts, and safe file sharing.
+- Activity: Evaluate 5 sharing scenarios (public WiFi, USB stick, encrypted email, Bluetooth) for security risks
+- Assessment: All 5 scenarios correctly assessed; child explains what encryption does in plain language
+
+**Lesson 6: Your Digital Footprint**
+- Objective: Describe what a digital footprint is and how to manage it
+- Summary: Everything you do online leaves traces — posts, searches, purchases, locations. Children map their own digital footprint and evaluate what is public, what is recoverable, and what lasts forever.
+- Activity: Map a digital footprint for a fictional teen: list 10 digital activities, categorize each (visible to public / stored by company / permanent)
+- Assessment: All 10 activities categorized correctly; child names 2 things that are "permanent" and why
+
+### Module 3: Think Like a Defender (Lessons 7–9)
+
+**Lesson 7: Common Threats**
+- Objective: Describe 5 common cybersecurity threats and how each works
+- Summary: Malware, ransomware, man-in-the-middle attacks, account takeovers, credential stuffing — these are the attacks most likely to affect teens. Children learn how each works at a conceptual level.
+- Activity: Match 5 attack types to their descriptions and real-world examples; describe one defense for each
+- Assessment: All 5 correctly matched; each has a valid defense described
+
+**Lesson 8: Incident Response Basics**
+- Objective: Describe what to do when you suspect a security breach
+- Summary: What if you think your account was hacked? Or you clicked a suspicious link? Children learn the immediate response steps: change password, check linked accounts, report, disconnect.
+- Activity: Work through 3 incident scenarios — decide: what do you do first, second, and third?
+- Assessment: Response steps are in the correct order for all 3 scenarios
+
+**Lesson 9: My Digital Safety Plan (Final Project)**
+- Objective: Create a personal digital safety plan covering accounts, devices, data, and incident response
+- Summary: Children create a comprehensive personal digital safety plan — a practical reference document covering their account security, data practices, device settings, and what to do if something goes wrong.
+- Activity: Complete a 4-section digital safety plan: account security checklist / data minimization steps / device protection settings / incident response card
+- Assessment: All 4 sections complete with specific, actionable items; child can walk through the incident response card verbally
