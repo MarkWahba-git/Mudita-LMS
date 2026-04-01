@@ -254,3 +254,87 @@
 - Summary: Children present their mission as if pitching it to a space agency — destination, question, spacecraft design, what data it will collect, and why it matters.
 - Activity: 4-minute mission pitch presentation: destination → scientific question → spacecraft → data plan → why it matters
 - Assessment: All 5 elements included; child can answer 2 follow-up questions from the audience
+
+---
+
+## Course 14: Data Detectives
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 9–12 (Future Innovators) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 4 weeks (9 lessons, ~30 min each) |
+| **Prerequisite** | None |
+| **Course Promise** | Your child will learn what data is, how to collect it fairly, how to turn it into charts, and how AI learns from data — building the foundation for data literacy in a world driven by numbers. |
+| **Parent-Facing Value** | Data literacy is among the fastest-growing skills employers seek. This course builds the habits of mind — questioning sources, spotting patterns, recognizing bias — that help children think critically about statistics, graphs, and AI claims they encounter every day. |
+| **Completion Criteria** | Complete all 9 lessons + complete a Data Story project |
+| **Badge** | "Data Detective" — awarded on completion |
+| **Certificate** | "Future Innovator: Data Detectives" |
+
+### Learner Outcomes
+1. Define data and give examples of how it is collected in everyday life
+2. Collect a simple dataset using fair methods
+3. Create a bar chart and describe what it shows
+4. Identify patterns and outliers in a dataset
+5. Explain how AI uses data to make predictions — and why bad data causes bad results
+
+### Module 1: What Is Data? (Lessons 1–3)
+
+**Lesson 1: Data All Around Us**
+- Objective: Define data and identify where data is collected in everyday life
+- Summary: Data is information collected and recorded. Your steps on a fitness tracker, the temperatures in a weather log, your test scores — all data. Children explore where data comes from and who collects it.
+- Activity: Data hunt — list 10 types of data collected in a school day; categorize each (personal, environmental, behavioral)
+- Assessment: Child lists at least 8 types of data with correct categories
+
+**Lesson 2: Collect Data Fairly**
+- Objective: Design a simple data collection method that minimizes bias
+- Summary: Good data comes from fair collection. If you only survey your friends, the data isn't representative. Children learn about sampling and design a short survey on a school topic.
+- Activity: Design a 5-question survey on "favorite school subject" — write questions that don't lead to a specific answer; plan who to survey
+- Assessment: Questions are neutral; survey plan includes at least 15 respondents from different groups
+
+**Lesson 3: Organize the Data**
+- Objective: Record collected data in a table and check for completeness
+- Summary: Raw data is messy. Organizing it into a table makes it usable. Children collect their survey responses and enter them into a structured table, checking for missing data.
+- Activity: Conduct the survey (or use provided dataset), enter results in a table, identify any gaps
+- Assessment: Table is complete, headings are clear, at least 15 responses recorded
+
+### Module 2: Show the Story (Lessons 4–6)
+
+**Lesson 4: Tables and Bar Charts**
+- Objective: Create a bar chart from a data table and label it correctly
+- Summary: Charts turn tables into pictures. A bar chart shows comparisons clearly. Children create a bar chart from their survey data with a title, axis labels, and correct bars.
+- Activity: Create a bar chart (digital or paper) from the survey table — title, x-axis, y-axis, bars
+- Assessment: Chart has all required labels and bars accurately represent the data
+
+**Lesson 5: Find Patterns and Outliers**
+- Objective: Identify the most common value, a trend, and one outlier in a dataset
+- Summary: What's the most popular answer? Is there a pattern? Is anything surprising (an outlier)? Children analyze their chart and a second provided dataset to practice these skills.
+- Activity: Analyze 2 bar charts — identify: most common value, a trend, and one outlier in each
+- Assessment: Child correctly identifies all 3 features in at least one dataset
+
+**Lesson 6: Misleading Data**
+- Objective: Identify when a graph or statistic is misleading and explain why
+- Summary: Not all charts tell the truth. Truncated y-axes, cherry-picked time periods, and misleading percentages can all distort reality. Children spot 4 examples of misleading data visualization.
+- Activity: Review 4 "misleading charts" — identify the problem and describe what a fair chart would look like
+- Assessment: Child identifies the misleading element in at least 3 of 4 charts
+
+### Module 3: Data and AI (Lessons 7–9)
+
+**Lesson 7: How Computers Learn from Data**
+- Objective: Explain that machine learning uses data patterns to make predictions
+- Summary: AI doesn't follow rules — it learns patterns from examples. A spam filter learns what spam looks like by studying thousands of spam emails. Children trace the ML process: collect → label → train → test → predict.
+- Activity: Play a card-based ML simulation: label 20 examples as A or B, then test predictions on 5 new cards
+- Assessment: Child correctly traces the ML process in order and explains what "training" means
+
+**Lesson 8: Bad Data, Bad Results**
+- Objective: Explain how biased or incomplete training data leads to unfair AI outcomes
+- Summary: If an AI that approves loans is only trained on data from wealthy neighborhoods, it will unfairly reject loans from poorer areas. Children examine 3 real-world AI bias cases (simplified).
+- Activity: Analyze 3 AI bias scenarios — identify the bad data, explain the unfair outcome, suggest what better data would look like
+- Assessment: All 3 scenarios correctly analyzed with a realistic data improvement suggestion
+
+**Lesson 9: My Data Story (Final Project)**
+- Objective: Present a complete data investigation from question to conclusion
+- Summary: Children present their survey data investigation: the question they asked, how they collected data fairly, what their chart shows, what they found, and what they'd investigate next.
+- Activity: Data Story presentation: question → collection method → chart → findings → next question
+- Assessment: All 5 sections complete; chart is accurate; child can answer "what does this outlier mean?"
