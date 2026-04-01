@@ -338,3 +338,87 @@
 - Summary: Children design their own AI helper — what would it do, what examples would it learn from, how would a human check it? They present their design.
 - Activity: Complete an "AI design card": name, purpose, training examples, human checker role, one risk
 - Assessment: All 5 fields completed; design is realistic and includes a human oversight role
+
+---
+
+## Course 10: Smart & Safe Online
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 6–8 (Young Creators) |
+| **Type** | PAID |
+| **Difficulty** | Beginner |
+| **Duration** | 3 weeks (9 lessons, ~20 min each) |
+| **Prerequisite** | None |
+| **Course Promise** | Your child will learn what to share, what to keep private, how to be kind online, and exactly what to do when something feels wrong — building safe digital habits from the very beginning. |
+| **Parent-Facing Value** | Aligned with Common Sense Media's digital citizenship curriculum and UNESCO internet safety guidelines, this course gives children the vocabulary, habits, and confidence to navigate the online world safely — and to come to you when they need help. |
+| **Completion Criteria** | Complete all 9 lessons + create a Digital Safety Plan |
+| **Badge** | "Digital Safety Star" — awarded on completion |
+| **Certificate** | "Young Creator: Smart & Safe Online" |
+
+### Learner Outcomes
+1. Explain what the internet is in simple terms
+2. Distinguish between public information and private information
+3. Describe kind and unkind online behavior
+4. Explain the "pause before you share" rule
+5. Identify a trusted adult and know when to ask for help
+
+### Module 1: My Digital World (Lessons 1–3)
+
+**Lesson 1: What Is the Internet?**
+- Objective: Describe the internet in simple, accurate terms
+- Summary: The internet is a giant network of computers connected together, sharing information. Children explore how they use the internet — videos, games, messages — and how information travels.
+- Activity: Draw a "map" of how information gets from one computer to another (simplified packet metaphor)
+- Assessment: Child can explain the internet in at least one correct sentence
+
+**Lesson 2: Public or Private?**
+- Objective: Classify personal information as safe to share publicly or private to keep safe
+- Summary: Your name might be okay to share. But your home address, phone number, and passwords are private. Children sort 12 types of information into "okay to share" and "keep private."
+- Activity: Sort 12 information cards into public/private; discuss why each one belongs in its category
+- Assessment: Child correctly sorts at least 10 of 12 cards; can explain why passwords are private
+
+**Lesson 3: My Information, My Choice**
+- Objective: Understand that children have the right to say no to sharing their information
+- Summary: Even if a website or person asks for your information, you don't have to give it. Children practice saying "I need to check with a grown-up first."
+- Activity: Role-play 4 scenarios where someone asks for information — decide: share, don't share, or ask a grown-up?
+- Assessment: Child correctly identifies "ask a grown-up" or "don't share" in all 4 private information scenarios
+
+### Module 2: Kind and Careful (Lessons 4–6)
+
+**Lesson 4: Be Kind Online**
+- Objective: Identify kind and unkind online behavior and explain why kindness matters online
+- Summary: Online words have real feelings behind them. Children explore examples of kind messages vs unkind ones and discuss the impact of words they can't see someone's reaction to.
+- Activity: Sort 10 example messages into "kind," "unkind," or "not sure." Rewrite 2 unkind messages kindly.
+- Assessment: Child correctly sorts 8 of 10 and rewrites both messages positively
+
+**Lesson 5: Pause Before You Share**
+- Objective: Apply the "stop and think" habit before posting, sending, or sharing anything online
+- Summary: Before hitting send, ask: Is it kind? Is it true? Is it necessary? Is it private? Children learn this as the "STOP" check — a habit that prevents most online mistakes.
+- Activity: Apply the STOP check to 5 scenarios — decide whether to send or stop
+- Assessment: Child correctly applies the STOP check to all 5 scenarios
+
+**Lesson 6: Cyberbullying — What It Is and What To Do**
+- Objective: Define cyberbullying and identify the correct response
+- Summary: When unkind behavior happens online repeatedly, it's called cyberbullying. Children learn what it looks like and the 3-step response: Don't reply, Save it, Tell a trusted adult.
+- Activity: Review 3 cyberbullying scenarios — identify what to do in each case
+- Assessment: Child correctly identifies the 3-step response for all 3 scenarios
+
+### Module 3: Ask for Help (Lessons 7–9)
+
+**Lesson 7: Something Feels Wrong**
+- Objective: Identify warning signs that something online is not safe
+- Summary: Sometimes something online feels wrong — a stranger asks strange questions, a message makes you uncomfortable, a link looks suspicious. Children learn to trust that feeling and act on it.
+- Activity: Review 5 "feels wrong" scenarios and identify: what's the warning sign? What should you do?
+- Assessment: Child identifies the warning sign and correct action for at least 4 of 5 scenarios
+
+**Lesson 8: Trusted Adults and Safety Plans**
+- Objective: Identify 3 trusted adults and know when and how to ask for their help
+- Summary: Every child needs a safety network — people they trust to help when something goes wrong online. Children identify their trusted adults and practice starting the conversation.
+- Activity: Draw a "safety network" with 3 trusted adults, their names, and how to reach them
+- Assessment: Child names at least 3 trusted adults and can say "I need to tell you something I saw online"
+
+**Lesson 9: My Digital Safety Plan (Final Project)**
+- Objective: Create a personal digital safety plan covering all course themes
+- Summary: Children create their own Digital Safety Plan — a simple reference card with their rules for staying safe, their STOP check, their safety network, and what to do if something feels wrong.
+- Activity: Complete a 4-section safety plan card: my private info rules / my kindness rules / my STOP check / my trusted adults
+- Assessment: All 4 sections complete and accurate; child can explain at least 2 rules to a family member
