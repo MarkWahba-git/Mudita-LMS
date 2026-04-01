@@ -338,3 +338,87 @@
 - Summary: Children create a comprehensive personal digital safety plan — a practical reference document covering their account security, data practices, device settings, and what to do if something goes wrong.
 - Activity: Complete a 4-section digital safety plan: account security checklist / data minimization steps / device protection settings / incident response card
 - Assessment: All 4 sections complete with specific, actionable items; child can walk through the incident response card verbally
+
+---
+
+## Course 20: Design, Build, Test
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 13–15 (Tech Builders) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 6 weeks (9 lessons, ~45 min each) |
+| **Prerequisite** | Web Builders Bootcamp (recommended) |
+| **Course Promise** | Your teen will take a real user need from research through prototype to a tested, improved Version 2 — building the end-to-end product thinking process used by professional designers. |
+| **Parent-Facing Value** | Design thinking — as taught by IDEO, Stanford d.school, and used by teams at Apple, Google, and UNICEF — is the most transferable creative process available. This course teaches teens to listen, create, test, and improve: skills that matter in every career. |
+| **Completion Criteria** | Complete all 9 lessons + present a tested Version 2 prototype |
+| **Badge** | "Product Designer" — awarded on completion |
+| **Certificate** | "Tech Builder: Design, Build, Test" |
+
+### Learner Outcomes
+1. Conduct a user interview and extract meaningful insights
+2. Write a clear problem statement from research findings
+3. Build a paper prototype that communicates a design concept
+4. Create a digital mockup using a basic wireframing tool
+5. Present an improved Version 2 prototype based on user testing feedback
+
+### Module 1: Understand the User (Lessons 1–3)
+
+**Lesson 1: Interview and Observe**
+- Objective: Conduct a 10-minute user interview and document key findings
+- Summary: Great products start with listening, not assumptions. Children learn the principles of user interviews — asking open questions, following curiosity, not leading the witness — and conduct a real interview.
+- Activity: Prepare 5 open-ended interview questions about a chosen problem area; interview one person for 10 minutes; write 5 key findings
+- Assessment: Questions are open-ended (not yes/no); 5 genuine findings documented from the interview
+
+**Lesson 2: Define the Problem**
+- Objective: Write a clear problem statement (How Might We) based on research
+- Summary: "How might we help [user] do [task] so that [benefit]?" This single sentence focuses the entire design process. Children synthesize their interview findings into one focused problem statement.
+- Activity: Review interview findings, identify the most important unmet need, write a How Might We statement
+- Assessment: Statement names a specific user, a specific need, and a specific desired outcome
+
+**Lesson 3: Ideate Without Limits**
+- Objective: Generate at least 10 solution ideas for the problem using structured brainstorming
+- Summary: Before evaluating ideas, generate them. Brainstorming rules: no judgment, yes-and, wild ideas welcome. Children run a timed ideation session and produce at least 10 distinct concepts.
+- Activity: 15-minute timed brainstorm: generate 10+ ideas for the How Might We statement; sketch or write each
+- Assessment: At least 10 distinct ideas produced; at least 2 are unconventional; none judged or crossed out
+
+### Module 2: Prototype (Lessons 4–6)
+
+**Lesson 4: Paper Prototype**
+- Objective: Build a low-fidelity paper prototype that communicates the core idea
+- Summary: Paper prototypes are fast, cheap, and incredibly useful. A paper screen with sticky note "buttons" can test an app concept in 20 minutes. Children build a paper prototype for their chosen idea.
+- Activity: Build a paper prototype of the chosen solution: at least 3 "screens" or states, with clear UI elements
+- Assessment: Prototype communicates the core user flow; someone could understand how to use it without explanation
+
+**Lesson 5: Digital Mockup**
+- Objective: Create a digital wireframe or mockup using a free tool (Figma, Canva, or similar)
+- Summary: Digital wireframes are the bridge between paper and code. Children convert their paper prototype into a digital mockup — clean, labeled, and clickable (if using Figma).
+- Activity: Create a 3-screen digital wireframe with navigation, labels, and at least one interactive link
+- Assessment: 3 screens complete; navigation between screens works; labels are clear
+
+**Lesson 6: Prototype Walkthrough**
+- Objective: Walk through the prototype explaining the design decisions behind each element
+- Summary: Every design decision should have a reason. Why is the button there? Why that color? Children prepare a prototype walkthrough — explaining not just what it looks like, but why.
+- Activity: Record or deliver a 3-minute prototype walkthrough explaining 5 design decisions
+- Assessment: At least 5 design decisions explained with a "because" — not just description
+
+### Module 3: Iterate (Lessons 7–9)
+
+**Lesson 7: Collect Feedback**
+- Objective: Run a structured usability test and document at least 5 insights
+- Summary: Children give their prototype to 2 users — watching silently as they try to use it, noting confusion, hesitation, and delight. This is the most valuable hour in any design process.
+- Activity: Run 2 usability tests (each 10 minutes) — observe silently, note 5 observations, ask 3 follow-up questions
+- Assessment: 5 genuine observations documented; observations are specific behaviors (not opinions)
+
+**Lesson 8: Design for Version 2**
+- Objective: Prioritize feedback and create a Version 2 improvement plan
+- Summary: Not all feedback is equal. Children categorize feedback (critical/nice-to-have/won't fix), select the top 3 changes, and design Version 2.
+- Activity: Categorize all feedback into 3 tiers; select top 3 changes; update the mockup with changes marked
+- Assessment: Prioritization is justified; Version 2 mockup shows 3 clear improvements from Version 1
+
+**Lesson 9: Present Version 2 (Final Project)**
+- Objective: Present the full design journey from user research to Version 2 prototype
+- Summary: Children present the complete design process — who they designed for, what they learned, what they built, what they tested, and what they changed. Version 2 is demonstrated live.
+- Activity: 5-minute presentation: user + problem → solution concept → prototype → test findings → Version 2 demo
+- Assessment: All 5 stages covered; Version 2 is noticeably improved from Version 1; child can answer "what would Version 3 change?"
