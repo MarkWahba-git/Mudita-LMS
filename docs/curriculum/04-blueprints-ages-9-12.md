@@ -170,3 +170,87 @@
 - Summary: Children run their delivery robot in front of an audience (family or class), explain how it works, what problems they solved, and what they would improve with more time.
 - Activity: Live or recorded robot demo + 3-minute presentation covering: how it works / biggest challenge / what's next
 - Assessment: Robot completes the delivery at least once during the demo; presentation covers all 3 topics
+
+---
+
+## Course 13: Space Science & Missions
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 9–12 (Future Innovators) |
+| **Type** | PAID |
+| **Difficulty** | Intermediate |
+| **Duration** | 5 weeks (9 lessons, ~30 min each) |
+| **Prerequisite** | None |
+| **Course Promise** | Your child will explore the solar system, understand how real space missions work, and design their own mission — combining science, engineering, and big-picture thinking. |
+| **Parent-Facing Value** | Built on NASA STEM curriculum resources and ESA education materials, this course connects real space exploration to science learning — inspiring curiosity while building vocabulary, research skills, and systems thinking. |
+| **Completion Criteria** | Complete all 9 lessons + present a Space Mission Design |
+| **Badge** | "Mission Specialist" — awarded on completion |
+| **Certificate** | "Future Innovator: Space Science & Missions" |
+
+### Learner Outcomes
+1. Describe the relative positions, sizes, and key features of solar system planets
+2. Explain the roles of the Sun, Moon, and Earth in seasons and tides
+3. Describe what rockets, rovers, and satellites do in space exploration
+4. Explain what scientists hope to learn from a specific real mission
+5. Design and present an original space mission with a scientific goal
+
+### Module 1: Our Place in Space (Lessons 1–3)
+
+**Lesson 1: Earth, Moon, and Sun**
+- Objective: Explain the relationship between Earth, Moon, and Sun and how it causes day/night and seasons
+- Summary: Earth orbits the Sun (causing seasons), and the Moon orbits Earth (causing tides and phases). Children explore these relationships with diagrams and scale models.
+- Activity: Build a scale diagram showing Earth-Moon distance vs Earth-Sun distance; explain how Earth's tilt causes seasons
+- Assessment: Diagram is to scale; child correctly explains day/night and one season change
+
+**Lesson 2: Planets and Environments**
+- Objective: Describe 4 planets in the solar system and explain why each is or isn't suitable for life
+- Summary: From Mercury's scorching surface to Neptune's frozen winds — every planet is different. Children research 4 planets and compare temperature, atmosphere, and potential for life.
+- Activity: Complete a planet comparison table for 4 planets (temperature, atmosphere, moons, interesting fact)
+- Assessment: Table is complete and accurate for all 4 planets; child explains why Earth is habitable
+
+**Lesson 3: Beyond Our Solar System**
+- Objective: Describe what lies beyond the solar system and how scientists explore it
+- Summary: Past Neptune lies the Kuiper Belt, the Oort Cloud, and then the vast space between stars. Telescopes like Hubble and James Webb let scientists see billions of light-years away.
+- Activity: Map the solar system and label what lies beyond it; describe one thing the James Webb Space Telescope has discovered
+- Assessment: Map is complete; Webb telescope fact is accurate
+
+### Module 2: How Missions Work (Lessons 4–6)
+
+**Lesson 4: Rockets, Rovers, and Satellites**
+- Objective: Explain the purpose of rockets, rovers, and satellites in space exploration
+- Summary: Rockets launch things into space. Rovers explore planetary surfaces. Satellites orbit planets gathering data. Children study real examples: Saturn V, Perseverance, Hubble.
+- Activity: Match 6 space hardware items to their mission roles; describe one achievement of each
+- Assessment: All 6 correctly matched; child can describe what Perseverance rover does
+
+**Lesson 5: What Scientists Want to Learn**
+- Objective: Identify the scientific goals behind a real space mission
+- Summary: Every mission has a question. Mars missions ask "Was there ever life?" Webb asks "What were the first galaxies like?" Children study a real mission and identify its scientific goals.
+- Activity: Research one NASA or ESA mission — what question is it trying to answer, what data does it collect, what has it found so far?
+- Assessment: Research report has mission name, scientific question, data type, and one finding
+
+**Lesson 6: Mission Planning Basics**
+- Objective: Describe the stages of planning a space mission from concept to launch
+- Summary: Space missions take 10+ years to plan. Children learn the stages: define the goal → design the spacecraft → test on Earth → launch → operate → analyze data → share results.
+- Activity: Arrange the 7 mission stages in order and give one example activity in each stage
+- Assessment: Stages are in correct order; each has a plausible example activity
+
+### Module 3: Design a Mission (Lessons 7–9)
+
+**Lesson 7: Pick a Goal**
+- Objective: Define an original space mission goal as a scientific question
+- Summary: Great missions start with a great question. Children choose a destination (a planet, moon, or asteroid) and write their mission's central scientific question.
+- Activity: Choose a destination and write a mission question using the frame: "We want to know if [destination] [scientific question] because [reason it matters]"
+- Assessment: Mission question is specific, scientific, and realistic
+
+**Lesson 8: Design the Mission**
+- Objective: Design the spacecraft and instruments needed to answer the mission question
+- Summary: What spacecraft would you send? What instruments would it carry? Children design a mission architecture — the spacecraft, its tools, and how it gets there.
+- Activity: Complete a mission design sheet: spacecraft type, instruments (at least 3), power source, communications plan
+- Assessment: Design sheet complete; instruments are appropriate for the scientific question
+
+**Lesson 9: Present Your Space Mission (Final Project)**
+- Objective: Present the complete mission design with scientific rationale
+- Summary: Children present their mission as if pitching it to a space agency — destination, question, spacecraft design, what data it will collect, and why it matters.
+- Activity: 4-minute mission pitch presentation: destination → scientific question → spacecraft → data plan → why it matters
+- Assessment: All 5 elements included; child can answer 2 follow-up questions from the audience
