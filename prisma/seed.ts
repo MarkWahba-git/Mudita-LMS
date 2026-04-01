@@ -798,6 +798,237 @@ async function main() {
     },
   ]);
 
+  // ── Ages 13–15 Courses ────────────────────────────────────────────────────
+
+  const c16 = await db.course.upsert({
+    where: { slug: "web-builders-bootcamp" },
+    update: {},
+    create: {
+      title: "Web Builders Bootcamp",
+      slug: "web-builders-bootcamp",
+      description: "Build real websites with HTML, CSS, and JavaScript from scratch.",
+      ageGroup: "AGES_13_15",
+      level: "BEGINNER",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c16.id, [
+    {
+      title: "HTML Foundations",
+      order: 1,
+      lessons: [
+        { title: "What Is the Web?", order: 1, isFree: true, duration: 2400 },
+        { title: "HTML Structure", order: 2, isFree: true, duration: 2400 },
+        { title: "Links, Images & Lists", order: 3, isFree: true, duration: 2400 },
+      ],
+    },
+    {
+      title: "CSS Styling",
+      order: 2,
+      lessons: [
+        { title: "Colours & Fonts", order: 1, duration: 2400 },
+        { title: "Box Model & Layout", order: 2, duration: 2700 },
+        { title: "Responsive Design", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "JavaScript Basics",
+      order: 3,
+      lessons: [
+        { title: "Variables & Events", order: 1, duration: 2400 },
+        { title: "Interactivity with JS", order: 2, duration: 2700 },
+        { title: "Publish Your Portfolio Site", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c17 = await db.course.upsert({
+    where: { slug: "python-logic-lab" },
+    update: {},
+    create: {
+      title: "Python Logic Lab",
+      slug: "python-logic-lab",
+      description: "Learn Python programming through logical puzzles, data, and mini-projects.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c17.id, [
+    {
+      title: "Python Foundations",
+      order: 1,
+      lessons: [
+        { title: "Variables & Data Types", order: 1, duration: 2700 },
+        { title: "Input & Output", order: 2, duration: 2700 },
+        { title: "Conditions & Decisions", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Loops & Functions",
+      order: 2,
+      lessons: [
+        { title: "For Loops & While Loops", order: 1, duration: 2700 },
+        { title: "Writing Functions", order: 2, duration: 2700 },
+        { title: "Lists & Dictionaries", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Mini Projects",
+      order: 3,
+      lessons: [
+        { title: "Number Guessing Game", order: 1, duration: 2700 },
+        { title: "Text Analyser", order: 2, duration: 2700 },
+        { title: "Final Project: Your Choice", order: 3, duration: 3600 },
+      ],
+    },
+  ]);
+
+  const c18 = await db.course.upsert({
+    where: { slug: "ai-literacy-ethics" },
+    update: {},
+    create: {
+      title: "AI Literacy & Ethics",
+      slug: "ai-literacy-ethics",
+      description: "Understand how AI systems work and think critically about their impact on society.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c18.id, [
+    {
+      title: "How AI Works",
+      order: 1,
+      lessons: [
+        { title: "What Is Machine Learning?", order: 1, duration: 2400 },
+        { title: "Training Data & Labels", order: 2, duration: 2400 },
+        { title: "Train Your First Model", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "AI in Society",
+      order: 2,
+      lessons: [
+        { title: "AI Bias Case Studies", order: 1, duration: 2400 },
+        { title: "Privacy & Surveillance", order: 2, duration: 2400 },
+        { title: "Automation & Jobs", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Responsible AI",
+      order: 3,
+      lessons: [
+        { title: "AI Rules & Regulations", order: 1, duration: 2400 },
+        { title: "Design for Fairness", order: 2, duration: 2700 },
+        { title: "AI Ethics Debate", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
+  const c19 = await db.course.upsert({
+    where: { slug: "cyber-basics-teens" },
+    update: {},
+    create: {
+      title: "Cyber Basics for Teens",
+      slug: "cyber-basics-teens",
+      description: "Learn to protect yourself and others online with real cybersecurity skills.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "CYBERSECURITY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c19.id, [
+    {
+      title: "Stay Secure",
+      order: 1,
+      lessons: [
+        { title: "Passwords & Authentication", order: 1, duration: 2400 },
+        { title: "Phishing & Social Engineering", order: 2, duration: 2400 },
+        { title: "Safe Browsing Habits", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "How Attacks Work",
+      order: 2,
+      lessons: [
+        { title: "Common Cyber Threats", order: 1, duration: 2400 },
+        { title: "Encryption Basics", order: 2, duration: 2700 },
+        { title: "Network Security", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Ethical Hacking",
+      order: 3,
+      lessons: [
+        { title: "What Do Ethical Hackers Do?", order: 1, duration: 2400 },
+        { title: "Try a CTF Challenge", order: 2, duration: 3600 },
+        { title: "Write a Security Report", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
+  const c20 = await db.course.upsert({
+    where: { slug: "design-build-test" },
+    update: {},
+    create: {
+      title: "Design, Build, Test",
+      slug: "design-build-test",
+      description: "Master the full design thinking process from user research to final prototype.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "DESIGN",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c20.id, [
+    {
+      title: "Understand the User",
+      order: 1,
+      lessons: [
+        { title: "Interview and Observe", order: 1, duration: 2700 },
+        { title: "Define the Problem", order: 2, duration: 2400 },
+        { title: "Ideate Without Limits", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Prototype",
+      order: 2,
+      lessons: [
+        { title: "Paper Prototype", order: 1, duration: 2700 },
+        { title: "Digital Mockup", order: 2, duration: 2700 },
+        { title: "Prototype Walkthrough", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Iterate",
+      order: 3,
+      lessons: [
+        { title: "Collect Feedback", order: 1, duration: 2400 },
+        { title: "Design for Version 2", order: 2, duration: 2700 },
+        { title: "Present Version 2", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
   // ── Enrollments ───────────────────────────────────────────────────────────
   await db.enrollment.upsert({
     where: { userId_courseId: { userId: student1.id, courseId: c1.id } },
