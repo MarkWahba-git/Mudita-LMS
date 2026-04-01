@@ -258,3 +258,88 @@
 - *Assessment:* Rubric grading on: question clarity, data quality, visualisation accuracy, insight depth, ethical awareness.
 
 ---
+
+## Course 24 — Startup Lab
+
+| Field | Value |
+|---|---|
+| Age Group | 16–18 |
+| Slug | `startup-lab` |
+| Category | ENTREPRENEURSHIP |
+| Level | Advanced |
+| Duration | 10 weeks · 9 lessons · 75 min each |
+| Price | $79 |
+| Status | Published |
+
+### Learner Outcomes
+1. Apply a lean startup methodology to discover and validate a real problem worth solving.
+2. Define a target customer segment and map their key pain points using interviews and observation.
+3. Build and test a Minimum Viable Product (MVP) — digital or physical — with real users.
+4. Create a business model canvas covering value proposition, revenue streams, and key resources.
+5. Pitch a startup idea confidently to a panel using structured storytelling and data.
+
+### Module 1 — Find the Problem
+
+**Lesson 1: Problems Are Opportunities**
+- *Objective:* Reframe problems as opportunities using empathy-driven observation.
+- *Summary:* Introduces design thinking's empathy phase. Students learn to observe friction in everyday life rather than starting with a solution.
+- *Activity:* "Safari" exercise — students observe one environment (school canteen, bus, home kitchen) for 20 minutes and list 10 friction points.
+- *Assessment:* Written brief: Pick 3 friction points and explain who experiences them and how often.
+
+**Lesson 2: Customer Discovery Interviews**
+- *Objective:* Conduct a structured problem interview and extract actionable insights.
+- *Summary:* Covers open-ended vs. leading questions, "The Mom Test" principles, and listening for behaviours not opinions.
+- *Activity:* Conduct 3 interviews (friends, family, or classmates) about one problem area. Record key quotes and patterns.
+- *Assessment:* Interview summary template: top 3 insights, a surprising finding, and a revised problem statement.
+
+**Lesson 3: Problem-Solution Fit**
+- *Objective:* Validate that a specific problem is real, recurring, and worth solving before building anything.
+- *Summary:* Explains the difference between a "nice to have" and a "must solve" problem. Students stress-test their problem statement.
+- *Activity:* Present problem + evidence to a small group; receive structured pushback using a devil's advocate rubric.
+- *Assessment:* Revised 1-paragraph problem statement incorporating feedback.
+
+---
+
+### Module 2 — Build the Solution
+
+**Lesson 4: The Business Model Canvas**
+- *Objective:* Complete a Business Model Canvas for a chosen startup idea.
+- *Summary:* Walks through all 9 BMC blocks with examples from student-relevant companies. Students fill in their canvas collaboratively.
+- *Activity:* Complete a BMC for two different business models addressing the same problem — compare the trade-offs.
+- *Assessment:* Submitted BMC with at least 3 blocks justified with evidence from interviews.
+
+**Lesson 5: Your Minimum Viable Product**
+- *Objective:* Design the simplest version of a solution that can be tested with real users.
+- *Summary:* The MVP spectrum: landing page → paper prototype → Wizard of Oz → working app. Students choose the right MVP type.
+- *Activity:* Build a landing page for the startup using a no-code tool (Notion, Carrd, or Google Sites). Include a waitlist form.
+- *Assessment:* Live landing page URL + explanation of what hypothesis it is testing.
+
+**Lesson 6: Test and Learn**
+- *Objective:* Run a structured user test and extract learning, not just feedback.
+- *Summary:* Covers usability testing basics, the "think aloud" method, and how to distinguish a usability problem from a value problem.
+- *Activity:* Run 3 user tests on the MVP. Record observations using a structured observation sheet.
+- *Assessment:* Top 3 learnings from testing + one specific change made as a result.
+
+---
+
+### Module 3 — Pitch and Grow
+
+**Lesson 7: Financial Basics for Founders**
+- *Objective:* Estimate a basic unit economics model: cost to acquire a customer, lifetime value, breakeven point.
+- *Summary:* Light finance for entrepreneurs — no accounting needed. Students build a simple spreadsheet model.
+- *Activity:* Create a 1-year financial model with 3 scenarios (pessimistic, base, optimistic) for their startup.
+- *Assessment:* Spreadsheet submitted with written assumption log.
+
+**Lesson 8: Storytelling for Startups**
+- *Objective:* Structure a compelling 3-minute pitch using the problem-solution-traction-ask framework.
+- *Summary:* Covers narrative hooks, the "why now" slide, and how to handle investor questions. Students draft and rehearse.
+- *Activity:* Practice pitch recorded on phone or laptop. Self-evaluate against a 10-point rubric.
+- *Assessment:* Video recording submitted for peer feedback.
+
+**Lesson 9: Demo Day (Capstone)**
+- *Objective:* Deliver a polished 5-minute pitch with live demo or prototype to a panel.
+- *Summary:* Students present their startup — problem, solution, MVP demo, business model, one key metric from testing, and next step.
+- *Activity:* Panel of teachers, parents, or invited community members. Q&A session follows each pitch.
+- *Assessment:* Rubric across: problem clarity, solution creativity, evidence quality, pitch delivery, business viability thinking.
+
+---
