@@ -170,3 +170,87 @@
 - Summary: Children revisit their plant experiment, record final observations, and present a short "Science Detective Report" covering what they asked, what they tried, and what they found.
 - Activity: Complete a 4-section report: Question → Prediction → Experiment → Result. Present to family.
 - Assessment: All 4 sections completed; child can verbally explain what they discovered
+
+---
+
+## Course 8: Inventor Studio
+
+| Field | Value |
+|-------|-------|
+| **Age Group** | 6–8 (Young Creators) |
+| **Type** | PAID |
+| **Difficulty** | Beginner |
+| **Duration** | 4 weeks (9 lessons, ~25 min each) |
+| **Prerequisite** | None (Tiny Engineers recommended) |
+| **Course Promise** | Your child will identify a real problem, imagine solutions, build a prototype, and present their invention — becoming a true young inventor. |
+| **Parent-Facing Value** | Design thinking — the process used by engineers at IDEO, LEGO, and NASA — starts with empathy and ends with a tested prototype. This course builds creative confidence, persistence, and problem-solving habits that last a lifetime. |
+| **Completion Criteria** | Complete all 9 lessons + Final Inventor Showcase |
+| **Badge** | "Young Inventor" — awarded on completion |
+| **Certificate** | "Young Creator: Inventor Studio" |
+
+### Learner Outcomes
+1. Identify a real problem in everyday life worth solving
+2. Generate multiple solution ideas before choosing one
+3. Build a physical prototype from simple materials
+4. Test a prototype with another person and collect feedback
+5. Improve a design based on what was learned from testing
+
+### Module 1: Spot a Problem (Lessons 1–3)
+
+**Lesson 1: Problems in My Day**
+- Objective: Identify everyday problems that inventions could solve
+- Summary: Every invention started with a problem someone noticed. Umbrellas solve rain. Backpacks solve carrying too much. Children scan their day for annoying, difficult, or frustrating things worth fixing.
+- Activity: Write or draw 3 problems from daily life using the frame: "I wish there was something that…"
+- Assessment: Child identifies 3 real, specific problems (not "I wish I had more toys")
+
+**Lesson 2: Imagine Many Ideas**
+- Objective: Generate multiple solution ideas for one problem without judging them
+- Summary: The first idea is rarely the best. Great inventors brainstorm many ideas — even silly ones — before choosing. Children learn to "ideate" without filtering.
+- Activity: Choose 1 problem from Lesson 1. Brainstorm 5 different solutions — no filtering allowed.
+- Assessment: Child produces at least 5 ideas, including at least one unconventional one
+
+**Lesson 3: Pick the Best Idea**
+- Objective: Evaluate ideas using simple criteria and choose one to build
+- Summary: How do you choose which idea to build? Children use a simple 3-question test: Is it possible? Will it actually help? Can I build it? They score their top 3 ideas and pick one.
+- Activity: Score top 3 ideas on possible/helpful/buildable (1–3 each), select the winner
+- Assessment: Child selects one idea with a written reason for the choice
+
+### Module 2: Make a Prototype (Lessons 4–6)
+
+**Lesson 4: Build with Paper and Cardboard**
+- Objective: Turn an idea sketch into a physical prototype using basic materials
+- Summary: A prototype doesn't need to be perfect — it just needs to be testable. Children build a first version of their invention using cardboard, paper, tape, and found materials.
+- Activity: Build a prototype in 20 minutes using only: cardboard, paper, tape, scissors, markers
+- Assessment: Physical prototype exists that represents the core idea
+
+**Lesson 5: Test with a Friend**
+- Objective: Let someone else use the prototype and observe what happens
+- Summary: Inventors don't test their own inventions alone — they watch how other people use them. Children hand their prototype to a sibling, parent, or friend and observe (without explaining).
+- Activity: Conduct a 3-minute user test — observer watches without helping, notes 2 things that worked and 2 that didn't
+- Assessment: Child has written notes from the test observation
+
+**Lesson 6: Hear the Feedback**
+- Objective: Listen to and record feedback without becoming defensive
+- Summary: Feedback is data, not criticism. Children learn to ask "What worked?" and "What was confusing?" and write the answers without arguing.
+- Activity: 3-question feedback interview with the tester: What did you like? What was hard? What would make it better?
+- Assessment: Child records 3 feedback responses in writing or drawing
+
+### Module 3: Improve the Design (Lessons 7–9)
+
+**Lesson 7: What Worked? What Didn't?**
+- Objective: Analyze test results and identify the most important thing to change
+- Summary: Children review their prototype, their test notes, and the feedback. They decide: what ONE thing would make the biggest improvement?
+- Activity: Write an improvement plan: what to change, why, and how
+- Assessment: Improvement plan is specific (not "make it better" — but "make the opening wider so it doesn't fall over")
+
+**Lesson 8: Make Version 2**
+- Objective: Build an improved version of the prototype incorporating feedback
+- Summary: Version 2 isn't a new invention — it's a smarter version of the first. Children rebuild with their one key improvement in mind.
+- Activity: Build Version 2 of the prototype with the identified improvement
+- Assessment: Version 2 has a visible change from Version 1 based on the improvement plan
+
+**Lesson 9: Final Inventor Showcase (Final Project)**
+- Objective: Present the invention journey from problem to Version 2
+- Summary: Children present their invention to family or classmates: what problem they solved, how they built it, what they learned from testing, and what they changed.
+- Activity: 3-minute showcase presentation covering problem → idea → prototype → test → improve → Version 2
+- Assessment: Presentation covers all 6 stages; child can answer "what would you do next?"
