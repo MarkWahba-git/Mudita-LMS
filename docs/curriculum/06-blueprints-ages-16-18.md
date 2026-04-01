@@ -343,3 +343,89 @@
 - *Assessment:* Rubric across: problem clarity, solution creativity, evidence quality, pitch delivery, business viability thinking.
 
 ---
+
+## Course 25 — Career Launch
+
+| Field | Value |
+|---|---|
+| Age Group | 16–18 |
+| Slug | `career-launch` |
+| Category | CAREER |
+| Level | Advanced |
+| Duration | 8 weeks · 9 lessons · 60 min each |
+| Price | $59 |
+| Status | Published |
+
+### Learner Outcomes
+1. Identify 3–5 STEM career paths aligned with personal strengths and interests using structured self-assessment.
+2. Build a professional portfolio (GitHub Pages or equivalent) showcasing at least 3 projects.
+3. Write a tailored CV and cover letter for a specific internship or apprenticeship opportunity.
+4. Demonstrate confident interview techniques through mock interview practice.
+5. Build a professional LinkedIn profile and articulate a personal brand statement.
+
+### Module 1 — Know Yourself
+
+**Lesson 1: Strengths, Skills, Interests**
+- *Objective:* Map personal strengths and interests onto STEM career clusters.
+- *Summary:* Uses a lightweight self-assessment (adapted Holland Codes + skills inventory) to surface patterns. Students see which career clusters align with who they are now, not just who they want to be.
+- *Activity:* Complete the self-assessment; plot results on a STEM career cluster map. Identify 2–3 clusters to explore further.
+- *Assessment:* Written reflection: "Which cluster surprised you, and why might it fit?"
+
+**Lesson 2: Exploring STEM Careers**
+- *Objective:* Research a chosen STEM career using reliable sources and informational interviews.
+- *Summary:* Introduces LinkedIn, industry reports, and "a day in the life" resources. Students also learn how to request a 20-minute informational call respectfully.
+- *Activity:* Research two job roles in depth — typical tasks, required skills, salary range, growth outlook, companies hiring.
+- *Assessment:* 1-page career comparison brief on the two roles.
+
+**Lesson 3: Setting a 12-Month Goal**
+- *Objective:* Write a SMART 12-month career-readiness goal and a backward-mapped action plan.
+- *Summary:* Covers the SMART framework with a twist: students start from the end goal and map backwards to today.
+- *Activity:* Complete a "Goal → Milestones → This Week" planning template for their chosen career direction.
+- *Assessment:* Submitted action plan reviewed by teacher or mentor.
+
+---
+
+### Module 2 — Build Your Portfolio
+
+**Lesson 4: What Goes in a Portfolio**
+- *Objective:* Curate 3 existing projects for a professional portfolio with context and reflection.
+- *Summary:* Explains what recruiters look for: problem context, your contribution, tools used, outcome. Distinguishes a portfolio from a project dump.
+- *Activity:* Write a "project story" card for each of 3 projects using the template: Problem → Approach → Tools → Result.
+- *Assessment:* Three project story cards reviewed in peer pairs.
+
+**Lesson 5: Build Your Portfolio Site**
+- *Objective:* Publish a personal portfolio site with About, Projects, and Contact sections.
+- *Summary:* Step-by-step using GitHub Pages + a simple HTML template (no-code option: Notion or Carrd). Focus on clarity over flash.
+- *Activity:* Publish the portfolio with all 3 project cards live. Share URL with the class.
+- *Assessment:* Live portfolio URL + peer feedback form (3 strengths, 1 improvement).
+
+**Lesson 6: GitHub for Professionals**
+- *Objective:* Present a clean, professional GitHub profile with pinned repos and a README.
+- *Summary:* Covers profile README setup, repo descriptions, commit message etiquette, and how recruiters use GitHub.
+- *Activity:* Update GitHub profile: photo, bio, location, pinned repos (with descriptions), profile README.
+- *Assessment:* GitHub profile URL submitted; teacher evaluates using a "recruiter-ready" checklist.
+
+---
+
+### Module 3 — Apply and Interview
+
+**Lesson 7: CVs and Cover Letters**
+- *Objective:* Write a one-page CV and a tailored cover letter for a specific opportunity.
+- *Summary:* Covers modern CV structure, ATS-friendly formatting, and how to customise cover letters (not copy-paste). Real internship listings used as targets.
+- *Activity:* Find one real internship/apprenticeship listing. Write a CV and cover letter targeted to it.
+- *Assessment:* CV + cover letter submitted; peer swap for proofreading.
+
+**Lesson 8: Mock Interviews**
+- *Objective:* Answer STAR-format behavioural interview questions confidently and concisely.
+- *Summary:* Introduces STAR (Situation, Task, Action, Result) method with worked examples. Common interview questions practised.
+- *Activity:* Paired mock interview — 3 questions each. Record on phone for self-review.
+- *Assessment:* Video self-review: write down one thing done well and one specific improvement.
+
+**Lesson 9: Launch Day (Capstone)**
+- *Objective:* Present a complete career-readiness package: portfolio, CV, LinkedIn, and 60-second personal pitch.
+- *Summary:* Students deliver a 60-second "elevator pitch" introducing themselves as STEM professionals in training — to a panel of teachers and optionally invited industry guests.
+- *Activity:* Panel session: each student presents pitch + answers 2 follow-up questions.
+- *Assessment:* Rubric on: portfolio completeness, CV quality, pitch clarity, professional presence, self-awareness demonstrated.
+
+---
+
