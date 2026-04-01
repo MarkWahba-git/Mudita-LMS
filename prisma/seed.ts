@@ -1260,22 +1260,20 @@ async function main() {
     },
   ]);
 
-  // ── Enrollments ───────────────────────────────────────────────────────────
-  await db.enrollment.upsert({
-    where: { userId_courseId: { userId: student1.id, courseId: c1.id } },
-    update: {},
-    create: { userId: student1.id, courseId: c1.id, status: "ACTIVE", progress: 50 },
-  });
-  await db.enrollment.upsert({
-    where: { userId_courseId: { userId: student2.id, courseId: c1.id } },
-    update: {},
-    create: { userId: student2.id, courseId: c1.id, status: "COMPLETED", progress: 100, completedAt: new Date() },
-  });
-  await db.enrollment.upsert({
-    where: { userId_courseId: { userId: student1.id, courseId: c2.id } },
-    update: {},
-    create: { userId: student1.id, courseId: c2.id, status: "ACTIVE", progress: 25 },
-  });
+  // ── Enrollments (skip gracefully if they already exist) ─────────────────
+  const enrollments = [
+    { userId: student1.id, courseId: c1.id, status: "ACTIVE" as const, progress: 50 },
+    { userId: student2.id, courseId: c1.id, status: "COMPLETED" as const, progress: 100, completedAt: new Date() },
+    { userId: student1.id, courseId: c2.id, status: "ACTIVE" as const, progress: 25 },
+  ];
+  for (const enr of enrollments) {
+    const exists = await db.enrollment.findUnique({
+      where: { userId_courseId: { userId: enr.userId, courseId: enr.courseId } },
+    });
+    if (!exists) {
+      await db.enrollment.create({ data: enr });
+    }
+  }
 
   // ── Badges ────────────────────────────────────────────────────────────────
   const badge1 = await db.badge.upsert({
