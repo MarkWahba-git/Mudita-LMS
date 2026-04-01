@@ -1029,6 +1029,237 @@ async function main() {
     },
   ]);
 
+  // ── Ages 16–18 Courses ────────────────────────────────────────────────────
+
+  const c21 = await db.course.upsert({
+    where: { slug: "ai-foundations-future-leaders" },
+    update: {},
+    create: {
+      title: "AI Foundations for Future Leaders",
+      slug: "ai-foundations-future-leaders",
+      description: "Understand machine learning, societal AI impacts, and build your first model.",
+      ageGroup: "AGES_16_18",
+      level: "INTERMEDIATE",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c21.id, [
+    {
+      title: "How AI Learns",
+      order: 1,
+      lessons: [
+        { title: "Data, Patterns, Predictions", order: 1, isFree: true, duration: 3600 },
+        { title: "Training a Model", order: 2, isFree: true, duration: 3600 },
+        { title: "When Models Fail", order: 3, isFree: true, duration: 3600 },
+      ],
+    },
+    {
+      title: "AI in Society",
+      order: 2,
+      lessons: [
+        { title: "Bias in the Machine", order: 1, duration: 3600 },
+        { title: "Privacy and Surveillance", order: 2, duration: 3600 },
+        { title: "Automation and the Future of Work", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Responsible AI Leadership",
+      order: 3,
+      lessons: [
+        { title: "Ethical Frameworks for AI", order: 1, duration: 3600 },
+        { title: "Designing for Good", order: 2, duration: 3600 },
+        { title: "Your AI Manifesto", order: 3, duration: 3600 },
+      ],
+    },
+  ]);
+
+  const c22 = await db.course.upsert({
+    where: { slug: "full-stack-thinking" },
+    update: {},
+    create: {
+      title: "Full-Stack Thinking",
+      slug: "full-stack-thinking",
+      description: "Build and deploy a full-stack web app with front-end, back-end, and database.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 79,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c22.id, [
+    {
+      title: "Front-End Foundations",
+      order: 1,
+      lessons: [
+        { title: "HTML + CSS Revisited", order: 1, duration: 4500 },
+        { title: "JavaScript in the Browser", order: 2, duration: 4500 },
+        { title: "Fetch and APIs", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Back-End Basics",
+      order: 2,
+      lessons: [
+        { title: "Servers and Routes", order: 1, duration: 4500 },
+        { title: "Connecting a Database", order: 2, duration: 4500 },
+        { title: "Authentication Basics", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Ship It",
+      order: 3,
+      lessons: [
+        { title: "Wiring Front-End to Back-End", order: 1, duration: 4500 },
+        { title: "Deployment", order: 2, duration: 4500 },
+        { title: "Git, GitHub, and Collaboration", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
+  const c23 = await db.course.upsert({
+    where: { slug: "data-decisions-society" },
+    update: {},
+    create: {
+      title: "Data Decisions & Society",
+      slug: "data-decisions-society",
+      description: "Collect, visualise, and communicate data insights on real social issues.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "DATA_SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 69,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c23.id, [
+    {
+      title: "Data Literacy",
+      order: 1,
+      lessons: [
+        { title: "Every Number Tells a Story", order: 1, duration: 3600 },
+        { title: "Cleaning Messy Data", order: 2, duration: 3600 },
+        { title: "Descriptive Statistics", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Visualise and Communicate",
+      order: 2,
+      lessons: [
+        { title: "Chart Types and When to Use Them", order: 1, duration: 3600 },
+        { title: "Telling a Story with Data", order: 2, duration: 3600 },
+        { title: "Spotting Misleading Data", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Data for Good",
+      order: 3,
+      lessons: [
+        { title: "Open Data and Civic Tech", order: 1, duration: 3600 },
+        { title: "Algorithmic Decision-Making", order: 2, duration: 3600 },
+        { title: "Data for Change (Capstone)", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
+  const c24 = await db.course.upsert({
+    where: { slug: "startup-lab" },
+    update: {},
+    create: {
+      title: "Startup Lab",
+      slug: "startup-lab",
+      description: "Build a real startup from problem discovery to MVP, pitch, and business model.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "ENTREPRENEURSHIP",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 79,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c24.id, [
+    {
+      title: "Find the Problem",
+      order: 1,
+      lessons: [
+        { title: "Problems Are Opportunities", order: 1, duration: 4500 },
+        { title: "Customer Discovery Interviews", order: 2, duration: 4500 },
+        { title: "Problem-Solution Fit", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Build the Solution",
+      order: 2,
+      lessons: [
+        { title: "The Business Model Canvas", order: 1, duration: 4500 },
+        { title: "Your Minimum Viable Product", order: 2, duration: 4500 },
+        { title: "Test and Learn", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Pitch and Grow",
+      order: 3,
+      lessons: [
+        { title: "Financial Basics for Founders", order: 1, duration: 4500 },
+        { title: "Storytelling for Startups", order: 2, duration: 4500 },
+        { title: "Demo Day (Capstone)", order: 3, duration: 5400 },
+      ],
+    },
+  ]);
+
+  const c25 = await db.course.upsert({
+    where: { slug: "career-launch" },
+    update: {},
+    create: {
+      title: "Career Launch",
+      slug: "career-launch",
+      description: "Build your professional portfolio, CV, and LinkedIn — and land your first opportunity.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "CAREER",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c25.id, [
+    {
+      title: "Know Yourself",
+      order: 1,
+      lessons: [
+        { title: "Strengths, Skills, Interests", order: 1, duration: 3600 },
+        { title: "Exploring STEM Careers", order: 2, duration: 3600 },
+        { title: "Setting a 12-Month Goal", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Build Your Portfolio",
+      order: 2,
+      lessons: [
+        { title: "What Goes in a Portfolio", order: 1, duration: 3600 },
+        { title: "Build Your Portfolio Site", order: 2, duration: 4500 },
+        { title: "GitHub for Professionals", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Apply and Interview",
+      order: 3,
+      lessons: [
+        { title: "CVs and Cover Letters", order: 1, duration: 3600 },
+        { title: "Mock Interviews", order: 2, duration: 4500 },
+        { title: "Launch Day (Capstone)", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
   // ── Enrollments ───────────────────────────────────────────────────────────
   await db.enrollment.upsert({
     where: { userId_courseId: { userId: student1.id, courseId: c1.id } },
@@ -1181,7 +1412,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed Phase 1 complete — users, Ages 3–5 courses (1–5), badges, products, competitions");
+  console.log("✅ Seed complete — 25 courses, 75 modules, 225 lessons across 5 age groups");
 }
 
 main()
