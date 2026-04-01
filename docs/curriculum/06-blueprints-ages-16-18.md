@@ -173,3 +173,88 @@
 - *Assessment:* Merged PR with at least one round of code review comments addressed.
 
 ---
+
+## Course 23 — Data Decisions & Society
+
+| Field | Value |
+|---|---|
+| Age Group | 16–18 |
+| Slug | `data-decisions-society` |
+| Category | DATA_SCIENCE |
+| Level | Advanced |
+| Duration | 8 weeks · 9 lessons · 60 min each |
+| Price | $69 |
+| Status | Published |
+
+### Learner Outcomes
+1. Collect, clean, and explore a real dataset using Python (pandas) or Google Sheets.
+2. Create clear data visualisations that communicate findings to a general audience.
+3. Identify misleading statistics and data visualisation tricks in media.
+4. Apply basic descriptive statistics (mean, median, correlation) correctly.
+5. Present a data-driven argument on a social or civic topic with evidence and ethical caveats.
+
+### Module 1 — Data Literacy
+
+**Lesson 1: Every Number Tells a Story**
+- *Objective:* Distinguish between raw data, statistics, and conclusions — and why each step matters.
+- *Summary:* Uses memorable examples (polling errors, sports statistics) to show how the same data can support opposing arguments.
+- *Activity:* Given three different news headlines based on the same dataset, students trace each back to its source numbers and evaluate accuracy.
+- *Assessment:* Short quiz — 5 questions on data interpretation terms (sample size, selection bias, correlation vs. causation).
+
+**Lesson 2: Cleaning Messy Data**
+- *Objective:* Identify and fix common data quality problems (missing values, inconsistent formatting, outliers).
+- *Summary:* Introduces the concept of "garbage in, garbage out." Students work with a deliberately dirty CSV file.
+- *Activity:* Clean a 100-row dataset about fictional city air quality — fix date formats, fill missing values, remove duplicates.
+- *Assessment:* Submit cleaned CSV + a 3-bullet "data quality report" describing what was found and fixed.
+
+**Lesson 3: Descriptive Statistics**
+- *Objective:* Calculate and interpret mean, median, mode, range, and correlation.
+- *Summary:* Focuses on when to use mean vs. median (income distributions are a classic example). Light introduction to scatter plots and correlation coefficients.
+- *Activity:* Analyse a salary dataset — compare mean vs. median salaries for different job families. Draw scatter plot of salary vs. experience.
+- *Assessment:* Reflection: "Which measure best represents a 'typical' salary in this dataset, and why?"
+
+---
+
+### Module 2 — Visualise and Communicate
+
+**Lesson 4: Chart Types and When to Use Them**
+- *Objective:* Select the appropriate chart type for a given dataset and question.
+- *Summary:* Covers bar, line, pie, scatter, and heatmap. Explains when each type misleads (e.g., truncated axes, 3D pie charts).
+- *Activity:* Remake three "bad" charts from real media into clear, accurate versions.
+- *Assessment:* Peer review — swap remakes and evaluate using a "Good Chart" rubric.
+
+**Lesson 5: Telling a Story with Data**
+- *Objective:* Build a narrative data presentation that guides an audience from question to conclusion.
+- *Summary:* Covers the "story arc" structure for data presentations: context → conflict → data → insight → action.
+- *Activity:* Students choose a public dataset (UN, Our World in Data, Kaggle public) and build a 5-slide data story.
+- *Assessment:* 5-slide presentation with at least 3 visualisations and a clear recommendation.
+
+**Lesson 6: Spotting Misleading Data**
+- *Objective:* Detect at least 5 common data manipulation techniques used in media and advertising.
+- *Summary:* Catalogue of manipulation techniques: cherry-picking dates, truncated y-axes, percentage vs. absolute, survivor bias.
+- *Activity:* "Data Detective" worksheet — 10 real-world charts; students flag manipulations and explain corrections.
+- *Assessment:* Score on worksheet + written note to a fictional editor requesting a correction.
+
+---
+
+### Module 3 — Data for Good
+
+**Lesson 7: Open Data and Civic Tech**
+- *Objective:* Locate and query a relevant open government or NGO dataset.
+- *Summary:* Introduces open data portals (data.gov, WHO, World Bank). Discusses data licensing and attribution.
+- *Activity:* Find a dataset related to a community issue students care about (climate, education, health) and write a 1-paragraph "data brief."
+- *Assessment:* Data brief submitted with dataset source, key stats, and one visualisation.
+
+**Lesson 8: Algorithmic Decision-Making**
+- *Objective:* Evaluate the fairness of an algorithmic decision system using real-world criteria.
+- *Summary:* Credit scoring, recidivism prediction, university admissions algorithms. Students learn to ask: "Who benefits? Who is harmed?"
+- *Activity:* Case study analysis of a chosen algorithm — complete a fairness audit template covering accuracy, impact, transparency, and accountability.
+- *Assessment:* Completed fairness audit (1 page).
+
+**Lesson 9: Data for Change (Capstone)**
+- *Objective:* Produce a complete data investigation on a real social issue and present recommendations.
+- *Summary:* Students select an issue, gather open data, clean it, analyse it, visualise it, and present to the class.
+- *Activity:* 10-minute presentation + visualisation dashboard (Google Slides, Canva, or Flourish).
+- *Assessment:* Rubric grading on: question clarity, data quality, visualisation accuracy, insight depth, ethical awareness.
+
+---
