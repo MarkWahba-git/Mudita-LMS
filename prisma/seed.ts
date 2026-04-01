@@ -1267,11 +1267,14 @@ async function main() {
     { userId: student1.id, courseId: c2.id, status: "ACTIVE" as const, progress: 25 },
   ];
   for (const enr of enrollments) {
-    const exists = await db.enrollment.findUnique({
-      where: { userId_courseId: { userId: enr.userId, courseId: enr.courseId } },
-    });
-    if (!exists) {
-      await db.enrollment.create({ data: enr });
+    try {
+      await db.enrollment.upsert({
+        where: { userId_courseId: { userId: enr.userId, courseId: enr.courseId } },
+        update: {},
+        create: enr,
+      });
+    } catch {
+      console.log(`⚠️  Skipped enrollment (userId=${enr.userId}, courseId=${enr.courseId}) — already exists`);
     }
   }
 
