@@ -336,6 +336,237 @@ async function main() {
     },
   ]);
 
+  // ── Ages 6–8 Courses ─────────────────────────────────────────────────────
+
+  const c6 = await db.course.upsert({
+    where: { slug: "coding-adventures-blocks" },
+    update: {},
+    create: {
+      title: "Coding Adventures with Blocks",
+      slug: "coding-adventures-blocks",
+      description: "Learn real programming using Scratch blocks — no typing required.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c6.id, [
+    {
+      title: "Meet Scratch",
+      order: 1,
+      lessons: [
+        { title: "What Is Scratch?", order: 1, isFree: true, duration: 1200 },
+        { title: "Your First Sprite", order: 2, isFree: true, duration: 1200 },
+        { title: "Make It Move", order: 3, isFree: true, duration: 1200 },
+      ],
+    },
+    {
+      title: "Stories & Animations",
+      order: 2,
+      lessons: [
+        { title: "Add a Background", order: 1, duration: 1200 },
+        { title: "Make Characters Talk", order: 2, duration: 1800 },
+        { title: "Animate a Story", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Your First Game",
+      order: 3,
+      lessons: [
+        { title: "Catching Game Setup", order: 1, duration: 1800 },
+        { title: "Add a Score", order: 2, duration: 1800 },
+        { title: "Share Your Game", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  const c7 = await db.course.upsert({
+    where: { slug: "science-detectives" },
+    update: {},
+    create: {
+      title: "Science Detectives",
+      slug: "science-detectives",
+      description: "Investigate the world like a scientist — ask questions, experiment, explain.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c7.id, [
+    {
+      title: "Forces & Motion",
+      order: 1,
+      lessons: [
+        { title: "Push and Pull", order: 1, duration: 1200 },
+        { title: "Sink or Float Experiment", order: 2, duration: 1800 },
+        { title: "Ramp Speed Test", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Living Things",
+      order: 2,
+      lessons: [
+        { title: "Plants Need Light", order: 1, duration: 1200 },
+        { title: "Animal Habitats", order: 2, duration: 1200 },
+        { title: "Life Cycles", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Materials & Changes",
+      order: 3,
+      lessons: [
+        { title: "Solids, Liquids, Gases", order: 1, duration: 1200 },
+        { title: "Melting and Freezing", order: 2, duration: 1800 },
+        { title: "My Science Report", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c8 = await db.course.upsert({
+    where: { slug: "inventor-studio" },
+    update: {},
+    create: {
+      title: "Inventor Studio",
+      slug: "inventor-studio",
+      description: "Design and build inventions that solve real problems in your home and school.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "ENGINEERING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c8.id, [
+    {
+      title: "Spot the Problem",
+      order: 1,
+      lessons: [
+        { title: "Problems Are Everywhere", order: 1, duration: 1200 },
+        { title: "Choose Your Problem", order: 2, duration: 1200 },
+        { title: "What Do Users Need?", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Design & Build",
+      order: 2,
+      lessons: [
+        { title: "Sketch Your Idea", order: 1, duration: 1200 },
+        { title: "Build a Prototype", order: 2, duration: 1800 },
+        { title: "Test It Out", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Improve & Share",
+      order: 3,
+      lessons: [
+        { title: "What Needs Fixing?", order: 1, duration: 1200 },
+        { title: "Make Version 2", order: 2, duration: 1800 },
+        { title: "Invention Fair Presentation", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c9 = await db.course.upsert({
+    where: { slug: "ai-around-us" },
+    update: {},
+    create: {
+      title: "AI Around Us",
+      slug: "ai-around-us",
+      description: "Spot AI in everyday life and learn how it works in simple, friendly terms.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c9.id, [
+    {
+      title: "What Is AI?",
+      order: 1,
+      lessons: [
+        { title: "AI Is Everywhere", order: 1, duration: 1200 },
+        { title: "How Does AI Learn?", order: 2, duration: 1200 },
+        { title: "AI vs. Human", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "AI Helpers",
+      order: 2,
+      lessons: [
+        { title: "Voice Assistants", order: 1, duration: 1200 },
+        { title: "Recommendation Engines", order: 2, duration: 1200 },
+        { title: "AI in Games", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Using AI Wisely",
+      order: 3,
+      lessons: [
+        { title: "When AI Makes Mistakes", order: 1, duration: 1200 },
+        { title: "Privacy and AI", order: 2, duration: 1200 },
+        { title: "Be an AI Detective", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c10 = await db.course.upsert({
+    where: { slug: "smart-safe-online" },
+    update: {},
+    create: {
+      title: "Smart & Safe Online",
+      slug: "smart-safe-online",
+      description: "Learn how to stay safe, kind, and smart on the internet.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "DIGITAL_LITERACY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c10.id, [
+    {
+      title: "Safe Online",
+      order: 1,
+      lessons: [
+        { title: "Personal Information", order: 1, duration: 1200 },
+        { title: "Strong Passwords", order: 2, duration: 1200 },
+        { title: "Strangers Online", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Kind Online",
+      order: 2,
+      lessons: [
+        { title: "What Is Cyberbullying?", order: 1, duration: 1200 },
+        { title: "How to Respond", order: 2, duration: 1200 },
+        { title: "Being Upstander", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Smart Online",
+      order: 3,
+      lessons: [
+        { title: "Is It True?", order: 1, duration: 1200 },
+        { title: "Spot Fake News", order: 2, duration: 1800 },
+        { title: "My Digital Pledge", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
   // ── Enrollments ───────────────────────────────────────────────────────────
   await db.enrollment.upsert({
     where: { userId_courseId: { userId: student1.id, courseId: c1.id } },
