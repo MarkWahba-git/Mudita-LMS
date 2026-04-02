@@ -85,8 +85,10 @@ export default async function AdminCoursesPage() {
               courses.map((course) => (
                 <tr key={course.id} className="border-b last:border-0 hover:bg-muted/30">
                   <td className="px-4 py-3">
-                    <div className="font-medium">{course.title}</div>
-                    <div className="text-xs text-muted-foreground">/{course.slug}</div>
+                    <Link href={`/admin/courses/${course.id}`} className="group">
+                      <div className="font-medium text-primary group-hover:underline">{course.title}</div>
+                      <div className="text-xs text-muted-foreground">/{course.slug}</div>
+                    </Link>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[course.status] ?? "bg-gray-100"}`}>
