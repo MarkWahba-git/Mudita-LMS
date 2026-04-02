@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Loader2, CheckCircle } from "lucide-react";
+import { requestPasswordReset } from "@/actions/password-reset.actions";
 
 export default function ForgotPasswordPage() {
   const t = useTranslations("auth");
@@ -35,11 +36,9 @@ export default function ForgotPasswordPage() {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  async function onSubmit(_data: ForgotPasswordInput) {
+  async function onSubmit(data: ForgotPasswordInput) {
     setLoading(true);
-    // TODO: Implement actual password reset email via Resend/SendGrid
-    // Always show success to prevent email enumeration attacks
-    await new Promise((r) => setTimeout(r, 1000));
+    await requestPasswordReset(data.email);
     setSent(true);
     setLoading(false);
   }

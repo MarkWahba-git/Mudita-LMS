@@ -14,6 +14,8 @@ import {
   markLessonDoneSchema,
 } from "@/validators/action.schemas";
 import { revalidatePath } from "next/cache";
+import { sendEnrollmentConfirmation } from "@/lib/email";
+import { db } from "@/lib/db";
 
 export async function enrollInCourse(courseId: string) {
   try {
@@ -28,6 +30,24 @@ export async function enrollInCourse(courseId: string) {
     const enrollment = await enrollUser(session.user.id, parsed.data.courseId);
     if (!enrollment) {
       return { success: false, error: "Failed to enroll" };
+    }
+
+    // Send enrollment confirmation email (non-blocking)
+    try {
+      const course = await db.course.findUnique({
+        where: { id: parsed.data.courseId },
+        select: { title: true, slug: true },
+      });
+      if (course && session.user.email) {
+        sendEnrollmentConfirmation(
+          session.user.email,
+          session.user.name || "Student",
+          course.title,
+          course.slug
+        ).catch(() => null);
+      }
+    } catch {
+      // non-critical
     }
 
     return { success: true, data: enrollment };
