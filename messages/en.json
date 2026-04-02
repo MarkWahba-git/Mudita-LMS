@@ -58,7 +58,9 @@
     "tutors": "Tutors",
     "roles": "Roles",
     "logout": "Log Out",
-    "search": "Search"
+    "search": "Search",
+    "login": "Log In",
+    "register": "Sign Up"
   },
   "home": {
     "heroTitle": "Where Curiosity Becomes Confidence",
