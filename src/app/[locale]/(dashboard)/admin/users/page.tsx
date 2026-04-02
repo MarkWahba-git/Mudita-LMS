@@ -1,15 +1,26 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { isAdminRole } from "@/lib/auth-helpers";
+import { isAdminRole, isSuperAdmin } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
-import { DataTable } from "@/components/shared/data-table";
+import { UserActions } from "./user-actions";
 
 export const metadata = { title: "Manage Users | Admin" };
+
+const ROLE_COLORS: Record<string, string> = {
+  SUPER_ADMIN: "bg-purple-100 text-purple-800",
+  ADMIN: "bg-blue-100 text-blue-800",
+  TUTOR: "bg-orange-100 text-orange-800",
+  PARENT: "bg-teal-100 text-teal-800",
+  STUDENT: "bg-primary/10 text-primary",
+  B2B_PARTNER: "bg-pink-100 text-pink-800",
+};
 
 export default async function AdminUsersPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (!isAdminRole(session.user.role)) redirect("/dashboard");
+
+  const canManageRoles = isSuperAdmin(session.user.role);
 
   const users = await db.user.findMany({
     select: {
@@ -18,61 +29,106 @@ export default async function AdminUsersPage() {
       email: true,
       role: true,
       isActive: true,
+      locale: true,
       createdAt: true,
+      _count: { select: { enrollments: true } },
     },
     orderBy: { createdAt: "desc" },
   }).catch(() => []);
 
-  const tableData = users.map((u) => ({
-    id: u.id,
-    name: u.name,
-    email: u.email,
-    role: u.role,
-    status: u.isActive ? "Active" : "Inactive",
-    joined: new Date(u.createdAt).toLocaleDateString(),
-  }));
-
-  const columns = [
-    { key: "name", label: "Name" },
-    { key: "email", label: "Email" },
-    {
-      key: "role",
-      label: "Role",
-      render: (row: Record<string, unknown>) => (
-        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-          {String(row.role)}
-        </span>
-      ),
-    },
-    {
-      key: "status",
-      label: "Status",
-      render: (row: Record<string, unknown>) => (
-        <span
-          className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-            row.status === "Active"
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-700"
-          }`}
-        >
-          {String(row.status)}
-        </span>
-      ),
-    },
-    { key: "joined", label: "Joined" },
-  ];
+  // Stats
+  const roleCounts: Record<string, number> = {};
+  let activeCount = 0;
+  for (const u of users) {
+    roleCounts[u.role] = (roleCounts[u.role] || 0) + 1;
+    if (u.isActive) activeCount++;
+  }
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Users</h1>
-        <p className="text-muted-foreground">{users.length} total users</p>
+        <p className="text-muted-foreground">
+          {users.length} total users &middot; {activeCount} active
+        </p>
       </div>
-      <DataTable
-        columns={columns}
-        data={tableData as Record<string, unknown>[]}
-        emptyMessage="No users found."
-      />
+
+      {/* Role summary cards */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {Object.entries(roleCounts)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([role, count]) => (
+            <div key={role} className="rounded-lg border bg-white p-3 text-center">
+              <div className="text-2xl font-bold">{count}</div>
+              <div className="text-xs text-muted-foreground">{role.replace("_", " ")}</div>
+            </div>
+          ))}
+      </div>
+
+      {/* Users table */}
+      <div className="overflow-x-auto rounded-xl border bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b bg-muted/40">
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">User</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Role</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+              <th className="px-4 py-3 text-center font-medium text-muted-foreground">Enrollments</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Joined</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-4 py-10 text-center text-muted-foreground">
+                  No users found.
+                </td>
+              </tr>
+            ) : (
+              users.map((user) => (
+                <tr key={user.id} className="border-b last:border-0 hover:bg-muted/30">
+                  <td className="px-4 py-3">
+                    <div className="font-medium">{user.name}</div>
+                    <div className="text-xs text-muted-foreground">{user.email}</div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${ROLE_COLORS[user.role] ?? "bg-gray-100 text-gray-800"}`}>
+                      {user.role.replace("_", " ")}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        user.isActive
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {user.isActive ? "Active" : "Inactive"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-center text-muted-foreground">
+                    {user._count.enrollments}
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {new Date(user.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-3">
+                    <UserActions
+                      userId={user.id}
+                      currentRole={user.role}
+                      isActive={user.isActive}
+                      canManageRoles={canManageRoles}
+                      isSelf={user.id === session.user.id}
+                    />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
