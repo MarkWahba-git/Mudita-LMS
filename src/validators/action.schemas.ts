@@ -239,6 +239,59 @@ export const reorderLessonsSchema = z.object({
   lessonIds: z.array(cuidSchema),
 });
 
+// ── Quizzes ─────────────────────────────────────────────────────────────
+
+export const createQuizSchema = z.object({
+  lessonId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  passingScore: z.number().int().min(0).max(100),
+  timeLimit: z.number().int().min(0).optional(),
+});
+
+export const updateQuizSchema = z.object({
+  quizId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  passingScore: z.number().int().min(0).max(100),
+  timeLimit: z.number().int().min(0).optional(),
+});
+
+export const deleteQuizSchema = z.object({ quizId: cuidSchema });
+
+const questionTypeEnum = z.enum(["MULTIPLE_CHOICE", "TRUE_FALSE", "SHORT_ANSWER"]);
+
+const answerInput = z.object({
+  text: z.string().min(1, "Answer text is required"),
+  textAr: z.string().optional(),
+  textDe: z.string().optional(),
+  isCorrect: z.boolean(),
+});
+
+export const createQuestionSchema = z.object({
+  quizId: cuidSchema,
+  text: z.string().min(1, "Question text is required"),
+  textAr: z.string().optional(),
+  textDe: z.string().optional(),
+  type: questionTypeEnum,
+  points: z.number().int().min(1).default(1),
+  order: z.number().int().min(0),
+  explanation: z.string().optional(),
+  answers: z.array(answerInput).min(1, "At least one answer is required"),
+});
+
+export const updateQuestionSchema = z.object({
+  questionId: cuidSchema,
+  text: z.string().min(1, "Question text is required"),
+  textAr: z.string().optional(),
+  textDe: z.string().optional(),
+  type: questionTypeEnum,
+  points: z.number().int().min(1),
+  order: z.number().int().min(0).optional(),
+  explanation: z.string().optional(),
+  answers: z.array(answerInput.extend({ id: z.string().optional() })).min(1),
+});
+
+export const deleteQuestionSchema = z.object({ questionId: cuidSchema });
+
 // ── Roles & Permissions ─────────────────────────────────────────────────
 
 const roleEnum = z.enum(["STUDENT", "PARENT", "TUTOR", "ADMIN", "SUPER_ADMIN", "B2B_PARTNER"]);

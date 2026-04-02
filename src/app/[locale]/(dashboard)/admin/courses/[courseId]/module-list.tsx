@@ -12,6 +12,7 @@ interface Lesson {
   isFree: boolean;
   duration: number | null;
   videoUrl: string | null;
+  quiz: { id: string } | null;
 }
 
 interface Module {
@@ -189,12 +190,24 @@ export function ModuleList({ courseId, modules }: Props) {
                         </div>
                       </div>
                     </div>
-                    <Link
-                      href={`/admin/courses/${courseId}/modules/${mod.id}/lessons/${lesson.id}/edit`}
-                      className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-primary/10"
-                    >
-                      Edit
-                    </Link>
+                    <div className="flex items-center gap-1">
+                      <Link
+                        href={`/admin/courses/${courseId}/modules/${mod.id}/lessons/${lesson.id}/quiz`}
+                        className={`rounded px-2 py-1 text-xs font-medium ${
+                          lesson.quiz
+                            ? "text-orange-700 hover:bg-orange-50"
+                            : "text-muted-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {lesson.quiz ? "Quiz ✓" : "+ Quiz"}
+                      </Link>
+                      <Link
+                        href={`/admin/courses/${courseId}/modules/${mod.id}/lessons/${lesson.id}/edit`}
+                        className="rounded px-2 py-1 text-xs font-medium text-primary hover:bg-primary/10"
+                      >
+                        Edit
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
