@@ -5,14 +5,24 @@ import { useRouter } from "next/navigation";
 import { createCourse, updateCourse } from "@/actions/admin.actions";
 
 const AGE_GROUPS = [
-  "AGES_3_5",
-  "AGES_6_8",
-  "AGES_9_12",
-  "AGES_13_15",
-  "AGES_16_18",
+  { value: "AGES_3_5", label: "Ages 3-5" },
+  { value: "AGES_6_8", label: "Ages 6-8" },
+  { value: "AGES_9_12", label: "Ages 9-12" },
+  { value: "AGES_13_15", label: "Ages 13-15" },
+  { value: "AGES_16_18", label: "Ages 16-18" },
 ];
 
-const LEVELS = ["BEGINNER", "INTERMEDIATE", "ADVANCED"];
+const LEVELS = [
+  { value: "BEGINNER", label: "Beginner" },
+  { value: "INTERMEDIATE", label: "Intermediate" },
+  { value: "ADVANCED", label: "Advanced" },
+];
+
+const STATUSES = [
+  { value: "DRAFT", label: "Draft" },
+  { value: "PUBLISHED", label: "Published" },
+  { value: "ARCHIVED", label: "Archived" },
+];
 
 const CATEGORIES = [
   "STEM",
@@ -25,6 +35,8 @@ const CATEGORIES = [
   "Other",
 ];
 
+const CURRENCIES = ["USD", "EUR", "GBP", "AED", "EGP", "SAR"];
+
 export interface CourseFormData {
   id?: string;
   title: string;
@@ -34,6 +46,7 @@ export interface CourseFormData {
   category: string;
   isFree: boolean;
   price: number;
+  currency?: string;
   status?: string;
 }
 
@@ -56,20 +69,23 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
     setError(null);
 
     const fd = new FormData(e.currentTarget);
+    const price = isFree ? 0 : Math.max(0, Number(fd.get("price")) || 0);
+
     const courseData = {
       title: fd.get("title") as string,
       description: fd.get("description") as string,
       ageGroup: fd.get("ageGroup") as string,
       level: fd.get("level") as string,
       category: fd.get("category") as string,
-      isFree: isFree,
-      price: isFree ? 0 : Math.max(0, Number(fd.get("price")) || 0),
+      isFree,
+      price,
     };
 
     let result: { success: boolean; error?: string };
 
     if (isEdit && initialData?.id) {
-      result = await updateCourse(initialData.id, courseData);
+      const status = fd.get("status") as string;
+      result = await updateCourse(initialData.id, { ...courseData, status });
     } else {
       result = await createCourse(courseData);
     }
@@ -85,6 +101,7 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
   return (
     <div className="rounded-xl border bg-card p-6">
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Title */}
         <div>
           <label className="mb-1.5 block text-sm font-medium">
             Title <span className="text-red-500">*</span>
@@ -98,6 +115,7 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
           />
         </div>
 
+        {/* Description */}
         <div>
           <label className="mb-1.5 block text-sm font-medium">
             Description <span className="text-red-500">*</span>
@@ -107,11 +125,12 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
             required
             rows={4}
             defaultValue={initialData?.description ?? ""}
-            placeholder="Describe what students will learn…"
+            placeholder="Describe what students will learn..."
             className="flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
 
+        {/* Age Group / Level / Category */}
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <label className="mb-1.5 block text-sm font-medium">
@@ -123,11 +142,9 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
               defaultValue={initialData?.ageGroup ?? ""}
               className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="">Select…</option>
+              <option value="">Select...</option>
               {AGE_GROUPS.map((ag) => (
-                <option key={ag} value={ag}>
-                  {ag.replace("AGES_", "").replace("_", "-")}
-                </option>
+                <option key={ag.value} value={ag.value}>{ag.label}</option>
               ))}
             </select>
           </div>
@@ -142,11 +159,9 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
               defaultValue={initialData?.level ?? ""}
               className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="">Select…</option>
+              <option value="">Select...</option>
               {LEVELS.map((l) => (
-                <option key={l} value={l}>
-                  {l.charAt(0) + l.slice(1).toLowerCase()}
-                </option>
+                <option key={l.value} value={l.value}>{l.label}</option>
               ))}
             </select>
           </div>
@@ -161,16 +176,31 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
               defaultValue={initialData?.category ?? ""}
               className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="">Select…</option>
+              <option value="">Select...</option>
               {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
           </div>
         </div>
 
+        {/* Status (edit mode only) */}
+        {isEdit && (
+          <div>
+            <label className="mb-1.5 block text-sm font-medium">Status</label>
+            <select
+              name="status"
+              defaultValue={initialData?.status ?? "DRAFT"}
+              className="flex h-10 w-full max-w-xs rounded-lg border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {STATUSES.map((s) => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Free course toggle */}
         <div className="flex items-center gap-3">
           <input
             id="isFree"
@@ -184,18 +214,33 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
           </label>
         </div>
 
+        {/* Price and Currency */}
         {!isFree && (
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Price (USD)</label>
-            <input
-              name="price"
-              type="number"
-              min="0"
-              step="0.01"
-              defaultValue={initialData?.price ?? ""}
-              placeholder="29.99"
-              className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium">Price</label>
+              <input
+                name="price"
+                type="number"
+                min="0"
+                step="0.01"
+                defaultValue={initialData?.price ?? ""}
+                placeholder="29.99"
+                className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-medium">Currency</label>
+              <select
+                name="currency"
+                defaultValue={initialData?.currency ?? "USD"}
+                className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {CURRENCIES.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
           </div>
         )}
 
@@ -209,8 +254,8 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
           >
             {loading
               ? isEdit
-                ? "Saving…"
-                : "Creating…"
+                ? "Saving..."
+                : "Creating..."
               : isEdit
                 ? "Save Changes"
                 : "Create Course"}

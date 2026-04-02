@@ -54,7 +54,11 @@
     "pages": "Seiten",
     "settings": "Einstellungen",
     "notifications": "Benachrichtigungen",
-    "becomeTutor": "Tutor werden"
+    "becomeTutor": "Tutor werden",
+    "tutors": "Tutoren",
+    "roles": "Rollen",
+    "logout": "Abmelden",
+    "search": "Suchen"
   },
   "home": {
     "heroTitle": "Wo Neugier zu Selbstvertrauen wird",

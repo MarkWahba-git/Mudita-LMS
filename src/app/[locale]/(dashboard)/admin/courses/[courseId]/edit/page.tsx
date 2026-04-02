@@ -30,6 +30,7 @@ export default async function EditCoursePage({
         category: true,
         isFree: true,
         price: true,
+        currency: true,
         status: true,
       },
     });
@@ -62,6 +63,7 @@ export default async function EditCoursePage({
           category: course.category,
           isFree: course.isFree,
           price: Number(course.price),
+          currency: course.currency,
           status: course.status,
         }}
       />

@@ -127,6 +127,28 @@ export async function deleteCourse(courseId: string) {
   }
 }
 
+export async function toggleCourseStatus(courseId: string, status: string) {
+  try {
+    await requireAdmin();
+    const parsed = deleteCourseSchema.safeParse({ courseId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    if (!["DRAFT", "PUBLISHED", "ARCHIVED"].includes(status)) {
+      return { success: false, error: "Invalid status" };
+    }
+
+    await db.course.update({
+      where: { id: parsed.data.courseId },
+      data: { status: status as never },
+    });
+    revalidatePath("/admin/courses");
+    return { success: true };
+  } catch (error) {
+    console.error("toggleCourseStatus error:", error);
+    return { success: false, error: "Failed to update course status" };
+  }
+}
+
 export async function createBadge(data: {
   name: string;
   description: string;
