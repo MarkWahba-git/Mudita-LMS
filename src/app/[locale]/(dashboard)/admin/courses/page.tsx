@@ -2,8 +2,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
-import { DataTable } from "@/components/shared/data-table";
 import { Link } from "@/i18n/navigation";
+import { CourseActions } from "./course-actions";
 
 export const metadata = { title: "Manage Courses | Admin" };
 
@@ -16,27 +16,19 @@ export default async function AdminCoursesPage() {
     select: {
       id: true,
       title: true,
+      slug: true,
       status: true,
       ageGroup: true,
       level: true,
       isFree: true,
       price: true,
-      _count: { select: { enrollments: true } },
+      currency: true,
+      category: true,
+      _count: { select: { enrollments: true, modules: true } },
       createdAt: true,
     },
     orderBy: { createdAt: "desc" },
   }).catch(() => []);
-
-  const tableData = courses.map((c) => ({
-    id: c.id,
-    title: c.title,
-    status: c.status,
-    ageGroup: c.ageGroup,
-    level: c.level,
-    price: c.isFree ? "Free" : `$${Number(c.price).toFixed(2)}`,
-    enrollments: c._count.enrollments,
-    created: new Date(c.createdAt).toLocaleDateString(),
-  }));
 
   const statusColors: Record<string, string> = {
     PUBLISHED: "bg-green-100 text-green-800",
@@ -44,27 +36,13 @@ export default async function AdminCoursesPage() {
     ARCHIVED: "bg-gray-100 text-gray-600",
   };
 
-  const columns = [
-    { key: "title", label: "Title" },
-    {
-      key: "status",
-      label: "Status",
-      render: (row: Record<string, unknown>) => (
-        <span
-          className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-            statusColors[String(row.status)] ?? "bg-gray-100 text-gray-600"
-          }`}
-        >
-          {String(row.status)}
-        </span>
-      ),
-    },
-    { key: "ageGroup", label: "Age Group" },
-    { key: "level", label: "Level" },
-    { key: "price", label: "Price" },
-    { key: "enrollments", label: "Enrollments" },
-    { key: "created", label: "Created" },
-  ];
+  const ageGroupLabels: Record<string, string> = {
+    AGES_3_5: "3-5",
+    AGES_6_8: "6-8",
+    AGES_9_12: "9-12",
+    AGES_13_15: "13-15",
+    AGES_16_18: "16-18",
+  };
 
   return (
     <div className="space-y-6">
@@ -80,11 +58,68 @@ export default async function AdminCoursesPage() {
           + New Course
         </Link>
       </div>
-      <DataTable
-        columns={columns}
-        data={tableData as Record<string, unknown>[]}
-        emptyMessage="No courses found."
-      />
+
+      <div className="overflow-x-auto rounded-xl border bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b bg-muted/40">
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Title</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Age</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Level</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Category</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Price</th>
+              <th className="px-4 py-3 text-center font-medium text-muted-foreground">Modules</th>
+              <th className="px-4 py-3 text-center font-medium text-muted-foreground">Enrollments</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses.length === 0 ? (
+              <tr>
+                <td colSpan={9} className="px-4 py-10 text-center text-muted-foreground">
+                  No courses found. Create your first course.
+                </td>
+              </tr>
+            ) : (
+              courses.map((course) => (
+                <tr key={course.id} className="border-b last:border-0 hover:bg-muted/30">
+                  <td className="px-4 py-3">
+                    <div className="font-medium">{course.title}</div>
+                    <div className="text-xs text-muted-foreground">/{course.slug}</div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[course.status] ?? "bg-gray-100"}`}>
+                      {course.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {ageGroupLabels[course.ageGroup] ?? course.ageGroup}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-xs">{course.level.charAt(0) + course.level.slice(1).toLowerCase()}</span>
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">{course.category}</td>
+                  <td className="px-4 py-3">
+                    {course.isFree ? (
+                      <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Free</span>
+                    ) : (
+                      <span className="font-medium">
+                        {course.currency === "USD" ? "$" : course.currency}{Number(course.price).toFixed(2)}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-center text-muted-foreground">{course._count.modules}</td>
+                  <td className="px-4 py-3 text-center text-muted-foreground">{course._count.enrollments}</td>
+                  <td className="px-4 py-3">
+                    <CourseActions courseId={course.id} status={course.status} title={course.title} />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

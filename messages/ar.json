@@ -54,7 +54,11 @@
     "pages": "الصفحات",
     "settings": "الإعدادات",
     "notifications": "الإشعارات",
-    "becomeTutor": "كن معلمًا"
+    "becomeTutor": "كن معلمًا",
+    "tutors": "المعلمون",
+    "roles": "الأدوار",
+    "logout": "تسجيل الخروج",
+    "search": "بحث"
   },
   "home": {
     "heroTitle": "حيث يصبح الفضول ثقة",
