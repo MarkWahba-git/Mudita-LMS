@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap } from "lucide-react";
@@ -9,7 +10,7 @@ export const metadata = { title: "Tutor Verification | Admin | Mudita LMS" };
 
 export default async function AdminTutorsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   let tutors: Awaited<ReturnType<typeof db.tutorProfile.findMany<{
     include: { user: { select: { name: true; email: true } } };

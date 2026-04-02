@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +17,7 @@ const statusColors: Record<string, "default" | "secondary" | "destructive"> = {
 
 export default async function AdminProductsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   let products: Awaited<ReturnType<typeof db.product.findMany>> = [];
   try {

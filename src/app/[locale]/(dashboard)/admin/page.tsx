@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { Users, BookOpen, GraduationCap, Calendar, Package, ShieldCheck } from "lucide-react";
@@ -9,7 +10,7 @@ export const metadata = { title: "Admin Dashboard | Mudita LMS" };
 export default async function AdminDashboardPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  if (session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!isAdminRole(session.user.role)) redirect("/dashboard");
 
   const [userCount, courseCount, enrollmentCount, bookingCount, productCount, pendingTutorCount] = await Promise.all([
     db.user.count().catch(() => 0),

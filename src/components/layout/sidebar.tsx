@@ -22,6 +22,8 @@ import {
   Rocket,
   LogOut,
   X,
+  ShieldCheck,
+  Lock,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -38,6 +40,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Trophy,
   FileText,
   Settings,
+  ShieldCheck,
+  Lock,
 };
 
 interface SidebarProps {

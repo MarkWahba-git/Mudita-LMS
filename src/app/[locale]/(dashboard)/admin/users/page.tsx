@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { DataTable } from "@/components/shared/data-table";
 
@@ -8,7 +9,7 @@ export const metadata = { title: "Manage Users | Admin" };
 export default async function AdminUsersPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  if (session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!isAdminRole(session.user.role)) redirect("/dashboard");
 
   const users = await db.user.findMany({
     select: {

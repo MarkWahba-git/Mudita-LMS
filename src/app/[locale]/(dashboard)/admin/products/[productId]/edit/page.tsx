@@ -1,5 +1,6 @@
 import { redirect, notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import ProductForm from "../../product-form";
 
@@ -7,7 +8,7 @@ export const metadata = { title: "Edit Product | Admin | Mudita LMS" };
 
 export default async function EditProductPage({ params }: { params: Promise<{ productId: string }> }) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   const { productId } = await params;
   const product = await db.product.findUnique({ where: { id: productId } });

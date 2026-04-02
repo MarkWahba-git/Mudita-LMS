@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { DataTable } from "@/components/shared/data-table";
 import { Link } from "@/i18n/navigation";
@@ -9,7 +10,7 @@ export const metadata = { title: "Manage Courses | Admin" };
 export default async function AdminCoursesPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  if (session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!isAdminRole(session.user.role)) redirect("/dashboard");
 
   const courses = await db.course.findMany({
     select: {

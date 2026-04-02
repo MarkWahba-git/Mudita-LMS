@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { getPages } from "@/services/page.service";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -11,7 +12,7 @@ export const metadata = { title: "CMS Pages | Admin | Mudita LMS" };
 
 export default async function AdminPagesPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   const pages = await getPages(true);
 

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +10,7 @@ export const metadata = { title: "Competitions | Admin | Mudita LMS" };
 
 export default async function AdminCompetitionsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   let competitions: Array<{ id: string; title: string; status: string; startDate: Date | null; endDate: Date | null; maxParticipants: number | null }> = [];
   try {

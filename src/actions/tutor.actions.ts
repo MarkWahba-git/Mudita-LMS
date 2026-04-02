@@ -4,13 +4,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getTutorByUserId, updateTutorAvailability } from "@/services/tutor.service";
 import { revalidatePath } from "next/cache";
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user?.id) throw new Error("Not authenticated");
-  if (session.user.role !== "ADMIN") throw new Error("Forbidden");
-  return session;
-}
+import { requireAdmin } from "@/lib/auth-helpers";
 
 export async function submitTutorApplication(data: {
   bio: string;

@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
@@ -10,7 +11,7 @@ export default async function EditCoursePage({
   params: Promise<{ courseId: string; locale: string }>;
 }) {
   const session = await auth();
-  if (!session?.user?.id || session.user.role !== "ADMIN") {
+  if (!session?.user?.id || !isAdminRole(session.user.role)) {
     redirect("/");
   }
 

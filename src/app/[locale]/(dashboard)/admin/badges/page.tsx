@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { BadgeDisplay } from "@/components/gamification/badge-display";
 import { createBadge } from "@/actions/admin.actions";
@@ -9,7 +10,7 @@ export const metadata = { title: "Manage Badges | Admin" };
 export default async function AdminBadgesPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  if (session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!isAdminRole(session.user.role)) redirect("/dashboard");
 
   const badges = await db.badge.findMany({ orderBy: { name: "asc" } }).catch(() => []);
 

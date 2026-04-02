@@ -1,5 +1,6 @@
 import { redirect, notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { getPageById } from "@/services/page.service";
 import { PageForm } from "../../page-form";
 
@@ -11,7 +12,7 @@ export default async function EditPagePage({
   params: Promise<{ pageId: string }>;
 }) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   const { pageId } = await params;
   const page = await getPageById(pageId);

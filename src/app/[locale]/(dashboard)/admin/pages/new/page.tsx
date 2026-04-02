@@ -1,12 +1,13 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { isAdminRole } from "@/lib/auth-helpers";
 import { PageForm } from "../page-form";
 
 export const metadata = { title: "New Page | Admin | Mudita LMS" };
 
 export default async function NewPagePage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
+  if (!session?.user || !isAdminRole(session.user.role)) redirect("/dashboard");
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">

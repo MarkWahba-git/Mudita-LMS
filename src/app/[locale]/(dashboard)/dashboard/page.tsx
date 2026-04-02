@@ -11,6 +11,7 @@ const roleRedirectMap: Record<Role, string> = {
   PARENT: "/parent",
   TUTOR: "/tutor",
   ADMIN: "/admin",
+  SUPER_ADMIN: "/admin",
   B2B_PARTNER: "/admin",
 };
 

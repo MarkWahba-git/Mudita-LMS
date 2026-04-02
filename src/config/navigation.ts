@@ -7,7 +7,7 @@ export const publicNavItems = [
   { href: "/contact", labelKey: "nav.contact" },
 ] as const;
 
-export type Role = "STUDENT" | "PARENT" | "TUTOR" | "ADMIN" | "B2B_PARTNER";
+export type Role = "STUDENT" | "PARENT" | "TUTOR" | "ADMIN" | "SUPER_ADMIN" | "B2B_PARTNER";
 
 export const dashboardNavItems: Record<
   Role,
@@ -52,6 +52,20 @@ export const dashboardNavItems: Record<
     },
     { href: "/admin/badges", labelKey: "nav.badges", icon: "Award" },
     { href: "/admin/pages", labelKey: "nav.pages", icon: "FileText" },
+    { href: "/admin/tutors", labelKey: "nav.tutors", icon: "ShieldCheck" },
+    { href: "/admin/roles", labelKey: "nav.roles", icon: "Lock" },
+    { href: "/admin/settings", labelKey: "nav.settings", icon: "Settings" },
+  ],
+  SUPER_ADMIN: [
+    { href: "/admin", labelKey: "nav.dashboard", icon: "LayoutDashboard" },
+    { href: "/admin/users", labelKey: "nav.users", icon: "Users" },
+    { href: "/admin/courses", labelKey: "nav.courses", icon: "BookOpen" },
+    { href: "/admin/products", labelKey: "nav.products", icon: "Package" },
+    { href: "/admin/competitions", labelKey: "nav.competitions", icon: "Trophy" },
+    { href: "/admin/badges", labelKey: "nav.badges", icon: "Award" },
+    { href: "/admin/pages", labelKey: "nav.pages", icon: "FileText" },
+    { href: "/admin/tutors", labelKey: "nav.tutors", icon: "ShieldCheck" },
+    { href: "/admin/roles", labelKey: "nav.roles", icon: "Lock" },
     { href: "/admin/settings", labelKey: "nav.settings", icon: "Settings" },
   ],
   B2B_PARTNER: [
