@@ -66,7 +66,8 @@ export default function RegisterPage() {
       redirect: false,
     });
 
-    router.push("/dashboard");
+    // Redirect to verify email page
+    router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
   }
 
   return (

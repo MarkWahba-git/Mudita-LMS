@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { randomBytes } from "crypto";
+import { sendCertificateEmail } from "@/lib/email";
 
 export async function generateCertificate(userId: string, courseId: string) {
   try {
@@ -9,9 +10,24 @@ export async function generateCertificate(userId: string, courseId: string) {
     if (existing) return existing;
 
     const code = randomBytes(12).toString("hex").toUpperCase();
-    return await db.certificate.create({
+    const cert = await db.certificate.create({
       data: { userId, courseId, code, issuedAt: new Date() },
     });
+
+    // Send certificate email (non-blocking)
+    try {
+      const [user, course] = await Promise.all([
+        db.user.findUnique({ where: { id: userId }, select: { email: true, name: true } }),
+        db.course.findUnique({ where: { id: courseId }, select: { title: true } }),
+      ]);
+      if (user?.email && course) {
+        sendCertificateEmail(user.email, user.name || "Student", course.title, code).catch(() => null);
+      }
+    } catch {
+      // non-critical
+    }
+
+    return cert;
   } catch {
     return null;
   }
