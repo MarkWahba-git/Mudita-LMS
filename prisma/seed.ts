@@ -1413,7 +1413,153 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete — 25 courses, 75 modules, 225 lessons across 5 age groups");
+  // ── Super Admin User ───────────────────────────────────────────────────
+  await db.user.upsert({
+    where: { email: "superadmin@mudita.io" },
+    update: { role: "SUPER_ADMIN" },
+    create: { name: "Super Admin", email: "superadmin@mudita.io", passwordHash, role: "SUPER_ADMIN", isActive: true },
+  });
+
+  // ── Default Permissions ───────────────────────────────────────────────
+  const defaultPermissions = [
+    { resource: "courses", action: "create", description: "Create courses" },
+    { resource: "courses", action: "read", description: "View courses" },
+    { resource: "courses", action: "update", description: "Edit courses" },
+    { resource: "courses", action: "delete", description: "Delete courses" },
+    { resource: "users", action: "create", description: "Create users" },
+    { resource: "users", action: "read", description: "View users" },
+    { resource: "users", action: "update", description: "Edit users" },
+    { resource: "users", action: "delete", description: "Delete users" },
+    { resource: "products", action: "create", description: "Create products" },
+    { resource: "products", action: "read", description: "View products" },
+    { resource: "products", action: "update", description: "Edit products" },
+    { resource: "products", action: "delete", description: "Delete products" },
+    { resource: "pages", action: "create", description: "Create CMS pages" },
+    { resource: "pages", action: "read", description: "View CMS pages" },
+    { resource: "pages", action: "update", description: "Edit CMS pages" },
+    { resource: "pages", action: "delete", description: "Delete CMS pages" },
+    { resource: "tutors", action: "read", description: "View tutor profiles" },
+    { resource: "tutors", action: "manage", description: "Approve/reject tutors" },
+    { resource: "bookings", action: "read", description: "View bookings" },
+    { resource: "bookings", action: "manage", description: "Manage bookings" },
+    { resource: "badges", action: "create", description: "Create badges" },
+    { resource: "badges", action: "read", description: "View badges" },
+    { resource: "badges", action: "update", description: "Edit badges" },
+    { resource: "badges", action: "delete", description: "Delete badges" },
+    { resource: "competitions", action: "create", description: "Create competitions" },
+    { resource: "competitions", action: "read", description: "View competitions" },
+    { resource: "competitions", action: "update", description: "Edit competitions" },
+    { resource: "competitions", action: "delete", description: "Delete competitions" },
+    { resource: "settings", action: "read", description: "View system settings" },
+    { resource: "settings", action: "manage", description: "Manage system settings" },
+    { resource: "roles", action: "read", description: "View roles and permissions" },
+    { resource: "roles", action: "manage", description: "Manage roles and permissions" },
+    { resource: "enrollments", action: "read", description: "View enrollments" },
+    { resource: "enrollments", action: "manage", description: "Manage enrollments" },
+    { resource: "notifications", action: "create", description: "Send notifications" },
+    { resource: "notifications", action: "read", description: "View notifications" },
+  ];
+
+  const permissionRecords = [];
+  for (const p of defaultPermissions) {
+    const perm = await db.permission.upsert({
+      where: { resource_action: { resource: p.resource, action: p.action } },
+      update: { description: p.description },
+      create: { name: `${p.resource}.${p.action}`, description: p.description, resource: p.resource, action: p.action },
+    });
+    permissionRecords.push(perm);
+  }
+
+  // ── Role-Permission Mappings ──────────────────────────────────────────
+  // SUPER_ADMIN gets all permissions
+  for (const perm of permissionRecords) {
+    await db.rolePermission.upsert({
+      where: { role_permissionId: { role: "SUPER_ADMIN", permissionId: perm.id } },
+      update: {},
+      create: { role: "SUPER_ADMIN", permissionId: perm.id },
+    });
+  }
+
+  // ADMIN gets most permissions (except roles.manage and settings.manage)
+  const adminPerms = permissionRecords.filter(
+    (p) => !(p.resource === "roles" && p.action === "manage") && !(p.resource === "settings" && p.action === "manage")
+  );
+  for (const perm of adminPerms) {
+    await db.rolePermission.upsert({
+      where: { role_permissionId: { role: "ADMIN", permissionId: perm.id } },
+      update: {},
+      create: { role: "ADMIN", permissionId: perm.id },
+    });
+  }
+
+  // TUTOR gets limited read permissions
+  const tutorPermNames = ["courses.read", "bookings.read", "bookings.manage", "notifications.read"];
+  for (const name of tutorPermNames) {
+    const perm = permissionRecords.find((p) => p.name === name);
+    if (perm) {
+      await db.rolePermission.upsert({
+        where: { role_permissionId: { role: "TUTOR", permissionId: perm.id } },
+        update: {},
+        create: { role: "TUTOR", permissionId: perm.id },
+      });
+    }
+  }
+
+  // STUDENT gets basic read permissions
+  const studentPermNames = ["courses.read", "badges.read", "competitions.read", "notifications.read"];
+  for (const name of studentPermNames) {
+    const perm = permissionRecords.find((p) => p.name === name);
+    if (perm) {
+      await db.rolePermission.upsert({
+        where: { role_permissionId: { role: "STUDENT", permissionId: perm.id } },
+        update: {},
+        create: { role: "STUDENT", permissionId: perm.id },
+      });
+    }
+  }
+
+  // PARENT gets read access to courses, enrollments, notifications
+  const parentPermNames = ["courses.read", "enrollments.read", "notifications.read"];
+  for (const name of parentPermNames) {
+    const perm = permissionRecords.find((p) => p.name === name);
+    if (perm) {
+      await db.rolePermission.upsert({
+        where: { role_permissionId: { role: "PARENT", permissionId: perm.id } },
+        update: {},
+        create: { role: "PARENT", permissionId: perm.id },
+      });
+    }
+  }
+
+  // ── Default System Settings ───────────────────────────────────────────
+  const defaultSettings = [
+    { key: "site.name", value: "Mudita LMS", type: "string", category: "general", label: "Site Name", description: "The name of the platform" },
+    { key: "site.tagline", value: "STEM Education for Every Child", type: "string", category: "general", label: "Tagline", description: "Platform tagline shown on homepage" },
+    { key: "site.supportEmail", value: "support@mudita.io", type: "string", category: "general", label: "Support Email", description: "Email address for support inquiries" },
+    { key: "site.defaultLocale", value: "en", type: "string", category: "general", label: "Default Locale", description: "Default language for the platform" },
+    { key: "site.maintenanceMode", value: "false", type: "boolean", category: "general", label: "Maintenance Mode", description: "Put the site in maintenance mode" },
+    { key: "email.fromName", value: "Mudita LMS", type: "string", category: "email", label: "From Name", description: "Sender name for outgoing emails" },
+    { key: "email.fromAddress", value: "noreply@mudita.io", type: "string", category: "email", label: "From Address", description: "Sender email for outgoing emails" },
+    { key: "email.smtpHost", value: "", type: "string", category: "email", label: "SMTP Host", description: "SMTP server hostname" },
+    { key: "email.smtpPort", value: "587", type: "number", category: "email", label: "SMTP Port", description: "SMTP server port" },
+    { key: "payments.currency", value: "USD", type: "string", category: "payments", label: "Currency", description: "Default payment currency" },
+    { key: "payments.taxRate", value: "0", type: "number", category: "payments", label: "Tax Rate (%)", description: "Tax rate applied to purchases" },
+    { key: "payments.stripeEnabled", value: "false", type: "boolean", category: "payments", label: "Stripe Enabled", description: "Enable Stripe payment processing" },
+    { key: "branding.primaryColor", value: "#6366f1", type: "string", category: "branding", label: "Primary Color", description: "Primary brand color (hex)" },
+    { key: "branding.logoUrl", value: "", type: "string", category: "branding", label: "Logo URL", description: "URL to the platform logo" },
+    { key: "notifications.emailEnabled", value: "true", type: "boolean", category: "notifications", label: "Email Notifications", description: "Send email notifications to users" },
+    { key: "notifications.pushEnabled", value: "false", type: "boolean", category: "notifications", label: "Push Notifications", description: "Enable push notifications" },
+  ];
+
+  for (const s of defaultSettings) {
+    await db.systemSetting.upsert({
+      where: { key: s.key },
+      update: {},
+      create: s,
+    });
+  }
+
+  console.log("✅ Seed complete — 25 courses, 75 modules, 225 lessons, 36 permissions, 16 settings");
 }
 
 main()
