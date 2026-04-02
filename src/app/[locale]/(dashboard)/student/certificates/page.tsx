@@ -46,12 +46,22 @@ export default async function StudentCertificatesPage() {
                     {cert.code}
                   </code>
                 </div>
-                <a
-                  href="#"
-                  className="inline-flex w-full items-center justify-center rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                >
-                  Download
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    href={`/api/certificates/${cert.code}/download`}
+                    target="_blank"
+                    className="inline-flex flex-1 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+                  >
+                    View &amp; Print
+                  </a>
+                  <a
+                    href={`/verify/${cert.code}`}
+                    target="_blank"
+                    className="inline-flex items-center justify-center rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    Verify
+                  </a>
+                </div>
               </CardContent>
             </Card>
           ))}
