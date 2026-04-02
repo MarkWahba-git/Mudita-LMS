@@ -12,6 +12,9 @@ interface CourseGridProps {
     duration: number | null;
     lessonCount: number;
     enrollmentCount: number;
+    isFree?: boolean;
+    price?: unknown;
+    currency?: string;
   }>;
 }
 

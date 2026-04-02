@@ -5,6 +5,7 @@ import { getCourseBySlug } from "@/services/course.service";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { Badge } from "@/components/ui/badge";
+import { EnrollButton } from "@/components/course/enroll-button";
 import {
   BookOpen,
   Clock,
@@ -79,6 +80,25 @@ export default async function CourseDetailPage({
     (acc, mod) => acc + mod.lessons.length,
     0
   );
+
+  // Check enrollment status for logged-in users
+  let enrollmentStatus: "ACTIVE" | "COMPLETED" | null = null;
+  if (session?.user) {
+    try {
+      const enrollment = await db.enrollment.findUnique({
+        where: { userId_courseId: { userId: session.user.id, courseId: course.id } },
+        select: { status: true },
+      });
+      if (enrollment) {
+        enrollmentStatus = enrollment.status as "ACTIVE" | "COMPLETED";
+      }
+    } catch {
+      // graceful degradation
+    }
+  }
+
+  const allLessons = course.modules.flatMap((m) => m.lessons);
+  const firstLessonId = allLessons[0]?.id;
 
   return (
     <div className="py-12">
@@ -161,21 +181,22 @@ export default async function CourseDetailPage({
 
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold">
-                  {course.isFree
+                  {course.isFree || !course.price || Number(course.price) === 0
                     ? "Free"
-                    : course.price
-                      ? `$${course.price}`
-                      : "Free"}
+                    : `${course.currency} ${Number(course.price).toFixed(2)}`}
                 </span>
               </div>
 
               {session?.user ? (
-                <Link
-                  href="/student/courses"
-                  className="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
-                >
-                  Enroll Now
-                </Link>
+                <EnrollButton
+                  courseId={course.id}
+                  courseSlug={course.slug}
+                  firstLessonId={firstLessonId}
+                  isFree={course.isFree || !course.price || Number(course.price) === 0}
+                  price={course.price ? String(course.price) : undefined}
+                  currency={course.currency}
+                  enrollmentStatus={enrollmentStatus}
+                />
               ) : (
                 <Link
                   href="/register"
