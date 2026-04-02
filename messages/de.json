@@ -58,7 +58,9 @@
     "tutors": "Tutoren",
     "roles": "Rollen",
     "logout": "Abmelden",
-    "search": "Suchen"
+    "search": "Suchen",
+    "login": "Anmelden",
+    "register": "Registrieren"
   },
   "home": {
     "heroTitle": "Wo Neugier zu Selbstvertrauen wird",
