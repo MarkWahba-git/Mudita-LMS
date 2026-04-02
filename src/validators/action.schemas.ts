@@ -145,6 +145,14 @@ export const cancelBookingSchema = z.object({ bookingId: cuidSchema });
 // ── Enrollment ──────────────────────────────────────────────────────────
 
 export const enrollInCourseSchema = z.object({ courseId: cuidSchema });
+export const adminEnrollSchema = z.object({
+  userId: cuidSchema,
+  courseId: cuidSchema,
+});
+export const adminUnenrollSchema = z.object({
+  userId: cuidSchema,
+  courseId: cuidSchema,
+});
 export const markLessonDoneSchema = z.object({
   lessonId: cuidSchema,
   courseId: cuidSchema,
