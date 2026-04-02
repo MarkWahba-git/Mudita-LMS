@@ -3,11 +3,22 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth-helpers";
+import {
+  updateUserRoleSchema,
+  toggleUserActiveSchema,
+  createCourseSchema,
+  updateCourseSchema,
+  deleteCourseSchema,
+  createBadgeSchema,
+} from "@/validators/action.schemas";
 
 export async function updateUserRole(userId: string, role: string) {
   try {
     await requireAdmin();
-    await db.user.update({ where: { id: userId }, data: { role: role as never } });
+    const parsed = updateUserRoleSchema.safeParse({ userId, role });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.user.update({ where: { id: parsed.data.userId }, data: { role: parsed.data.role as never } });
     revalidatePath("/admin/users");
     return { success: true };
   } catch (error) {
@@ -19,9 +30,12 @@ export async function updateUserRole(userId: string, role: string) {
 export async function toggleUserActive(userId: string) {
   try {
     await requireAdmin();
-    const user = await db.user.findUnique({ where: { id: userId }, select: { isActive: true } });
+    const parsed = toggleUserActiveSchema.safeParse({ userId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const user = await db.user.findUnique({ where: { id: parsed.data.userId }, select: { isActive: true } });
     if (!user) return { success: false, error: "User not found" };
-    await db.user.update({ where: { id: userId }, data: { isActive: !user.isActive } });
+    await db.user.update({ where: { id: parsed.data.userId }, data: { isActive: !user.isActive } });
     revalidatePath("/admin/users");
     return { success: true };
   } catch (error) {
@@ -41,20 +55,23 @@ export async function createCourse(data: {
 }) {
   try {
     const session = await requireAdmin();
-    const slug = data.title
+    const parsed = createCourseSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = parsed.data.title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
     await db.course.create({
       data: {
-        title: data.title,
-        description: data.description,
-        ageGroup: data.ageGroup as never,
-        level: data.level as never,
-        category: data.category,
-        isFree: data.isFree,
-        price: data.price,
+        title: parsed.data.title,
+        description: parsed.data.description,
+        ageGroup: parsed.data.ageGroup as never,
+        level: parsed.data.level as never,
+        category: parsed.data.category,
+        isFree: parsed.data.isFree,
+        price: parsed.data.price,
         slug,
         createdById: session.user.id,
       },
@@ -83,7 +100,10 @@ export async function updateCourse(
 ) {
   try {
     await requireAdmin();
-    await db.course.update({ where: { id: courseId }, data: data as never });
+    const parsed = updateCourseSchema.safeParse({ courseId, data });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.course.update({ where: { id: parsed.data.courseId }, data: parsed.data.data as never });
     revalidatePath("/admin/courses");
     return { success: true };
   } catch (error) {
@@ -95,7 +115,10 @@ export async function updateCourse(
 export async function deleteCourse(courseId: string) {
   try {
     await requireAdmin();
-    await db.course.delete({ where: { id: courseId } });
+    const parsed = deleteCourseSchema.safeParse({ courseId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.course.delete({ where: { id: parsed.data.courseId } });
     revalidatePath("/admin/courses");
     return { success: true };
   } catch (error) {
@@ -113,7 +136,10 @@ export async function createBadge(data: {
 }) {
   try {
     await requireAdmin();
-    const slug = data.name
+    const parsed = createBadgeSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = parsed.data.name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
@@ -121,11 +147,11 @@ export async function createBadge(data: {
     await db.badge.create({
       data: {
         slug,
-        name: data.name,
-        description: data.description,
-        icon: data.icon,
-        criteria: data.criteria as never,
-        points: data.points ?? 0,
+        name: parsed.data.name,
+        description: parsed.data.description,
+        icon: parsed.data.icon,
+        criteria: parsed.data.criteria as never,
+        points: parsed.data.points ?? 0,
       },
     });
 

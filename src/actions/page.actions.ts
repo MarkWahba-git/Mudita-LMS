@@ -3,6 +3,12 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth-helpers";
+import {
+  createPageSchema,
+  updatePageSchema,
+  deletePageSchema,
+  togglePagePublishSchema,
+} from "@/validators/action.schemas";
 
 function slugify(text: string) {
   return text
@@ -23,7 +29,10 @@ export async function createPage(data: {
 }) {
   try {
     await requireAdmin();
-    const slug = data.slug?.trim() || slugify(data.title);
+    const parsed = createPageSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = parsed.data.slug?.trim() || slugify(parsed.data.title);
 
     const existing = await db.page.findUnique({ where: { slug } });
     if (existing) {
@@ -32,14 +41,14 @@ export async function createPage(data: {
 
     const page = await db.page.create({
       data: {
-        title: data.title,
-        titleAr: data.titleAr || null,
-        titleDe: data.titleDe || null,
+        title: parsed.data.title,
+        titleAr: parsed.data.titleAr || null,
+        titleDe: parsed.data.titleDe || null,
         slug,
-        content: data.content,
-        contentAr: data.contentAr || null,
-        contentDe: data.contentDe || null,
-        isPublished: data.isPublished,
+        content: parsed.data.content,
+        contentAr: parsed.data.contentAr || null,
+        contentDe: parsed.data.contentDe || null,
+        isPublished: parsed.data.isPublished,
       },
     });
 
@@ -66,24 +75,27 @@ export async function updatePage(
 ) {
   try {
     await requireAdmin();
-    const slug = data.slug?.trim() || slugify(data.title);
+    const parsed = updatePageSchema.safeParse({ pageId, data });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = parsed.data.data.slug?.trim() || slugify(parsed.data.data.title);
 
     const existing = await db.page.findUnique({ where: { slug } });
-    if (existing && existing.id !== pageId) {
+    if (existing && existing.id !== parsed.data.pageId) {
       return { success: false, error: "A page with this slug already exists" };
     }
 
     await db.page.update({
-      where: { id: pageId },
+      where: { id: parsed.data.pageId },
       data: {
-        title: data.title,
-        titleAr: data.titleAr || null,
-        titleDe: data.titleDe || null,
+        title: parsed.data.data.title,
+        titleAr: parsed.data.data.titleAr || null,
+        titleDe: parsed.data.data.titleDe || null,
         slug,
-        content: data.content,
-        contentAr: data.contentAr || null,
-        contentDe: data.contentDe || null,
-        isPublished: data.isPublished,
+        content: parsed.data.data.content,
+        contentAr: parsed.data.data.contentAr || null,
+        contentDe: parsed.data.data.contentDe || null,
+        isPublished: parsed.data.data.isPublished,
       },
     });
 
@@ -99,7 +111,10 @@ export async function updatePage(
 export async function deletePage(pageId: string) {
   try {
     await requireAdmin();
-    await db.page.delete({ where: { id: pageId } });
+    const parsed = deletePageSchema.safeParse({ pageId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.page.delete({ where: { id: parsed.data.pageId } });
     revalidatePath("/admin/pages");
     return { success: true };
   } catch (error) {
@@ -111,14 +126,17 @@ export async function deletePage(pageId: string) {
 export async function togglePagePublish(pageId: string) {
   try {
     await requireAdmin();
+    const parsed = togglePagePublishSchema.safeParse({ pageId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     const page = await db.page.findUnique({
-      where: { id: pageId },
+      where: { id: parsed.data.pageId },
       select: { isPublished: true, slug: true },
     });
     if (!page) return { success: false, error: "Page not found" };
 
     await db.page.update({
-      where: { id: pageId },
+      where: { id: parsed.data.pageId },
       data: { isPublished: !page.isPublished },
     });
 

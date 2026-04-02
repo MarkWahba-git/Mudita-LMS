@@ -6,6 +6,7 @@ import {
   markLessonComplete,
   recalculateProgress,
 } from "@/services/progress.service";
+import { enrollInCourseSchema, markLessonDoneSchema } from "@/validators/action.schemas";
 
 export async function enrollInCourse(courseId: string) {
   try {
@@ -14,7 +15,10 @@ export async function enrollInCourse(courseId: string) {
       return { success: false, error: "Not authenticated" };
     }
 
-    const enrollment = await enrollUser(session.user.id, courseId);
+    const parsed = enrollInCourseSchema.safeParse({ courseId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const enrollment = await enrollUser(session.user.id, parsed.data.courseId);
     if (!enrollment) {
       return { success: false, error: "Failed to enroll" };
     }
@@ -33,14 +37,17 @@ export async function markLessonDone(lessonId: string, courseId: string) {
       return { success: false, error: "Not authenticated" };
     }
 
-    const progress = await markLessonComplete(session.user.id, lessonId);
+    const parsed = markLessonDoneSchema.safeParse({ lessonId, courseId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const progress = await markLessonComplete(session.user.id, parsed.data.lessonId);
     if (!progress) {
       return { success: false, error: "Failed to mark lesson complete" };
     }
 
     const updatedProgress = await recalculateProgress(
       session.user.id,
-      courseId
+      parsed.data.courseId
     );
 
     return { success: true, data: { progress: updatedProgress } };

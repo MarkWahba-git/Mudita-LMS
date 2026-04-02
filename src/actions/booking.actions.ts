@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { createBooking as createBookingService, cancelBooking as cancelBookingService } from "@/services/booking.service";
+import { createBookingSchema, cancelBookingSchema } from "@/validators/action.schemas";
 
 export async function createBooking(data: {
   tutorId: string;
@@ -14,9 +15,12 @@ export async function createBooking(data: {
   const session = await auth();
   if (!session?.user) return { error: "Unauthorized" };
 
+  const parsed = createBookingSchema.safeParse(data);
+  if (!parsed.success) return { error: parsed.error.issues[0].message };
+
   const result = await createBookingService({
     studentId: session.user.id,
-    ...data,
+    ...parsed.data,
   });
 
   if (!result) return { error: "Failed to create booking" };
@@ -27,7 +31,10 @@ export async function cancelBooking(bookingId: string) {
   const session = await auth();
   if (!session?.user) return { error: "Unauthorized" };
 
-  const result = await cancelBookingService(bookingId);
+  const parsed = cancelBookingSchema.safeParse({ bookingId });
+  if (!parsed.success) return { error: parsed.error.issues[0].message };
+
+  const result = await cancelBookingService(parsed.data.bookingId);
   if (!result) return { error: "Failed to cancel booking" };
   return { success: true };
 }

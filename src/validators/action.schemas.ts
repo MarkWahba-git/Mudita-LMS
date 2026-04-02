@@ -1,0 +1,226 @@
+import { z } from "zod";
+
+// ── Shared ──────────────────────────────────────────────────────────────
+
+export const cuidSchema = z.string().min(1, "ID is required");
+
+// ── Admin: Users ────────────────────────────────────────────────────────
+
+export const updateUserRoleSchema = z.object({
+  userId: cuidSchema,
+  role: z.enum(["STUDENT", "PARENT", "TUTOR", "ADMIN", "SUPER_ADMIN", "B2B_PARTNER"]),
+});
+
+export const toggleUserActiveSchema = z.object({
+  userId: cuidSchema,
+});
+
+// ── Admin: Courses ──────────────────────────────────────────────────────
+
+export const createCourseSchema = z.object({
+  title: z.string().min(1, "Title is required").max(200),
+  description: z.string().min(1, "Description is required"),
+  ageGroup: z.enum(["AGES_3_5", "AGES_6_8", "AGES_9_12", "AGES_13_15", "AGES_16_18"]),
+  level: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]),
+  category: z.string().min(1, "Category is required"),
+  isFree: z.boolean(),
+  price: z.number().min(0, "Price must be non-negative"),
+});
+
+export const updateCourseSchema = z.object({
+  courseId: cuidSchema,
+  data: z.object({
+    title: z.string().min(1).max(200).optional(),
+    description: z.string().min(1).optional(),
+    ageGroup: z.enum(["AGES_3_5", "AGES_6_8", "AGES_9_12", "AGES_13_15", "AGES_16_18"]).optional(),
+    level: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]).optional(),
+    category: z.string().min(1).optional(),
+    isFree: z.boolean().optional(),
+    price: z.number().min(0).optional(),
+    status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional(),
+  }),
+});
+
+export const deleteCourseSchema = z.object({ courseId: cuidSchema });
+
+// ── Admin: Badges ───────────────────────────────────────────────────────
+
+export const createBadgeSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100),
+  description: z.string().min(1, "Description is required"),
+  icon: z.string().min(1, "Icon is required"),
+  criteria: z.record(z.string(), z.unknown()),
+  points: z.number().min(0).optional(),
+});
+
+// ── Pages ───────────────────────────────────────────────────────────────
+
+export const createPageSchema = z.object({
+  title: z.string().min(1, "Title is required").max(200),
+  titleAr: z.string().optional(),
+  titleDe: z.string().optional(),
+  slug: z.string().optional(),
+  content: z.string().min(1, "Content is required"),
+  contentAr: z.string().optional(),
+  contentDe: z.string().optional(),
+  isPublished: z.boolean(),
+});
+
+export const updatePageSchema = z.object({
+  pageId: cuidSchema,
+  data: createPageSchema,
+});
+
+export const deletePageSchema = z.object({ pageId: cuidSchema });
+export const togglePagePublishSchema = z.object({ pageId: cuidSchema });
+
+// ── Products ────────────────────────────────────────────────────────────
+
+export const createProductSchema = z.object({
+  name: z.string().min(1, "Name is required").max(200),
+  nameAr: z.string().optional(),
+  nameDe: z.string().optional(),
+  slug: z.string().optional(),
+  description: z.string().min(1, "Description is required"),
+  descriptionAr: z.string().optional(),
+  descriptionDe: z.string().optional(),
+  price: z.number().min(0, "Price must be non-negative"),
+  ageGroup: z.enum(["AGES_3_5", "AGES_6_8", "AGES_9_12", "AGES_13_15", "AGES_16_18"]),
+  category: z.string().min(1, "Category is required"),
+  stock: z.number().int().min(0, "Stock must be non-negative"),
+  status: z.enum(["ACTIVE", "OUT_OF_STOCK", "DISCONTINUED"]),
+});
+
+export const updateProductSchema = z.object({
+  productId: cuidSchema,
+  data: createProductSchema,
+});
+
+export const deleteProductSchema = z.object({ productId: cuidSchema });
+
+// ── Tutor ───────────────────────────────────────────────────────────────
+
+export const submitTutorApplicationSchema = z.object({
+  bio: z.string().min(10, "Bio must be at least 10 characters"),
+  hourlyRate: z.number().min(1, "Hourly rate must be at least 1"),
+  subjects: z.array(z.string().min(1)).min(1, "At least one subject is required"),
+  languages: z.array(z.string().min(1)).min(1, "At least one language is required"),
+  headline: z.string().max(200).optional(),
+});
+
+export const updateTutorProfileSchema = z.object({
+  bio: z.string().min(10).optional(),
+  hourlyRate: z.number().min(1).optional(),
+  subjects: z.array(z.string().min(1)).min(1).optional(),
+  languages: z.array(z.string().min(1)).min(1).optional(),
+  headline: z.string().max(200).optional(),
+});
+
+export const setAvailabilitySchema = z.object({
+  slots: z.array(
+    z.object({
+      dayOfWeek: z.number().int().min(0).max(6),
+      startTime: z.string().regex(/^\d{2}:\d{2}$/, "Must be HH:MM format"),
+      endTime: z.string().regex(/^\d{2}:\d{2}$/, "Must be HH:MM format"),
+      timezone: z.string().min(1, "Timezone is required"),
+    })
+  ),
+});
+
+export const tutorIdSchema = z.object({ tutorProfileId: cuidSchema });
+
+// ── Bookings ────────────────────────────────────────────────────────────
+
+export const createBookingSchema = z.object({
+  tutorId: cuidSchema,
+  subject: z.string().min(1, "Subject is required"),
+  startTime: z.coerce.date(),
+  endTime: z.coerce.date(),
+  notes: z.string().optional(),
+  price: z.number().min(0),
+});
+
+export const cancelBookingSchema = z.object({ bookingId: cuidSchema });
+
+// ── Enrollment ──────────────────────────────────────────────────────────
+
+export const enrollInCourseSchema = z.object({ courseId: cuidSchema });
+export const markLessonDoneSchema = z.object({
+  lessonId: cuidSchema,
+  courseId: cuidSchema,
+});
+
+// ── Quiz ────────────────────────────────────────────────────────────────
+
+export const submitQuizAttemptSchema = z.object({
+  quizId: cuidSchema,
+  answers: z.record(z.string(), z.string()),
+});
+
+// ── Notifications ───────────────────────────────────────────────────────
+
+export const markNotificationReadSchema = z.object({ id: cuidSchema });
+
+// ── Competition ─────────────────────────────────────────────────────────
+
+export const registerForCompetitionSchema = z.object({ competitionId: cuidSchema });
+
+// ── Parent ──────────────────────────────────────────────────────────────
+
+export const addChildAccountSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export const removeChildSchema = z.object({ childId: cuidSchema });
+
+// ── Roles & Permissions ─────────────────────────────────────────────────
+
+const roleEnum = z.enum(["STUDENT", "PARENT", "TUTOR", "ADMIN", "SUPER_ADMIN", "B2B_PARTNER"]);
+
+export const createPermissionSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  resource: z.string().min(1, "Resource is required"),
+  action: z.string().min(1, "Action is required"),
+});
+
+export const deletePermissionSchema = z.object({ permissionId: cuidSchema });
+
+export const assignPermissionSchema = z.object({
+  role: roleEnum,
+  permissionId: cuidSchema,
+});
+
+export const revokePermissionSchema = z.object({
+  role: roleEnum,
+  permissionId: cuidSchema,
+});
+
+export const bulkUpdateRolePermissionsSchema = z.object({
+  role: roleEnum,
+  permissionIds: z.array(cuidSchema),
+});
+
+// ── Settings ────────────────────────────────────────────────────────────
+
+export const updateSettingSchema = z.object({
+  key: z.string().min(1, "Key is required"),
+  value: z.string(),
+});
+
+export const bulkUpdateSettingsSchema = z.object({
+  updates: z.array(z.object({ key: z.string().min(1), value: z.string() })),
+});
+
+export const createSettingSchema = z.object({
+  key: z.string().min(1, "Key is required"),
+  value: z.string(),
+  type: z.enum(["string", "number", "boolean", "json"]),
+  category: z.string().min(1, "Category is required"),
+  label: z.string().min(1, "Label is required"),
+  description: z.string().optional(),
+});
+
+export const deleteSettingSchema = z.object({ key: z.string().min(1) });

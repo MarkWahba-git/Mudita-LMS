@@ -2,11 +2,16 @@
 
 import { auth } from "@/lib/auth";
 import { markAsRead, markAllAsRead } from "@/services/notification.service";
+import { markNotificationReadSchema } from "@/validators/action.schemas";
 
 export async function markNotificationRead(id: string) {
   const session = await auth();
   if (!session?.user) return { error: "Unauthorized" };
-  await markAsRead(id);
+
+  const parsed = markNotificationReadSchema.safeParse({ id });
+  if (!parsed.success) return { error: parsed.error.issues[0].message };
+
+  await markAsRead(parsed.data.id);
   return { success: true };
 }
 
