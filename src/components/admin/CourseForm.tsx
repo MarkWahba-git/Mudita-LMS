@@ -63,7 +63,7 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
       level: fd.get("level") as string,
       category: fd.get("category") as string,
       isFree: isFree,
-      price: isFree ? 0 : parseFloat(fd.get("price") as string) || 0,
+      price: isFree ? 0 : Math.max(0, Number(fd.get("price")) || 0),
     };
 
     let result: { success: boolean; error?: string };

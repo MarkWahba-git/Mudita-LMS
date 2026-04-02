@@ -11,10 +11,15 @@ export default async function AdminTutorsPage() {
   const session = await auth();
   if (!session?.user || session.user.role !== "ADMIN") redirect("/dashboard");
 
-  const tutors = await db.tutorProfile.findMany({
-    include: { user: { select: { name: true, email: true } } },
-    orderBy: { isVerified: "asc" },
-  });
+  let tutors: Awaited<ReturnType<typeof db.tutorProfile.findMany<{
+    include: { user: { select: { name: true; email: true } } };
+  }>>> = [];
+  try {
+    tutors = await db.tutorProfile.findMany({
+      include: { user: { select: { name: true, email: true } } },
+      orderBy: { isVerified: "asc" },
+    });
+  } catch { /* db error */ }
 
   const pending = tutors.filter((t) => !t.isVerified);
   const verified = tutors.filter((t) => t.isVerified);

@@ -5,6 +5,8 @@ import { getLessonProgress } from "@/services/progress.service";
 import { LessonSidebar } from "@/components/course/lesson-sidebar";
 import { VideoPlayer } from "@/components/course/video-player";
 import { MarkCompleteButton } from "@/components/course/mark-complete-button";
+import { sanitize } from "@/lib/sanitize";
+import { db } from "@/lib/db";
 
 interface LessonPageProps {
   params: Promise<{ courseSlug: string; lessonId: string; locale: string }>;
@@ -17,6 +19,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   const course = await getCourseBySlug(courseSlug);
   if (!course) notFound();
+
+  // Verify user is enrolled (or course is free)
+  if (!course.isFree) {
+    const enrollment = await db.enrollment.findUnique({
+      where: { userId_courseId: { userId: session.user.id, courseId: course.id } },
+    });
+    if (!enrollment) redirect(`/courses/${courseSlug}`);
+  }
 
   const allLessons = course.modules.flatMap((m) => m.lessons);
   const lesson = allLessons.find((l) => l.id === lessonId);
@@ -51,7 +61,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <div className="mt-6 rounded-xl border bg-white p-6">
             <div
               className="prose prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: lesson.content }}
+              dangerouslySetInnerHTML={{ __html: sanitize(lesson.content) }}
             />
           </div>
         )}

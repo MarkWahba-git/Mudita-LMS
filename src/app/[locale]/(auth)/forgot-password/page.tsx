@@ -37,7 +37,8 @@ export default function ForgotPasswordPage() {
 
   async function onSubmit(_data: ForgotPasswordInput) {
     setLoading(true);
-    // Phase 2: Send actual password reset email via Resend
+    // TODO: Implement actual password reset email via Resend/SendGrid
+    // Always show success to prevent email enumeration attacks
     await new Promise((r) => setTimeout(r, 1000));
     setSent(true);
     setLoading(false);

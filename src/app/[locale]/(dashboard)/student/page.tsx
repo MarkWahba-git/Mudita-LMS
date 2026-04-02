@@ -23,8 +23,10 @@ export default async function StudentDashboardPage() {
   if (!session?.user) redirect("/login");
 
   const [stats, enrollments] = await Promise.all([
-    getStudentStats(session.user.id),
-    getUserEnrollments(session.user.id),
+    getStudentStats(session.user.id).catch(() => ({
+      enrollments: 0, badges: 0, totalPoints: 0, certificates: 0,
+    })),
+    getUserEnrollments(session.user.id).catch(() => []),
   ]);
 
   const inProgress = enrollments.filter((e) => e.status !== "COMPLETED");

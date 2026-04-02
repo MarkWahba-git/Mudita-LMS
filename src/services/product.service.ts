@@ -15,6 +15,24 @@ export async function getProducts(filters?: { ageGroup?: string; category?: stri
   }
 }
 
+export async function getAllProducts() {
+  try {
+    return await db.product.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getProductById(id: string) {
+  try {
+    return await db.product.findUnique({ where: { id } });
+  } catch {
+    return null;
+  }
+}
+
 export async function getProductBySlug(slug: string) {
   try {
     return await db.product.findUnique({ where: { slug } });

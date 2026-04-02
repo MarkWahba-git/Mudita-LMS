@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageBySlug } from "@/services/page.service";
 import { getLocalizedField } from "@/services/course.service";
+import { sanitize } from "@/lib/sanitize";
 
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
@@ -34,7 +35,7 @@ export default async function PublicPage({ params }: Props) {
       </h1>
       <div
         className="prose prose-lg mt-8 max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-primary"
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: sanitize(content) }}
       />
     </div>
   );
