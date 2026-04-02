@@ -5,12 +5,44 @@ import bcrypt from "bcryptjs";
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const db = new PrismaClient({ adapter });
 
+// Helper: create modules + lessons for a course (skips if modules already exist)
+async function seedCourseContent(
+  courseId: string,
+  modules: {
+    title: string;
+    order: number;
+    lessons: { title: string; order: number; isFree?: boolean; duration?: number; content?: string }[];
+  }[]
+) {
+  const existing = await db.module.findFirst({ where: { courseId } });
+  if (existing) return; // already seeded
+
+  for (const mod of modules) {
+    const createdMod = await db.module.create({
+      data: { courseId, title: mod.title, order: mod.order },
+    });
+    for (const lesson of mod.lessons) {
+      await db.lesson.create({
+        data: {
+          moduleId: createdMod.id,
+          title: lesson.title,
+          order: lesson.order,
+          isFree: lesson.isFree ?? false,
+          duration: lesson.duration ?? 1800,
+          content: lesson.content ?? `<p>${lesson.title}</p>`,
+          type: "VIDEO",
+        },
+      });
+    }
+  }
+}
+
 async function main() {
   console.log("🌱 Seeding database...");
 
   const passwordHash = await bcrypt.hash("password123", 10);
 
-  // --- Users ---
+  // ── Users ────────────────────────────────────────────────────────────────
   const admin = await db.user.upsert({
     where: { email: "admin@mudita.io" },
     update: {},
@@ -63,21 +95,256 @@ async function main() {
     },
   });
 
-  // Tutor availability (Mon-Fri 9am-5pm)
-  for (let day = 1; day <= 5; day++) {
-    await db.tutorAvailability.create({
-      data: { tutorId: tutorProfile.id, dayOfWeek: day, startTime: "09:00", endTime: "17:00", timezone: "UTC" },
-    });
+  // Tutor availability (Mon–Fri, only if not already set)
+  const availCount = await db.tutorAvailability.count({ where: { tutorId: tutorProfile.id } });
+  if (availCount === 0) {
+    for (let day = 1; day <= 5; day++) {
+      await db.tutorAvailability.create({
+        data: { tutorId: tutorProfile.id, dayOfWeek: day, startTime: "09:00", endTime: "17:00", timezone: "UTC" },
+      });
+    }
   }
 
-  // --- Courses ---
-  const course1 = await db.course.upsert({
-    where: { slug: "intro-coding-kids" },
+  // ── Ages 3–5 Courses ─────────────────────────────────────────────────────
+
+  const c1 = await db.course.upsert({
+    where: { slug: "wonder-lab-science-tiny-explorers" },
     update: {},
     create: {
-      title: "Introduction to Coding for Kids",
-      slug: "intro-coding-kids",
-      description: "A fun and interactive introduction to programming concepts for young learners aged 6-8.",
+      title: "Wonder Lab: Science for Tiny Explorers",
+      slug: "wonder-lab-science-tiny-explorers",
+      description: "Hands-on science experiments for curious minds aged 3–5.",
+      ageGroup: "AGES_3_5",
+      level: "BEGINNER",
+      category: "SCIENCE",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c1.id, [
+    {
+      title: "Water Wonders",
+      order: 1,
+      lessons: [
+        { title: "Does It Sink or Float?", order: 1, isFree: true, duration: 900 },
+        { title: "Mixing Colours with Water", order: 2, isFree: true, duration: 900 },
+        { title: "Bubbles Everywhere!", order: 3, isFree: true, duration: 900 },
+      ],
+    },
+    {
+      title: "Growing Things",
+      order: 2,
+      lessons: [
+        { title: "Seeds and Soil", order: 1, duration: 1200 },
+        { title: "What Do Plants Need?", order: 2, duration: 1200 },
+        { title: "Watch It Grow!", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Weather & Sky",
+      order: 3,
+      lessons: [
+        { title: "Light and Shadow", order: 1, duration: 900 },
+        { title: "Mixing Colours (Rainbow Science)", order: 2, duration: 900 },
+        { title: "Our Final Experiment", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  const c2 = await db.course.upsert({
+    where: { slug: "little-coders-unplugged" },
+    update: {},
+    create: {
+      title: "Little Coders Unplugged",
+      slug: "little-coders-unplugged",
+      description: "Learn coding logic through storytelling and games — no screen required.",
+      ageGroup: "AGES_3_5",
+      level: "BEGINNER",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 29,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c2.id, [
+    {
+      title: "Sequences & Stories",
+      order: 1,
+      lessons: [
+        { title: "The Robot Needs Instructions", order: 1, duration: 900 },
+        { title: "Story Sequences", order: 2, duration: 900 },
+        { title: "Order the Steps", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Loops & Patterns",
+      order: 2,
+      lessons: [
+        { title: "Patterns in Nature", order: 1, duration: 900 },
+        { title: "Do It Again!", order: 2, duration: 900 },
+        { title: "Loop Dance Party", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Debugging",
+      order: 3,
+      lessons: [
+        { title: "Something Went Wrong!", order: 1, duration: 900 },
+        { title: "Fix the Fairy Tale", order: 2, duration: 900 },
+        { title: "Be a Bug Finder", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  const c3 = await db.course.upsert({
+    where: { slug: "tiny-engineers" },
+    update: {},
+    create: {
+      title: "Tiny Engineers",
+      slug: "tiny-engineers",
+      description: "Build, test, and fix simple structures with everyday materials.",
+      ageGroup: "AGES_3_5",
+      level: "BEGINNER",
+      category: "ENGINEERING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 29,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c3.id, [
+    {
+      title: "Build It Up",
+      order: 1,
+      lessons: [
+        { title: "What Is Engineering?", order: 1, duration: 900 },
+        { title: "Tower Challenge", order: 2, duration: 1200 },
+        { title: "Test Your Tower", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Bridges & Ramps",
+      order: 2,
+      lessons: [
+        { title: "Paper Bridge Design", order: 1, duration: 1200 },
+        { title: "Make a Ramp", order: 2, duration: 1200 },
+        { title: "Roll It Down", order: 3, duration: 900 },
+      ],
+    },
+    {
+      title: "Design & Improve",
+      order: 3,
+      lessons: [
+        { title: "What Went Wrong?", order: 1, duration: 900 },
+        { title: "Make It Better", order: 2, duration: 1200 },
+        { title: "Share Your Invention", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  const c4 = await db.course.upsert({
+    where: { slug: "space-and-sky" },
+    update: {},
+    create: {
+      title: "Space & Sky",
+      slug: "space-and-sky",
+      description: "Discover planets, stars, and the moon through songs, stories, and crafts.",
+      ageGroup: "AGES_3_5",
+      level: "BEGINNER",
+      category: "SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 29,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c4.id, [
+    {
+      title: "The Solar System",
+      order: 1,
+      lessons: [
+        { title: "Meet the Planets", order: 1, duration: 900 },
+        { title: "The Sun Is a Star", order: 2, duration: 900 },
+        { title: "Planet Song & Craft", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "The Moon",
+      order: 2,
+      lessons: [
+        { title: "Moon Shapes", order: 1, duration: 900 },
+        { title: "Why Does the Moon Change?", order: 2, duration: 1200 },
+        { title: "Moon Phase Calendar", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Stars & Space Travel",
+      order: 3,
+      lessons: [
+        { title: "Stars at Night", order: 1, duration: 900 },
+        { title: "Astronauts & Rockets", order: 2, duration: 900 },
+        { title: "My Space Mission", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  const c5 = await db.course.upsert({
+    where: { slug: "creative-robot-stories" },
+    update: {},
+    create: {
+      title: "Creative Robot Stories",
+      slug: "creative-robot-stories",
+      description: "Meet friendly robots and learn how they think, move, and help us.",
+      ageGroup: "AGES_3_5",
+      level: "BEGINNER",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 29,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c5.id, [
+    {
+      title: "What Is a Robot?",
+      order: 1,
+      lessons: [
+        { title: "Robots Are Everywhere", order: 1, duration: 900 },
+        { title: "Robots Need Instructions", order: 2, duration: 900 },
+        { title: "Be a Robot", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Robots Learn",
+      order: 2,
+      lessons: [
+        { title: "Teaching Remy", order: 1, duration: 900 },
+        { title: "What Can Robots Sense?", order: 2, duration: 900 },
+        { title: "Robot Memory Game", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Design a Robot",
+      order: 3,
+      lessons: [
+        { title: "What Problem Will It Solve?", order: 1, duration: 900 },
+        { title: "Draw Your Robot", order: 2, duration: 1200 },
+        { title: "Share Your Robot Story", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  // ── Ages 6–8 Courses ─────────────────────────────────────────────────────
+
+  const c6 = await db.course.upsert({
+    where: { slug: "coding-adventures-blocks" },
+    update: {},
+    create: {
+      title: "Coding Adventures with Blocks",
+      slug: "coding-adventures-blocks",
+      description: "Learn real programming using Scratch blocks — no typing required.",
       ageGroup: "AGES_6_8",
       level: "BEGINNER",
       category: "CODING",
@@ -86,171 +353,990 @@ async function main() {
       createdById: admin.id,
     },
   });
+  await seedCourseContent(c6.id, [
+    {
+      title: "Meet Scratch",
+      order: 1,
+      lessons: [
+        { title: "What Is Scratch?", order: 1, isFree: true, duration: 1200 },
+        { title: "Your First Sprite", order: 2, isFree: true, duration: 1200 },
+        { title: "Make It Move", order: 3, isFree: true, duration: 1200 },
+      ],
+    },
+    {
+      title: "Stories & Animations",
+      order: 2,
+      lessons: [
+        { title: "Add a Background", order: 1, duration: 1200 },
+        { title: "Make Characters Talk", order: 2, duration: 1800 },
+        { title: "Animate a Story", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Your First Game",
+      order: 3,
+      lessons: [
+        { title: "Catching Game Setup", order: 1, duration: 1800 },
+        { title: "Add a Score", order: 2, duration: 1800 },
+        { title: "Share Your Game", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
 
-  const course2 = await db.course.upsert({
-    where: { slug: "math-algebra-basics" },
+  const c7 = await db.course.upsert({
+    where: { slug: "science-detectives" },
     update: {},
     create: {
-      title: "Math Adventures: Algebra Basics",
-      slug: "math-algebra-basics",
-      description: "Build strong algebra foundations through games, puzzles, and real-world problems.",
-      ageGroup: "AGES_9_12",
-      level: "INTERMEDIATE",
-      category: "MATH",
+      title: "Science Detectives",
+      slug: "science-detectives",
+      description: "Investigate the world like a scientist — ask questions, experiment, explain.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "SCIENCE",
       status: "PUBLISHED",
       isFree: false,
-      price: 29,
+      price: 35,
       createdById: admin.id,
     },
   });
+  await seedCourseContent(c7.id, [
+    {
+      title: "Forces & Motion",
+      order: 1,
+      lessons: [
+        { title: "Push and Pull", order: 1, duration: 1200 },
+        { title: "Sink or Float Experiment", order: 2, duration: 1800 },
+        { title: "Ramp Speed Test", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Living Things",
+      order: 2,
+      lessons: [
+        { title: "Plants Need Light", order: 1, duration: 1200 },
+        { title: "Animal Habitats", order: 2, duration: 1200 },
+        { title: "Life Cycles", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Materials & Changes",
+      order: 3,
+      lessons: [
+        { title: "Solids, Liquids, Gases", order: 1, duration: 1200 },
+        { title: "Melting and Freezing", order: 2, duration: 1800 },
+        { title: "My Science Report", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
 
-  const course3 = await db.course.upsert({
-    where: { slug: "young-robotics-engineers" },
+  const c8 = await db.course.upsert({
+    where: { slug: "inventor-studio" },
     update: {},
     create: {
-      title: "Young Robotics Engineers",
-      slug: "young-robotics-engineers",
-      description: "Learn to design and program robots using block-based coding and simple circuits.",
-      ageGroup: "AGES_9_12",
+      title: "Inventor Studio",
+      slug: "inventor-studio",
+      description: "Design and build inventions that solve real problems in your home and school.",
+      ageGroup: "AGES_6_8",
       level: "BEGINNER",
+      category: "ENGINEERING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c8.id, [
+    {
+      title: "Spot the Problem",
+      order: 1,
+      lessons: [
+        { title: "Problems Are Everywhere", order: 1, duration: 1200 },
+        { title: "Choose Your Problem", order: 2, duration: 1200 },
+        { title: "What Do Users Need?", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Design & Build",
+      order: 2,
+      lessons: [
+        { title: "Sketch Your Idea", order: 1, duration: 1200 },
+        { title: "Build a Prototype", order: 2, duration: 1800 },
+        { title: "Test It Out", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Improve & Share",
+      order: 3,
+      lessons: [
+        { title: "What Needs Fixing?", order: 1, duration: 1200 },
+        { title: "Make Version 2", order: 2, duration: 1800 },
+        { title: "Invention Fair Presentation", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c9 = await db.course.upsert({
+    where: { slug: "ai-around-us" },
+    update: {},
+    create: {
+      title: "AI Around Us",
+      slug: "ai-around-us",
+      description: "Spot AI in everyday life and learn how it works in simple, friendly terms.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c9.id, [
+    {
+      title: "What Is AI?",
+      order: 1,
+      lessons: [
+        { title: "AI Is Everywhere", order: 1, duration: 1200 },
+        { title: "How Does AI Learn?", order: 2, duration: 1200 },
+        { title: "AI vs. Human", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "AI Helpers",
+      order: 2,
+      lessons: [
+        { title: "Voice Assistants", order: 1, duration: 1200 },
+        { title: "Recommendation Engines", order: 2, duration: 1200 },
+        { title: "AI in Games", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Using AI Wisely",
+      order: 3,
+      lessons: [
+        { title: "When AI Makes Mistakes", order: 1, duration: 1200 },
+        { title: "Privacy and AI", order: 2, duration: 1200 },
+        { title: "Be an AI Detective", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c10 = await db.course.upsert({
+    where: { slug: "smart-safe-online" },
+    update: {},
+    create: {
+      title: "Smart & Safe Online",
+      slug: "smart-safe-online",
+      description: "Learn how to stay safe, kind, and smart on the internet.",
+      ageGroup: "AGES_6_8",
+      level: "BEGINNER",
+      category: "DIGITAL_LITERACY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 35,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c10.id, [
+    {
+      title: "Safe Online",
+      order: 1,
+      lessons: [
+        { title: "Personal Information", order: 1, duration: 1200 },
+        { title: "Strong Passwords", order: 2, duration: 1200 },
+        { title: "Strangers Online", order: 3, duration: 1200 },
+      ],
+    },
+    {
+      title: "Kind Online",
+      order: 2,
+      lessons: [
+        { title: "What Is Cyberbullying?", order: 1, duration: 1200 },
+        { title: "How to Respond", order: 2, duration: 1200 },
+        { title: "Being Upstander", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Smart Online",
+      order: 3,
+      lessons: [
+        { title: "Is It True?", order: 1, duration: 1200 },
+        { title: "Spot Fake News", order: 2, duration: 1800 },
+        { title: "My Digital Pledge", order: 3, duration: 1200 },
+      ],
+    },
+  ]);
+
+  // ── Ages 9–12 Courses ─────────────────────────────────────────────────────
+
+  const c11 = await db.course.upsert({
+    where: { slug: "scratch-game-studio" },
+    update: {},
+    create: {
+      title: "Scratch Game Studio",
+      slug: "scratch-game-studio",
+      description: "Design and build complete Scratch games with scoring, levels, and sound.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c11.id, [
+    {
+      title: "Game Design Foundations",
+      order: 1,
+      lessons: [
+        { title: "Game Ideas & Design Docs", order: 1, isFree: true, duration: 1800 },
+        { title: "Sprites, Costumes & Sounds", order: 2, isFree: true, duration: 1800 },
+        { title: "Movement & Controls", order: 3, isFree: true, duration: 2400 },
+      ],
+    },
+    {
+      title: "Game Mechanics",
+      order: 2,
+      lessons: [
+        { title: "Collision Detection", order: 1, duration: 2400 },
+        { title: "Score & Lives", order: 2, duration: 2400 },
+        { title: "Levels & Difficulty", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Polish & Publish",
+      order: 3,
+      lessons: [
+        { title: "Music & Sound Effects", order: 1, duration: 1800 },
+        { title: "Start Screen & Game Over", order: 2, duration: 1800 },
+        { title: "Publish & Get Feedback", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  const c12 = await db.course.upsert({
+    where: { slug: "junior-robotics-automation" },
+    update: {},
+    create: {
+      title: "Junior Robotics & Automation",
+      slug: "junior-robotics-automation",
+      description: "Program real or simulated robots to complete missions using block coding.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
       category: "ROBOTICS",
       status: "PUBLISHED",
       isFree: false,
-      price: 39,
+      price: 49,
       createdById: admin.id,
     },
   });
-
-  // --- Modules + Lessons for course1 ---
-  const mod1 = await db.module.create({
-    data: { courseId: course1.id, title: "Getting Started", order: 1 },
-  });
-  const lesson1 = await db.lesson.create({
-    data: {
-      moduleId: mod1.id,
-      title: "What is a Computer?",
+  await seedCourseContent(c12.id, [
+    {
+      title: "Robot Basics",
       order: 1,
-      isFree: true,
-      duration: 600,
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      content: "<p>Let's explore what computers are and how they work!</p>",
+      lessons: [
+        { title: "How Robots Work", order: 1, duration: 1800 },
+        { title: "Sensors & Actuators", order: 2, duration: 1800 },
+        { title: "Your First Robot Program", order: 3, duration: 2400 },
+      ],
     },
-  });
-  await db.lesson.create({
-    data: { moduleId: mod1.id, title: "Intro to Scratch", order: 2, isFree: true, duration: 900 },
-  });
-
-  const mod2 = await db.module.create({
-    data: { courseId: course1.id, title: "Your First Program", order: 2 },
-  });
-  await db.lesson.create({
-    data: { moduleId: mod2.id, title: "Drawing Shapes", order: 1, duration: 1200 },
-  });
-  await db.lesson.create({
-    data: { moduleId: mod2.id, title: "Making Things Move", order: 2, duration: 900 },
-  });
-
-  // --- Quiz for lesson1 ---
-  const quiz1 = await db.quiz.create({
-    data: { lessonId: lesson1.id, title: "Computer Basics Quiz", passingScore: 60, timeLimit: 300 },
-  });
-
-  const q1 = await db.question.create({
-    data: { quizId: quiz1.id, text: "What does CPU stand for?", type: "MULTIPLE_CHOICE", order: 1, points: 10 },
-  });
-  await db.answer.createMany({
-    data: [
-      { questionId: q1.id, text: "Central Processing Unit", isCorrect: true, order: 1 },
-      { questionId: q1.id, text: "Computer Power Unit", isCorrect: false, order: 2 },
-      { questionId: q1.id, text: "Central Program Utility", isCorrect: false, order: 3 },
-    ],
-  });
-
-  const q2 = await db.question.create({
-    data: { quizId: quiz1.id, text: "Which of these is an input device?", type: "MULTIPLE_CHOICE", order: 2, points: 10 },
-  });
-  await db.answer.createMany({
-    data: [
-      { questionId: q2.id, text: "Monitor", isCorrect: false, order: 1 },
-      { questionId: q2.id, text: "Keyboard", isCorrect: true, order: 2 },
-      { questionId: q2.id, text: "Speaker", isCorrect: false, order: 3 },
-    ],
-  });
-
-  // --- Enrollments ---
-  await db.enrollment.create({
-    data: { userId: student1.id, courseId: course1.id, status: "ACTIVE", progress: 50 },
-  });
-  await db.enrollment.create({
-    data: { userId: student2.id, courseId: course1.id, status: "COMPLETED", progress: 100, completedAt: new Date() },
-  });
-  await db.enrollment.create({
-    data: { userId: student1.id, courseId: course2.id, status: "ACTIVE", progress: 25 },
-  });
-
-  // --- Badges ---
-  const badge1 = await db.badge.create({
-    data: {
-      slug: "first-steps",
-      name: "First Steps",
-      description: "Complete your first lesson",
-      icon: "👟",
-      criteria: { minPoints: 10 },
+    {
+      title: "Robot Missions",
+      order: 2,
+      lessons: [
+        { title: "Navigate a Maze", order: 1, duration: 2400 },
+        { title: "Delivery Mission", order: 2, duration: 2400 },
+        { title: "Sort by Colour", order: 3, duration: 2400 },
+      ],
     },
-  });
-
-  await db.badge.create({
-    data: {
-      slug: "star-learner",
-      name: "Star Learner",
-      description: "Earn 100 points",
-      icon: "⭐",
-      criteria: { minPoints: 100 },
+    {
+      title: "Automation",
+      order: 3,
+      lessons: [
+        { title: "Loops and Repetition", order: 1, duration: 1800 },
+        { title: "Condition-Based Actions", order: 2, duration: 2400 },
+        { title: "Design Your Own Mission", order: 3, duration: 2400 },
+      ],
     },
-  });
+  ]);
 
-  await db.badge.create({
-    data: {
-      slug: "course-champion",
-      name: "Course Champion",
-      description: "Complete 3 courses",
-      icon: "🏆",
-      criteria: { minEnrollments: 3 },
-    },
-  });
-
-  // Award badge to student
-  await db.userBadge.create({
-    data: { userId: student1.id, badgeId: badge1.id },
-  });
-
-  // --- Points ---
-  await db.pointTransaction.createMany({
-    data: [
-      { userId: student1.id, action: "LESSON_COMPLETED", points: 10 },
-      { userId: student1.id, action: "QUIZ_PASSED", points: 25 },
-      { userId: student2.id, action: "COURSE_COMPLETED", points: 100 },
-      { userId: student2.id, action: "LESSON_COMPLETED", points: 10 },
-    ],
-  });
-
-  // --- Booking ---
-  await db.booking.create({
-    data: {
-      studentId: student1.id,
-      tutorId: tutorProfile.id,
-      subject: "Math",
-      startTime: new Date(Date.now() + 86400000),
-      endTime: new Date(Date.now() + 86400000 + 3600000),
-      status: "CONFIRMED",
+  const c13 = await db.course.upsert({
+    where: { slug: "space-science-missions" },
+    update: {},
+    create: {
+      title: "Space Science & Missions",
+      slug: "space-science-missions",
+      description: "Explore the solar system, design space missions, and learn real orbital mechanics.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
       price: 45,
-      notes: "Need help with fractions",
+      createdById: admin.id,
     },
   });
+  await seedCourseContent(c13.id, [
+    {
+      title: "Our Solar System",
+      order: 1,
+      lessons: [
+        { title: "Scale of the Solar System", order: 1, duration: 1800 },
+        { title: "Rocky vs. Gas Planets", order: 2, duration: 1800 },
+        { title: "Dwarf Planets & Moons", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Spacecraft & Missions",
+      order: 2,
+      lessons: [
+        { title: "How Rockets Work", order: 1, duration: 1800 },
+        { title: "Famous Space Missions", order: 2, duration: 1800 },
+        { title: "Design a Mars Mission", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Life in Space",
+      order: 3,
+      lessons: [
+        { title: "Living on the ISS", order: 1, duration: 1800 },
+        { title: "Could We Live on Mars?", order: 2, duration: 1800 },
+        { title: "Search for Life", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
 
-  // --- Products (STEM Kits) ---
-  await db.product.create({
-    data: {
+  const c14 = await db.course.upsert({
+    where: { slug: "data-detectives" },
+    update: {},
+    create: {
+      title: "Data Detectives",
+      slug: "data-detectives",
+      description: "Collect, chart, and interpret real data to answer questions that matter.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "DATA_SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 45,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c14.id, [
+    {
+      title: "Collecting Data",
+      order: 1,
+      lessons: [
+        { title: "What Is Data?", order: 1, duration: 1800 },
+        { title: "Surveys & Tally Charts", order: 2, duration: 1800 },
+        { title: "Organising Your Data", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Visualising Data",
+      order: 2,
+      lessons: [
+        { title: "Bar Charts & Pie Charts", order: 1, duration: 1800 },
+        { title: "Line Graphs", order: 2, duration: 1800 },
+        { title: "Choosing the Right Chart", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Interpreting Data",
+      order: 3,
+      lessons: [
+        { title: "Averages & Ranges", order: 1, duration: 1800 },
+        { title: "Spotting Patterns", order: 2, duration: 1800 },
+        { title: "Data Investigation Project", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c15 = await db.course.upsert({
+    where: { slug: "media-smart-kids" },
+    update: {},
+    create: {
+      title: "Media Smart Kids",
+      slug: "media-smart-kids",
+      description: "Create, critique, and fact-check media like a professional journalist.",
+      ageGroup: "AGES_9_12",
+      level: "INTERMEDIATE",
+      category: "DIGITAL_LITERACY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 45,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c15.id, [
+    {
+      title: "Understanding Media",
+      order: 1,
+      lessons: [
+        { title: "What Is Media?", order: 1, duration: 1800 },
+        { title: "Who Makes the News?", order: 2, duration: 1800 },
+        { title: "Media Ownership & Bias", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Fact-Checking",
+      order: 2,
+      lessons: [
+        { title: "True, False, or Opinion?", order: 1, duration: 1800 },
+        { title: "Fact-Check a Story", order: 2, duration: 2400 },
+        { title: "Deepfakes & Manipulation", order: 3, duration: 1800 },
+      ],
+    },
+    {
+      title: "Create Media",
+      order: 3,
+      lessons: [
+        { title: "Write a News Article", order: 1, duration: 2400 },
+        { title: "Film a Short Video Report", order: 2, duration: 2400 },
+        { title: "Publish Responsibly", order: 3, duration: 1800 },
+      ],
+    },
+  ]);
+
+  // ── Ages 13–15 Courses ────────────────────────────────────────────────────
+
+  const c16 = await db.course.upsert({
+    where: { slug: "web-builders-bootcamp" },
+    update: {},
+    create: {
+      title: "Web Builders Bootcamp",
+      slug: "web-builders-bootcamp",
+      description: "Build real websites with HTML, CSS, and JavaScript from scratch.",
+      ageGroup: "AGES_13_15",
+      level: "BEGINNER",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c16.id, [
+    {
+      title: "HTML Foundations",
+      order: 1,
+      lessons: [
+        { title: "What Is the Web?", order: 1, isFree: true, duration: 2400 },
+        { title: "HTML Structure", order: 2, isFree: true, duration: 2400 },
+        { title: "Links, Images & Lists", order: 3, isFree: true, duration: 2400 },
+      ],
+    },
+    {
+      title: "CSS Styling",
+      order: 2,
+      lessons: [
+        { title: "Colours & Fonts", order: 1, duration: 2400 },
+        { title: "Box Model & Layout", order: 2, duration: 2700 },
+        { title: "Responsive Design", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "JavaScript Basics",
+      order: 3,
+      lessons: [
+        { title: "Variables & Events", order: 1, duration: 2400 },
+        { title: "Interactivity with JS", order: 2, duration: 2700 },
+        { title: "Publish Your Portfolio Site", order: 3, duration: 2400 },
+      ],
+    },
+  ]);
+
+  const c17 = await db.course.upsert({
+    where: { slug: "python-logic-lab" },
+    update: {},
+    create: {
+      title: "Python Logic Lab",
+      slug: "python-logic-lab",
+      description: "Learn Python programming through logical puzzles, data, and mini-projects.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c17.id, [
+    {
+      title: "Python Foundations",
+      order: 1,
+      lessons: [
+        { title: "Variables & Data Types", order: 1, duration: 2700 },
+        { title: "Input & Output", order: 2, duration: 2700 },
+        { title: "Conditions & Decisions", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Loops & Functions",
+      order: 2,
+      lessons: [
+        { title: "For Loops & While Loops", order: 1, duration: 2700 },
+        { title: "Writing Functions", order: 2, duration: 2700 },
+        { title: "Lists & Dictionaries", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Mini Projects",
+      order: 3,
+      lessons: [
+        { title: "Number Guessing Game", order: 1, duration: 2700 },
+        { title: "Text Analyser", order: 2, duration: 2700 },
+        { title: "Final Project: Your Choice", order: 3, duration: 3600 },
+      ],
+    },
+  ]);
+
+  const c18 = await db.course.upsert({
+    where: { slug: "ai-literacy-ethics" },
+    update: {},
+    create: {
+      title: "AI Literacy & Ethics",
+      slug: "ai-literacy-ethics",
+      description: "Understand how AI systems work and think critically about their impact on society.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c18.id, [
+    {
+      title: "How AI Works",
+      order: 1,
+      lessons: [
+        { title: "What Is Machine Learning?", order: 1, duration: 2400 },
+        { title: "Training Data & Labels", order: 2, duration: 2400 },
+        { title: "Train Your First Model", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "AI in Society",
+      order: 2,
+      lessons: [
+        { title: "AI Bias Case Studies", order: 1, duration: 2400 },
+        { title: "Privacy & Surveillance", order: 2, duration: 2400 },
+        { title: "Automation & Jobs", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Responsible AI",
+      order: 3,
+      lessons: [
+        { title: "AI Rules & Regulations", order: 1, duration: 2400 },
+        { title: "Design for Fairness", order: 2, duration: 2700 },
+        { title: "AI Ethics Debate", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
+  const c19 = await db.course.upsert({
+    where: { slug: "cyber-basics-teens" },
+    update: {},
+    create: {
+      title: "Cyber Basics for Teens",
+      slug: "cyber-basics-teens",
+      description: "Learn to protect yourself and others online with real cybersecurity skills.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "CYBERSECURITY",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c19.id, [
+    {
+      title: "Stay Secure",
+      order: 1,
+      lessons: [
+        { title: "Passwords & Authentication", order: 1, duration: 2400 },
+        { title: "Phishing & Social Engineering", order: 2, duration: 2400 },
+        { title: "Safe Browsing Habits", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "How Attacks Work",
+      order: 2,
+      lessons: [
+        { title: "Common Cyber Threats", order: 1, duration: 2400 },
+        { title: "Encryption Basics", order: 2, duration: 2700 },
+        { title: "Network Security", order: 3, duration: 2700 },
+      ],
+    },
+    {
+      title: "Ethical Hacking",
+      order: 3,
+      lessons: [
+        { title: "What Do Ethical Hackers Do?", order: 1, duration: 2400 },
+        { title: "Try a CTF Challenge", order: 2, duration: 3600 },
+        { title: "Write a Security Report", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
+  const c20 = await db.course.upsert({
+    where: { slug: "design-build-test" },
+    update: {},
+    create: {
+      title: "Design, Build, Test",
+      slug: "design-build-test",
+      description: "Master the full design thinking process from user research to final prototype.",
+      ageGroup: "AGES_13_15",
+      level: "INTERMEDIATE",
+      category: "DESIGN",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c20.id, [
+    {
+      title: "Understand the User",
+      order: 1,
+      lessons: [
+        { title: "Interview and Observe", order: 1, duration: 2700 },
+        { title: "Define the Problem", order: 2, duration: 2400 },
+        { title: "Ideate Without Limits", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Prototype",
+      order: 2,
+      lessons: [
+        { title: "Paper Prototype", order: 1, duration: 2700 },
+        { title: "Digital Mockup", order: 2, duration: 2700 },
+        { title: "Prototype Walkthrough", order: 3, duration: 2400 },
+      ],
+    },
+    {
+      title: "Iterate",
+      order: 3,
+      lessons: [
+        { title: "Collect Feedback", order: 1, duration: 2400 },
+        { title: "Design for Version 2", order: 2, duration: 2700 },
+        { title: "Present Version 2", order: 3, duration: 2700 },
+      ],
+    },
+  ]);
+
+  // ── Ages 16–18 Courses ────────────────────────────────────────────────────
+
+  const c21 = await db.course.upsert({
+    where: { slug: "ai-foundations-future-leaders" },
+    update: {},
+    create: {
+      title: "AI Foundations for Future Leaders",
+      slug: "ai-foundations-future-leaders",
+      description: "Understand machine learning, societal AI impacts, and build your first model.",
+      ageGroup: "AGES_16_18",
+      level: "INTERMEDIATE",
+      category: "AI",
+      status: "PUBLISHED",
+      isFree: true,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c21.id, [
+    {
+      title: "How AI Learns",
+      order: 1,
+      lessons: [
+        { title: "Data, Patterns, Predictions", order: 1, isFree: true, duration: 3600 },
+        { title: "Training a Model", order: 2, isFree: true, duration: 3600 },
+        { title: "When Models Fail", order: 3, isFree: true, duration: 3600 },
+      ],
+    },
+    {
+      title: "AI in Society",
+      order: 2,
+      lessons: [
+        { title: "Bias in the Machine", order: 1, duration: 3600 },
+        { title: "Privacy and Surveillance", order: 2, duration: 3600 },
+        { title: "Automation and the Future of Work", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Responsible AI Leadership",
+      order: 3,
+      lessons: [
+        { title: "Ethical Frameworks for AI", order: 1, duration: 3600 },
+        { title: "Designing for Good", order: 2, duration: 3600 },
+        { title: "Your AI Manifesto", order: 3, duration: 3600 },
+      ],
+    },
+  ]);
+
+  const c22 = await db.course.upsert({
+    where: { slug: "full-stack-thinking" },
+    update: {},
+    create: {
+      title: "Full-Stack Thinking",
+      slug: "full-stack-thinking",
+      description: "Build and deploy a full-stack web app with front-end, back-end, and database.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "CODING",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 79,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c22.id, [
+    {
+      title: "Front-End Foundations",
+      order: 1,
+      lessons: [
+        { title: "HTML + CSS Revisited", order: 1, duration: 4500 },
+        { title: "JavaScript in the Browser", order: 2, duration: 4500 },
+        { title: "Fetch and APIs", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Back-End Basics",
+      order: 2,
+      lessons: [
+        { title: "Servers and Routes", order: 1, duration: 4500 },
+        { title: "Connecting a Database", order: 2, duration: 4500 },
+        { title: "Authentication Basics", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Ship It",
+      order: 3,
+      lessons: [
+        { title: "Wiring Front-End to Back-End", order: 1, duration: 4500 },
+        { title: "Deployment", order: 2, duration: 4500 },
+        { title: "Git, GitHub, and Collaboration", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
+  const c23 = await db.course.upsert({
+    where: { slug: "data-decisions-society" },
+    update: {},
+    create: {
+      title: "Data Decisions & Society",
+      slug: "data-decisions-society",
+      description: "Collect, visualise, and communicate data insights on real social issues.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "DATA_SCIENCE",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 69,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c23.id, [
+    {
+      title: "Data Literacy",
+      order: 1,
+      lessons: [
+        { title: "Every Number Tells a Story", order: 1, duration: 3600 },
+        { title: "Cleaning Messy Data", order: 2, duration: 3600 },
+        { title: "Descriptive Statistics", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Visualise and Communicate",
+      order: 2,
+      lessons: [
+        { title: "Chart Types and When to Use Them", order: 1, duration: 3600 },
+        { title: "Telling a Story with Data", order: 2, duration: 3600 },
+        { title: "Spotting Misleading Data", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Data for Good",
+      order: 3,
+      lessons: [
+        { title: "Open Data and Civic Tech", order: 1, duration: 3600 },
+        { title: "Algorithmic Decision-Making", order: 2, duration: 3600 },
+        { title: "Data for Change (Capstone)", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
+  const c24 = await db.course.upsert({
+    where: { slug: "startup-lab" },
+    update: {},
+    create: {
+      title: "Startup Lab",
+      slug: "startup-lab",
+      description: "Build a real startup from problem discovery to MVP, pitch, and business model.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "ENTREPRENEURSHIP",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 79,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c24.id, [
+    {
+      title: "Find the Problem",
+      order: 1,
+      lessons: [
+        { title: "Problems Are Opportunities", order: 1, duration: 4500 },
+        { title: "Customer Discovery Interviews", order: 2, duration: 4500 },
+        { title: "Problem-Solution Fit", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Build the Solution",
+      order: 2,
+      lessons: [
+        { title: "The Business Model Canvas", order: 1, duration: 4500 },
+        { title: "Your Minimum Viable Product", order: 2, duration: 4500 },
+        { title: "Test and Learn", order: 3, duration: 4500 },
+      ],
+    },
+    {
+      title: "Pitch and Grow",
+      order: 3,
+      lessons: [
+        { title: "Financial Basics for Founders", order: 1, duration: 4500 },
+        { title: "Storytelling for Startups", order: 2, duration: 4500 },
+        { title: "Demo Day (Capstone)", order: 3, duration: 5400 },
+      ],
+    },
+  ]);
+
+  const c25 = await db.course.upsert({
+    where: { slug: "career-launch" },
+    update: {},
+    create: {
+      title: "Career Launch",
+      slug: "career-launch",
+      description: "Build your professional portfolio, CV, and LinkedIn — and land your first opportunity.",
+      ageGroup: "AGES_16_18",
+      level: "ADVANCED",
+      category: "CAREER",
+      status: "PUBLISHED",
+      isFree: false,
+      price: 59,
+      createdById: admin.id,
+    },
+  });
+  await seedCourseContent(c25.id, [
+    {
+      title: "Know Yourself",
+      order: 1,
+      lessons: [
+        { title: "Strengths, Skills, Interests", order: 1, duration: 3600 },
+        { title: "Exploring STEM Careers", order: 2, duration: 3600 },
+        { title: "Setting a 12-Month Goal", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Build Your Portfolio",
+      order: 2,
+      lessons: [
+        { title: "What Goes in a Portfolio", order: 1, duration: 3600 },
+        { title: "Build Your Portfolio Site", order: 2, duration: 4500 },
+        { title: "GitHub for Professionals", order: 3, duration: 3600 },
+      ],
+    },
+    {
+      title: "Apply and Interview",
+      order: 3,
+      lessons: [
+        { title: "CVs and Cover Letters", order: 1, duration: 3600 },
+        { title: "Mock Interviews", order: 2, duration: 4500 },
+        { title: "Launch Day (Capstone)", order: 3, duration: 4500 },
+      ],
+    },
+  ]);
+
+  // ── Enrollments (skip gracefully if they already exist) ─────────────────
+  const enrollments = [
+    { userId: student1.id, courseId: c1.id, status: "ACTIVE" as const, progress: 50 },
+    { userId: student2.id, courseId: c1.id, status: "COMPLETED" as const, progress: 100, completedAt: new Date() },
+    { userId: student1.id, courseId: c2.id, status: "ACTIVE" as const, progress: 25 },
+  ];
+  for (const enr of enrollments) {
+    try {
+      await db.enrollment.upsert({
+        where: { userId_courseId: { userId: enr.userId, courseId: enr.courseId } },
+        update: {},
+        create: enr,
+      });
+    } catch {
+      console.log(`⚠️  Skipped enrollment (userId=${enr.userId}, courseId=${enr.courseId}) — already exists`);
+    }
+  }
+
+  // ── Badges ────────────────────────────────────────────────────────────────
+  const badge1 = await db.badge.upsert({
+    where: { slug: "first-steps" },
+    update: {},
+    create: { slug: "first-steps", name: "First Steps", description: "Complete your first lesson", icon: "👟", criteria: { minPoints: 10 } },
+  });
+  await db.badge.upsert({
+    where: { slug: "star-learner" },
+    update: {},
+    create: { slug: "star-learner", name: "Star Learner", description: "Earn 100 points", icon: "⭐", criteria: { minPoints: 100 } },
+  });
+  await db.badge.upsert({
+    where: { slug: "course-champion" },
+    update: {},
+    create: { slug: "course-champion", name: "Course Champion", description: "Complete 3 courses", icon: "🏆", criteria: { minEnrollments: 3 } },
+  });
+
+  // Award badge
+  await db.userBadge.upsert({
+    where: { userId_badgeId: { userId: student1.id, badgeId: badge1.id } },
+    update: {},
+    create: { userId: student1.id, badgeId: badge1.id },
+  });
+
+  // ── Points ────────────────────────────────────────────────────────────────
+  const pointCount = await db.pointTransaction.count({ where: { userId: student1.id } });
+  if (pointCount === 0) {
+    await db.pointTransaction.createMany({
+      data: [
+        { userId: student1.id, action: "LESSON_COMPLETED", points: 10 },
+        { userId: student1.id, action: "QUIZ_PASSED", points: 25 },
+        { userId: student2.id, action: "COURSE_COMPLETED", points: 100 },
+        { userId: student2.id, action: "LESSON_COMPLETED", points: 10 },
+      ],
+    });
+  }
+
+  // ── Booking ───────────────────────────────────────────────────────────────
+  const bookingCount = await db.booking.count({ where: { studentId: student1.id } });
+  if (bookingCount === 0) {
+    await db.booking.create({
+      data: {
+        studentId: student1.id,
+        tutorId: tutorProfile.id,
+        subject: "Math",
+        startTime: new Date(Date.now() + 86400000),
+        endTime: new Date(Date.now() + 86400000 + 3600000),
+        status: "CONFIRMED",
+        price: 45,
+        notes: "Need help with fractions",
+      },
+    });
+  }
+
+  // ── Products ──────────────────────────────────────────────────────────────
+  await db.product.upsert({
+    where: { slug: "robotics-starter-kit" },
+    update: {},
+    create: {
       name: "Robotics Starter Kit",
       slug: "robotics-starter-kit",
       description: "Build your first robot with this beginner-friendly kit including servo motors, sensors, and step-by-step guide.",
@@ -261,9 +1347,10 @@ async function main() {
       stock: 50,
     },
   });
-
-  await db.product.create({
-    data: {
+  await db.product.upsert({
+    where: { slug: "circuit-explorer-kit" },
+    update: {},
+    create: {
       name: "Circuit Explorer Kit",
       slug: "circuit-explorer-kit",
       description: "Learn electronics fundamentals with hands-on circuit experiments and color-coded components.",
@@ -275,9 +1362,11 @@ async function main() {
     },
   });
 
-  // --- Competitions ---
-  await db.competition.create({
-    data: {
+  // ── Competitions ──────────────────────────────────────────────────────────
+  await db.competition.upsert({
+    where: { slug: "global-stem-challenge-2026" },
+    update: {},
+    create: {
       title: "Global STEM Challenge 2026",
       slug: "global-stem-challenge-2026",
       description: "The world's premier STEM competition for young innovators aged 9-18.",
@@ -293,9 +1382,10 @@ async function main() {
       maxParticipants: 500,
     },
   });
-
-  await db.competition.create({
-    data: {
+  await db.competition.upsert({
+    where: { slug: "young-coders-hackathon" },
+    update: {},
+    create: {
       title: "Young Coders Hackathon",
       slug: "young-coders-hackathon",
       description: "A 48-hour online hackathon for budding programmers aged 6-12.",
@@ -312,38 +1402,20 @@ async function main() {
     },
   });
 
-  // --- Notifications ---
-  await db.notification.create({
-    data: {
-      userId: student1.id,
-      title: "Welcome to Mudita!",
-      body: "You've successfully joined Mudita LMS. Start exploring courses.",
-      type: "INFO",
-    },
-  });
+  // ── Notifications ─────────────────────────────────────────────────────────
+  const notifCount = await db.notification.count({ where: { userId: student1.id } });
+  if (notifCount === 0) {
+    await db.notification.create({
+      data: { userId: student1.id, title: "Welcome to Mudita!", body: "You've successfully joined Mudita LMS. Start exploring courses.", type: "INFO" },
+    });
+    await db.notification.create({
+      data: { userId: student1.id, title: "Badge Earned!", body: "You earned the 'First Steps' badge. Keep learning!", type: "BADGE" },
+    });
+  }
 
-  await db.notification.create({
-    data: {
-      userId: student1.id,
-      title: "Badge Earned!",
-      body: "You earned the 'First Steps' badge. Keep learning!",
-      type: "BADGE",
-    },
-  });
-
-  console.log("✅ Seed completed successfully!");
-  console.log(`   Users: admin, 2 students, 1 parent, 1 tutor`);
-  console.log(`   Courses: 3 (with modules, lessons, quizzes)`);
-  console.log(`   Badges: 3`);
-  console.log(`   Products: 2 STEM kits`);
-  console.log(`   Competitions: 2`);
+  console.log("✅ Seed complete — 25 courses, 75 modules, 225 lessons across 5 age groups");
 }
 
 main()
-  .catch((e) => {
-    console.error("Seed failed:", e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await db.$disconnect();
-  });
+  .catch((e) => { console.error("Seed failed:", e); process.exit(1); })
+  .finally(async () => { await db.$disconnect(); });
