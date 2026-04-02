@@ -5,6 +5,13 @@ import { db } from "@/lib/db";
 import { getTutorByUserId, updateTutorAvailability } from "@/services/tutor.service";
 import { revalidatePath } from "next/cache";
 
+async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Not authenticated");
+  if (session.user.role !== "ADMIN") throw new Error("Forbidden");
+  return session;
+}
+
 export async function submitTutorApplication(data: {
   bio: string;
   hourlyRate: number;
@@ -89,5 +96,49 @@ export async function setAvailability(
   } catch (error) {
     console.error("setAvailability error:", error);
     return { success: false, error: "Failed to update availability" };
+  }
+}
+
+// ── Admin actions ───────────────────────────────────────────────────────
+
+export async function verifyTutor(tutorProfileId: string) {
+  try {
+    await requireAdmin();
+    await db.tutorProfile.update({
+      where: { id: tutorProfileId },
+      data: { isVerified: true },
+    });
+    revalidatePath("/admin/tutors");
+    return { success: true };
+  } catch (error) {
+    console.error("verifyTutor error:", error);
+    return { success: false, error: "Failed to verify tutor" };
+  }
+}
+
+export async function rejectTutor(tutorProfileId: string) {
+  try {
+    await requireAdmin();
+    await db.tutorProfile.update({
+      where: { id: tutorProfileId },
+      data: { isVerified: false },
+    });
+    revalidatePath("/admin/tutors");
+    return { success: true };
+  } catch (error) {
+    console.error("rejectTutor error:", error);
+    return { success: false, error: "Failed to reject tutor" };
+  }
+}
+
+export async function deleteTutorProfile(tutorProfileId: string) {
+  try {
+    await requireAdmin();
+    await db.tutorProfile.delete({ where: { id: tutorProfileId } });
+    revalidatePath("/admin/tutors");
+    return { success: true };
+  } catch (error) {
+    console.error("deleteTutorProfile error:", error);
+    return { success: false, error: "Failed to delete tutor profile" };
   }
 }

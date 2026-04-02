@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import { Users, BookOpen, GraduationCap, Calendar } from "lucide-react";
+import { Users, BookOpen, GraduationCap, Calendar, Package, ShieldCheck } from "lucide-react";
 
 export const metadata = { title: "Admin Dashboard | Mudita LMS" };
 
@@ -11,11 +11,13 @@ export default async function AdminDashboardPage() {
   if (!session?.user) redirect("/login");
   if (session.user.role !== "ADMIN") redirect("/dashboard");
 
-  const [userCount, courseCount, enrollmentCount, bookingCount] = await Promise.all([
+  const [userCount, courseCount, enrollmentCount, bookingCount, productCount, pendingTutorCount] = await Promise.all([
     db.user.count().catch(() => 0),
     db.course.count().catch(() => 0),
     db.enrollment.count().catch(() => 0),
     db.booking.count().catch(() => 0),
+    db.product.count().catch(() => 0),
+    db.tutorProfile.count({ where: { isVerified: false } }).catch(() => 0),
   ]);
 
   return (
@@ -78,6 +80,31 @@ export default async function AdminDashboardPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             Create and manage gamification badges.
           </p>
+        </a>
+        <a
+          href="/admin/products"
+          className="rounded-xl border bg-card p-5 transition-shadow hover:shadow-md"
+        >
+          <Package className="mb-3 h-8 w-8 text-primary" />
+          <h3 className="font-semibold">STEM Kit Products</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {productCount} products in the shop.
+          </p>
+        </a>
+        <a
+          href="/admin/tutors"
+          className="rounded-xl border bg-card p-5 transition-shadow hover:shadow-md relative"
+        >
+          <ShieldCheck className="mb-3 h-8 w-8 text-primary" />
+          <h3 className="font-semibold">Tutor Verification</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Review and approve tutor applications.
+          </p>
+          {pendingTutorCount > 0 && (
+            <span className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white">
+              {pendingTutorCount}
+            </span>
+          )}
         </a>
       </div>
     </div>

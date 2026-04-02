@@ -3,9 +3,16 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Package, Plus } from "lucide-react";
+import { Package, Plus, Pencil } from "lucide-react";
+import { DeleteProductButton } from "./product-actions";
 
 export const metadata = { title: "Products | Admin | Mudita LMS" };
+
+const statusColors: Record<string, "default" | "secondary" | "destructive"> = {
+  ACTIVE: "default",
+  OUT_OF_STOCK: "secondary",
+  DISCONTINUED: "destructive",
+};
 
 export default async function AdminProductsPage() {
   const session = await auth();
@@ -41,8 +48,10 @@ export default async function AdminProductsPage() {
                 <th className="px-4 py-3 text-left font-medium">Name</th>
                 <th className="px-4 py-3 text-left font-medium">Category</th>
                 <th className="px-4 py-3 text-left font-medium">Price</th>
+                <th className="px-4 py-3 text-left font-medium">Stock</th>
                 <th className="px-4 py-3 text-left font-medium">Age Group</th>
                 <th className="px-4 py-3 text-left font-medium">Status</th>
+                <th className="px-4 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -51,9 +60,22 @@ export default async function AdminProductsPage() {
                   <td className="px-4 py-3 font-medium">{p.name}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.category}</td>
                   <td className="px-4 py-3">${String(p.price)}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{p.ageGroup ?? "All"}</td>
+                  <td className="px-4 py-3">{p.stock}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{p.ageGroup.replace("AGES_", "").replace("_", "–")}</td>
                   <td className="px-4 py-3">
-                    <Badge variant={p.status === "ACTIVE" ? "default" : "secondary"}>{p.status}</Badge>
+                    <Badge variant={statusColors[p.status] ?? "secondary"}>{p.status.replace("_", " ")}</Badge>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center justify-end gap-1">
+                      <Link
+                        href={`/admin/products/${p.id}/edit`}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                        title="Edit product"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Link>
+                      <DeleteProductButton productId={p.id} name={p.name} />
+                    </div>
                   </td>
                 </tr>
               ))}
