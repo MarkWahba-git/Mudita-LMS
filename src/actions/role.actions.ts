@@ -4,6 +4,13 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireSuperAdmin, requireAdmin } from "@/lib/auth-helpers";
 import type { Role } from "@/config/navigation";
+import {
+  createPermissionSchema,
+  deletePermissionSchema,
+  assignPermissionSchema,
+  revokePermissionSchema,
+  bulkUpdateRolePermissionsSchema,
+} from "@/validators/action.schemas";
 
 // ── Permission CRUD ─────────────────────────────────────────────────────
 
@@ -15,15 +22,17 @@ export async function createPermission(data: {
 }) {
   try {
     await requireSuperAdmin();
+    const parsed = createPermissionSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
     const existing = await db.permission.findUnique({
-      where: { resource_action: { resource: data.resource, action: data.action } },
+      where: { resource_action: { resource: parsed.data.resource, action: parsed.data.action } },
     });
     if (existing) {
       return { success: false, error: "Permission with this resource/action already exists" };
     }
 
-    await db.permission.create({ data });
+    await db.permission.create({ data: parsed.data });
     revalidatePath("/admin/roles");
     return { success: true };
   } catch (error) {
@@ -35,7 +44,10 @@ export async function createPermission(data: {
 export async function deletePermission(permissionId: string) {
   try {
     await requireSuperAdmin();
-    await db.permission.delete({ where: { id: permissionId } });
+    const parsed = deletePermissionSchema.safeParse({ permissionId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.permission.delete({ where: { id: parsed.data.permissionId } });
     revalidatePath("/admin/roles");
     return { success: true };
   } catch (error) {
@@ -49,15 +61,17 @@ export async function deletePermission(permissionId: string) {
 export async function assignPermission(role: Role, permissionId: string) {
   try {
     await requireSuperAdmin();
+    const parsed = assignPermissionSchema.safeParse({ role, permissionId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
     const existing = await db.rolePermission.findUnique({
-      where: { role_permissionId: { role, permissionId } },
+      where: { role_permissionId: { role: parsed.data.role, permissionId: parsed.data.permissionId } },
     });
     if (existing) {
       return { success: false, error: "Permission already assigned to this role" };
     }
 
-    await db.rolePermission.create({ data: { role, permissionId } });
+    await db.rolePermission.create({ data: { role: parsed.data.role, permissionId: parsed.data.permissionId } });
     revalidatePath("/admin/roles");
     return { success: true };
   } catch (error) {
@@ -69,8 +83,11 @@ export async function assignPermission(role: Role, permissionId: string) {
 export async function revokePermission(role: Role, permissionId: string) {
   try {
     await requireSuperAdmin();
+    const parsed = revokePermissionSchema.safeParse({ role, permissionId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.rolePermission.delete({
-      where: { role_permissionId: { role, permissionId } },
+      where: { role_permissionId: { role: parsed.data.role, permissionId: parsed.data.permissionId } },
     });
     revalidatePath("/admin/roles");
     return { success: true };
@@ -86,15 +103,15 @@ export async function bulkUpdateRolePermissions(
 ) {
   try {
     await requireSuperAdmin();
+    const parsed = bulkUpdateRolePermissionsSchema.safeParse({ role, permissionIds });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
     await db.$transaction(async (tx) => {
-      // Remove all existing permissions for this role
-      await tx.rolePermission.deleteMany({ where: { role } });
+      await tx.rolePermission.deleteMany({ where: { role: parsed.data.role } });
 
-      // Add all selected permissions
-      if (permissionIds.length > 0) {
+      if (parsed.data.permissionIds.length > 0) {
         await tx.rolePermission.createMany({
-          data: permissionIds.map((permissionId) => ({ role, permissionId })),
+          data: parsed.data.permissionIds.map((permissionId) => ({ role: parsed.data.role, permissionId })),
         });
       }
     });

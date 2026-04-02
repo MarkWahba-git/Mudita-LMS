@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { submitAttempt } from "@/services/quiz.service";
+import { submitQuizAttemptSchema } from "@/validators/action.schemas";
 
 export async function submitQuizAttempt(
   quizId: string,
@@ -13,7 +14,10 @@ export async function submitQuizAttempt(
       return { success: false, error: "Not authenticated" };
     }
 
-    const result = await submitAttempt(session.user.id, quizId, answers);
+    const parsed = submitQuizAttemptSchema.safeParse({ quizId, answers });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const result = await submitAttempt(session.user.id, parsed.data.quizId, parsed.data.answers);
     if (!result) {
       return { success: false, error: "Failed to submit quiz attempt" };
     }

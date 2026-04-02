@@ -5,6 +5,12 @@ import { db } from "@/lib/db";
 import { getTutorByUserId, updateTutorAvailability } from "@/services/tutor.service";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth-helpers";
+import {
+  submitTutorApplicationSchema,
+  updateTutorProfileSchema,
+  setAvailabilitySchema,
+  tutorIdSchema,
+} from "@/validators/action.schemas";
 
 export async function submitTutorApplication(data: {
   bio: string;
@@ -17,17 +23,20 @@ export async function submitTutorApplication(data: {
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: "Not authenticated" };
 
+    const parsed = submitTutorApplicationSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     const existing = await getTutorByUserId(session.user.id);
     if (existing) return { success: false, error: "Tutor profile already exists" };
 
     await db.tutorProfile.create({
       data: {
         userId: session.user.id,
-        bio: data.bio,
-        hourlyRate: data.hourlyRate,
-        subjects: data.subjects,
-        languages: data.languages,
-        headline: data.headline,
+        bio: parsed.data.bio,
+        hourlyRate: parsed.data.hourlyRate,
+        subjects: parsed.data.subjects,
+        languages: parsed.data.languages,
+        headline: parsed.data.headline,
       },
     });
 
@@ -50,17 +59,20 @@ export async function updateTutorProfile(data: {
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: "Not authenticated" };
 
+    const parsed = updateTutorProfileSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     const tutor = await getTutorByUserId(session.user.id);
     if (!tutor) return { success: false, error: "Tutor profile not found" };
 
     await db.tutorProfile.update({
       where: { id: tutor.id },
       data: {
-        ...(data.bio !== undefined && { bio: data.bio }),
-        ...(data.hourlyRate !== undefined && { hourlyRate: data.hourlyRate }),
-        ...(data.subjects !== undefined && { subjects: data.subjects }),
-        ...(data.languages !== undefined && { languages: data.languages }),
-        ...(data.headline !== undefined && { headline: data.headline }),
+        ...(parsed.data.bio !== undefined && { bio: parsed.data.bio }),
+        ...(parsed.data.hourlyRate !== undefined && { hourlyRate: parsed.data.hourlyRate }),
+        ...(parsed.data.subjects !== undefined && { subjects: parsed.data.subjects }),
+        ...(parsed.data.languages !== undefined && { languages: parsed.data.languages }),
+        ...(parsed.data.headline !== undefined && { headline: parsed.data.headline }),
       },
     });
 
@@ -79,10 +91,13 @@ export async function setAvailability(
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: "Not authenticated" };
 
+    const parsed = setAvailabilitySchema.safeParse({ slots });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     const tutor = await getTutorByUserId(session.user.id);
     if (!tutor) return { success: false, error: "Tutor profile not found" };
 
-    const result = await updateTutorAvailability(tutor.id, slots);
+    const result = await updateTutorAvailability(tutor.id, parsed.data.slots);
     if ("error" in result) return { success: false, error: result.error };
 
     revalidatePath("/tutor/availability");
@@ -98,8 +113,11 @@ export async function setAvailability(
 export async function verifyTutor(tutorProfileId: string) {
   try {
     await requireAdmin();
+    const parsed = tutorIdSchema.safeParse({ tutorProfileId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.tutorProfile.update({
-      where: { id: tutorProfileId },
+      where: { id: parsed.data.tutorProfileId },
       data: { isVerified: true },
     });
     revalidatePath("/admin/tutors");
@@ -113,8 +131,11 @@ export async function verifyTutor(tutorProfileId: string) {
 export async function rejectTutor(tutorProfileId: string) {
   try {
     await requireAdmin();
+    const parsed = tutorIdSchema.safeParse({ tutorProfileId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.tutorProfile.update({
-      where: { id: tutorProfileId },
+      where: { id: parsed.data.tutorProfileId },
       data: { isVerified: false },
     });
     revalidatePath("/admin/tutors");
@@ -128,7 +149,10 @@ export async function rejectTutor(tutorProfileId: string) {
 export async function deleteTutorProfile(tutorProfileId: string) {
   try {
     await requireAdmin();
-    await db.tutorProfile.delete({ where: { id: tutorProfileId } });
+    const parsed = tutorIdSchema.safeParse({ tutorProfileId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.tutorProfile.delete({ where: { id: parsed.data.tutorProfileId } });
     revalidatePath("/admin/tutors");
     return { success: true };
   } catch (error) {

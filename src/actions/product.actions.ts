@@ -3,6 +3,11 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth-helpers";
+import {
+  createProductSchema,
+  updateProductSchema,
+  deleteProductSchema,
+} from "@/validators/action.schemas";
 
 function slugify(text: string) {
   return text
@@ -27,7 +32,10 @@ export async function createProduct(data: {
 }) {
   try {
     await requireAdmin();
-    const slug = data.slug?.trim() || slugify(data.name);
+    const parsed = createProductSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = data.slug?.trim() || slugify(parsed.data.name);
 
     const existing = await db.product.findUnique({ where: { slug } });
     if (existing) {
@@ -36,18 +44,18 @@ export async function createProduct(data: {
 
     const product = await db.product.create({
       data: {
-        name: data.name,
+        name: parsed.data.name,
         nameAr: data.nameAr || null,
         nameDe: data.nameDe || null,
         slug,
-        description: data.description,
+        description: parsed.data.description,
         descriptionAr: data.descriptionAr || null,
         descriptionDe: data.descriptionDe || null,
-        price: data.price,
-        ageGroup: data.ageGroup as "AGES_3_5" | "AGES_6_8" | "AGES_9_12" | "AGES_13_15" | "AGES_16_18",
-        category: data.category,
-        stock: data.stock,
-        status: data.status as "ACTIVE" | "OUT_OF_STOCK" | "DISCONTINUED",
+        price: parsed.data.price,
+        ageGroup: parsed.data.ageGroup as "AGES_3_5" | "AGES_6_8" | "AGES_9_12" | "AGES_13_15" | "AGES_16_18",
+        category: parsed.data.category,
+        stock: parsed.data.stock,
+        status: parsed.data.status as "ACTIVE" | "OUT_OF_STOCK" | "DISCONTINUED",
       },
     });
 
@@ -78,28 +86,31 @@ export async function updateProduct(
 ) {
   try {
     await requireAdmin();
-    const slug = data.slug?.trim() || slugify(data.name);
+    const parsed = updateProductSchema.safeParse({ productId, data });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const slug = data.slug?.trim() || slugify(parsed.data.data.name);
 
     const existing = await db.product.findUnique({ where: { slug } });
-    if (existing && existing.id !== productId) {
+    if (existing && existing.id !== parsed.data.productId) {
       return { success: false, error: "A product with this slug already exists" };
     }
 
     await db.product.update({
-      where: { id: productId },
+      where: { id: parsed.data.productId },
       data: {
-        name: data.name,
+        name: parsed.data.data.name,
         nameAr: data.nameAr || null,
         nameDe: data.nameDe || null,
         slug,
-        description: data.description,
+        description: parsed.data.data.description,
         descriptionAr: data.descriptionAr || null,
         descriptionDe: data.descriptionDe || null,
-        price: data.price,
-        ageGroup: data.ageGroup as "AGES_3_5" | "AGES_6_8" | "AGES_9_12" | "AGES_13_15" | "AGES_16_18",
-        category: data.category,
-        stock: data.stock,
-        status: data.status as "ACTIVE" | "OUT_OF_STOCK" | "DISCONTINUED",
+        price: parsed.data.data.price,
+        ageGroup: parsed.data.data.ageGroup as "AGES_3_5" | "AGES_6_8" | "AGES_9_12" | "AGES_13_15" | "AGES_16_18",
+        category: parsed.data.data.category,
+        stock: parsed.data.data.stock,
+        status: parsed.data.data.status as "ACTIVE" | "OUT_OF_STOCK" | "DISCONTINUED",
       },
     });
 
@@ -114,7 +125,10 @@ export async function updateProduct(
 export async function deleteProduct(productId: string) {
   try {
     await requireAdmin();
-    await db.product.delete({ where: { id: productId } });
+    const parsed = deleteProductSchema.safeParse({ productId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.product.delete({ where: { id: parsed.data.productId } });
     revalidatePath("/admin/products");
     return { success: true };
   } catch (error) {

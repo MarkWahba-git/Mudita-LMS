@@ -3,6 +3,12 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireSuperAdmin, requireAdmin } from "@/lib/auth-helpers";
+import {
+  updateSettingSchema,
+  bulkUpdateSettingsSchema,
+  createSettingSchema,
+  deleteSettingSchema,
+} from "@/validators/action.schemas";
 
 // ── Queries ─────────────────────────────────────────────────────────────
 
@@ -43,9 +49,12 @@ export async function getSetting(key: string) {
 export async function updateSetting(key: string, value: string) {
   try {
     await requireSuperAdmin();
+    const parsed = updateSettingSchema.safeParse({ key, value });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.systemSetting.update({
-      where: { key },
-      data: { value },
+      where: { key: parsed.data.key },
+      data: { value: parsed.data.value },
     });
     revalidatePath("/admin/settings");
     return { success: true };
@@ -58,8 +67,11 @@ export async function updateSetting(key: string, value: string) {
 export async function bulkUpdateSettings(updates: { key: string; value: string }[]) {
   try {
     await requireSuperAdmin();
+    const parsed = bulkUpdateSettingsSchema.safeParse({ updates });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.$transaction(
-      updates.map((u) =>
+      parsed.data.updates.map((u) =>
         db.systemSetting.update({
           where: { key: u.key },
           data: { value: u.value },
@@ -84,13 +96,15 @@ export async function createSetting(data: {
 }) {
   try {
     await requireSuperAdmin();
+    const parsed = createSettingSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
-    const existing = await db.systemSetting.findUnique({ where: { key: data.key } });
+    const existing = await db.systemSetting.findUnique({ where: { key: parsed.data.key } });
     if (existing) {
       return { success: false, error: "Setting with this key already exists" };
     }
 
-    await db.systemSetting.create({ data });
+    await db.systemSetting.create({ data: parsed.data });
     revalidatePath("/admin/settings");
     return { success: true };
   } catch (error) {
@@ -102,7 +116,10 @@ export async function createSetting(data: {
 export async function deleteSetting(key: string) {
   try {
     await requireSuperAdmin();
-    await db.systemSetting.delete({ where: { key } });
+    const parsed = deleteSettingSchema.safeParse({ key });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    await db.systemSetting.delete({ where: { key: parsed.data.key } });
     revalidatePath("/admin/settings");
     return { success: true };
   } catch (error) {

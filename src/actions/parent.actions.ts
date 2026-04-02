@@ -3,6 +3,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import { addChildAccountSchema, removeChildSchema } from "@/validators/action.schemas";
 
 export async function addChildAccount(data: {
   name: string;
@@ -15,12 +16,15 @@ export async function addChildAccount(data: {
       return { success: false, error: "Not authenticated" };
     }
 
-    const passwordHash = await bcrypt.hash(data.password, 12);
+    const parsed = addChildAccountSchema.safeParse(data);
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
+    const passwordHash = await bcrypt.hash(parsed.data.password, 12);
 
     const child = await db.user.create({
       data: {
-        name: data.name,
-        email: data.email,
+        name: parsed.data.name,
+        email: parsed.data.email,
         passwordHash,
         role: "STUDENT",
       },
@@ -47,11 +51,14 @@ export async function removeChild(childId: string) {
       return { success: false, error: "Not authenticated" };
     }
 
+    const parsed = removeChildSchema.safeParse({ childId });
+    if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+
     await db.parentChild.delete({
       where: {
         parentId_childId: {
           parentId: session.user.id,
-          childId,
+          childId: parsed.data.childId,
         },
       },
     });

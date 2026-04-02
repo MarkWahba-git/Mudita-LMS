@@ -3,6 +3,7 @@
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { registerSchema, type RegisterInput } from "@/validators/auth.schema";
+import { rateLimit, REGISTER_RATE_LIMIT } from "@/lib/rate-limit";
 
 export async function registerUser(data: RegisterInput) {
   const parsed = registerSchema.safeParse(data);
@@ -11,6 +12,11 @@ export async function registerUser(data: RegisterInput) {
   }
 
   const { name, email, password, role } = parsed.data;
+
+  const rl = rateLimit(`auth:register:${email.toLowerCase()}`, REGISTER_RATE_LIMIT);
+  if (!rl.success) {
+    return { error: "Too many attempts. Please try again later." };
+  }
 
   const existing = await db.user.findUnique({ where: { email } });
   if (existing) {
