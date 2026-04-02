@@ -47,6 +47,7 @@ export default async function CourseDetailPage({
               isFree: true,
               duration: true,
               videoUrl: true,
+              quiz: { select: { id: true } },
             },
           },
         },
