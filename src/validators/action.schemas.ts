@@ -175,6 +175,70 @@ export const addChildAccountSchema = z.object({
 
 export const removeChildSchema = z.object({ childId: cuidSchema });
 
+// ── Modules ─────────────────────────────────────────────────────────────
+
+export const createModuleSchema = z.object({
+  courseId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  titleAr: z.string().optional(),
+  titleDe: z.string().optional(),
+  order: z.number().int().min(0),
+});
+
+export const updateModuleSchema = z.object({
+  moduleId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  titleAr: z.string().optional(),
+  titleDe: z.string().optional(),
+  order: z.number().int().min(0).optional(),
+});
+
+export const deleteModuleSchema = z.object({ moduleId: cuidSchema });
+
+export const reorderModulesSchema = z.object({
+  courseId: cuidSchema,
+  moduleIds: z.array(cuidSchema),
+});
+
+// ── Lessons ─────────────────────────────────────────────────────────────
+
+export const createLessonSchema = z.object({
+  moduleId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  titleAr: z.string().optional(),
+  titleDe: z.string().optional(),
+  content: z.string().optional(),
+  contentAr: z.string().optional(),
+  contentDe: z.string().optional(),
+  videoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  duration: z.number().int().min(0).optional(),
+  type: z.enum(["VIDEO", "TEXT", "QUIZ", "INTERACTIVE", "ASSIGNMENT"]),
+  order: z.number().int().min(0),
+  isFree: z.boolean(),
+});
+
+export const updateLessonSchema = z.object({
+  lessonId: cuidSchema,
+  title: z.string().min(1, "Title is required").max(200),
+  titleAr: z.string().optional(),
+  titleDe: z.string().optional(),
+  content: z.string().optional(),
+  contentAr: z.string().optional(),
+  contentDe: z.string().optional(),
+  videoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  duration: z.number().int().min(0).optional(),
+  type: z.enum(["VIDEO", "TEXT", "QUIZ", "INTERACTIVE", "ASSIGNMENT"]),
+  order: z.number().int().min(0).optional(),
+  isFree: z.boolean(),
+});
+
+export const deleteLessonSchema = z.object({ lessonId: cuidSchema });
+
+export const reorderLessonsSchema = z.object({
+  moduleId: cuidSchema,
+  lessonIds: z.array(cuidSchema),
+});
+
 // ── Roles & Permissions ─────────────────────────────────────────────────
 
 const roleEnum = z.enum(["STUDENT", "PARENT", "TUTOR", "ADMIN", "SUPER_ADMIN", "B2B_PARTNER"]);
