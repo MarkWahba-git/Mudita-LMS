@@ -11,6 +11,11 @@ import {
   setAvailabilitySchema,
   tutorIdSchema,
 } from "@/validators/action.schemas";
+import {
+  sendTutorApprovedEmail,
+  sendTutorRejectedEmail,
+  sendNewTutorApplicationEmail,
+} from "@/lib/email";
 
 export async function submitTutorApplication(data: {
   bio: string;
@@ -39,6 +44,32 @@ export async function submitTutorApplication(data: {
         headline: parsed.data.headline,
       },
     });
+
+    // Notify admins of new application (non-blocking)
+    sendNewTutorApplicationEmail(
+      session.user.name || "Unknown",
+      session.user.email || ""
+    ).catch(() => null);
+
+    // Create in-app notification for admins
+    try {
+      const admins = await db.user.findMany({
+        where: { role: { in: ["ADMIN", "SUPER_ADMIN"] } },
+        select: { id: true },
+      });
+      if (admins.length > 0) {
+        await db.notification.createMany({
+          data: admins.map((admin) => ({
+            userId: admin.id,
+            title: "New Tutor Application",
+            body: `${session.user.name} (${session.user.email}) submitted a tutor application.`,
+            type: "TUTOR_APPLICATION",
+          })),
+        });
+      }
+    } catch {
+      // non-critical
+    }
 
     revalidatePath("/tutor");
     return { success: true };
@@ -116,10 +147,17 @@ export async function verifyTutor(tutorProfileId: string) {
     const parsed = tutorIdSchema.safeParse({ tutorProfileId });
     if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
-    await db.tutorProfile.update({
+    const tutor = await db.tutorProfile.update({
       where: { id: parsed.data.tutorProfileId },
       data: { isVerified: true },
+      include: { user: { select: { email: true, name: true } } },
     });
+
+    // Send approval email (non-blocking)
+    if (tutor.user.email) {
+      sendTutorApprovedEmail(tutor.user.email, tutor.user.name || "Tutor").catch(() => null);
+    }
+
     revalidatePath("/admin/tutors");
     return { success: true };
   } catch (error) {
@@ -134,10 +172,17 @@ export async function rejectTutor(tutorProfileId: string) {
     const parsed = tutorIdSchema.safeParse({ tutorProfileId });
     if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
 
-    await db.tutorProfile.update({
+    const tutor = await db.tutorProfile.update({
       where: { id: parsed.data.tutorProfileId },
       data: { isVerified: false },
+      include: { user: { select: { email: true, name: true } } },
     });
+
+    // Send rejection email (non-blocking)
+    if (tutor.user.email) {
+      sendTutorRejectedEmail(tutor.user.email, tutor.user.name || "Tutor").catch(() => null);
+    }
+
     revalidatePath("/admin/tutors");
     return { success: true };
   } catch (error) {
