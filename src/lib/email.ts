@@ -194,3 +194,27 @@ export async function sendCertificateEmail(
     `),
   });
 }
+
+export async function sendContactFormEmail(
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+) {
+  const adminEmail = process.env.CONTACT_EMAIL || "admin@mudita.io";
+
+  return sendEmail({
+    to: adminEmail,
+    subject: `[Contact Form] ${subject}`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">New Contact Form Submission</h2>
+      <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;">
+        <p style="margin:0 0 8px;font-size:13px;color:#6b7280;"><strong>From:</strong> ${name} (${email})</p>
+        <p style="margin:0 0 8px;font-size:13px;color:#6b7280;"><strong>Subject:</strong> ${subject}</p>
+        <p style="margin:0;font-size:13px;color:#6b7280;"><strong>Message:</strong></p>
+        <p style="margin:8px 0 0;font-size:14px;color:#1f2937;white-space:pre-wrap;">${message}</p>
+      </div>
+      <p style="color:#9ca3af;font-size:12px;">Reply directly to this email to respond to ${email}.</p>
+    `),
+  });
+}
