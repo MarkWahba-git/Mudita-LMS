@@ -195,6 +195,71 @@ export async function sendCertificateEmail(
   });
 }
 
+export async function sendTutorApprovedEmail(email: string, name: string) {
+  const dashboardUrl = `${APP_URL}/en/tutor`;
+
+  return sendEmail({
+    to: email,
+    subject: "Your tutor application has been approved! — Mudita LMS",
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Congratulations, ${name}!</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Your tutor application has been <strong style="color:#15803d;">approved</strong>.
+        You can now set your availability and start accepting bookings from students.
+      </p>
+      ${button("Go to Tutor Dashboard", dashboardUrl)}
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Next steps:
+      </p>
+      <ul style="color:#6b7280;font-size:14px;line-height:1.8;padding-left:20px;">
+        <li>Set your availability schedule</li>
+        <li>Complete your profile details</li>
+        <li>Wait for students to book sessions</li>
+      </ul>
+    `),
+  });
+}
+
+export async function sendTutorRejectedEmail(email: string, name: string) {
+  const profileUrl = `${APP_URL}/en/tutor/profile`;
+
+  return sendEmail({
+    to: email,
+    subject: "Update on your tutor application — Mudita LMS",
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Hi ${name},</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        After review, your tutor verification has been <strong style="color:#dc2626;">revoked</strong>.
+        This may be due to incomplete profile information or other requirements.
+      </p>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        You can update your profile and it will be reviewed again by our team.
+      </p>
+      ${button("Update Profile", profileUrl)}
+      <p style="color:#9ca3af;font-size:12px;line-height:1.5;">
+        If you believe this was a mistake, please contact our support team.
+      </p>
+    `),
+  });
+}
+
+export async function sendNewTutorApplicationEmail(tutorName: string, tutorEmail: string) {
+  const adminEmail = process.env.CONTACT_EMAIL || "admin@mudita.io";
+
+  return sendEmail({
+    to: adminEmail,
+    subject: `[New Tutor Application] ${tutorName}`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">New Tutor Application</h2>
+      <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;">
+        <p style="margin:0 0 8px;font-size:13px;color:#6b7280;"><strong>Name:</strong> ${tutorName}</p>
+        <p style="margin:0;font-size:13px;color:#6b7280;"><strong>Email:</strong> ${tutorEmail}</p>
+      </div>
+      ${button("Review Applications", `${APP_URL}/en/admin/tutors`)}
+    `),
+  });
+}
+
 export async function sendContactFormEmail(
   name: string,
   email: string,
