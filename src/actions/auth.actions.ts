@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { registerSchema, type RegisterInput } from "@/validators/auth.schema";
 import { rateLimit, REGISTER_RATE_LIMIT } from "@/lib/rate-limit";
+import { sendWelcomeEmail } from "@/lib/email";
+import { sendVerificationEmail } from "@/actions/email-verification.actions";
 
 export async function registerUser(data: RegisterInput) {
   const parsed = registerSchema.safeParse(data);
@@ -34,5 +36,9 @@ export async function registerUser(data: RegisterInput) {
     },
   });
 
-  return { success: true, userId: user.id };
+  // Send verification and welcome emails (non-blocking)
+  sendVerificationEmail(email).catch(() => null);
+  sendWelcomeEmail(email, name).catch(() => null);
+
+  return { success: true, userId: user.id, email };
 }

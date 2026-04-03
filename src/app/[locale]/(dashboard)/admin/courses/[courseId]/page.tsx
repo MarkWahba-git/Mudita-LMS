@@ -4,6 +4,7 @@ import { isAdminRole } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { Link } from "@/i18n/navigation";
 import { ModuleList } from "./module-list";
+import { EnrollmentList } from "./enrollment-list";
 
 export const metadata = { title: "Course Content | Admin" };
 
@@ -31,6 +32,17 @@ export default async function CourseDetailPage({
       isFree: true,
       price: true,
       _count: { select: { enrollments: true } },
+      enrollments: {
+        orderBy: { enrolledAt: "desc" as const },
+        select: {
+          id: true,
+          userId: true,
+          status: true,
+          progress: true,
+          enrolledAt: true,
+          user: { select: { name: true, email: true } },
+        },
+      },
       modules: {
         orderBy: { order: "asc" },
         select: {
@@ -116,6 +128,10 @@ export default async function CourseDetailPage({
           <div className="font-medium">{course.isFree ? "Free" : `$${Number(course.price).toFixed(2)}`}</div>
         </div>
       </div>
+
+      {/* Enrollments */}
+      <EnrollmentList courseId={course.id} enrollments={course.enrollments} />
+
 
       {/* Module + Lesson management */}
       <ModuleList courseId={course.id} modules={course.modules} />

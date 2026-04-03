@@ -15,6 +15,9 @@ interface CourseCardProps {
     duration: number | null;
     lessonCount: number;
     enrollmentCount: number;
+    isFree?: boolean;
+    price?: unknown;
+    currency?: string;
   };
 }
 
@@ -79,6 +82,12 @@ export function CourseCard({ course }: CourseCardProps) {
   const ageColor = ageGroupColors[course.ageGroup] ?? "bg-gray-100 text-gray-700";
   const lvlColor = levelColors[course.level] ?? "bg-gray-100 text-gray-700";
 
+  const priceNum = course.price ? Number(course.price) : 0;
+  const isFree = course.isFree || priceNum === 0;
+  const priceLabel = isFree
+    ? "Free"
+    : `${course.currency ?? "USD"} ${priceNum.toFixed(2)}`;
+
   return (
     <Link href={`/courses/${course.slug}`}>
       <Card className="card-stem group h-full overflow-hidden hover-lift">
@@ -93,6 +102,11 @@ export function CourseCard({ course }: CourseCardProps) {
             <Badge variant="secondary" className="bg-white/90 text-xs font-semibold shadow-sm">
               {course.category}
             </Badge>
+          </div>
+          <div className="absolute top-3 left-3">
+            <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${isFree ? "bg-green-500 text-white" : "bg-white/90 text-gray-900"}`}>
+              {priceLabel}
+            </span>
           </div>
           {/* Bottom curve */}
           <div className="absolute -bottom-1 left-0 right-0">

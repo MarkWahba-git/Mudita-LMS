@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { generateCertificate } from "./certificate.service";
 
 export async function markLessonComplete(userId: string, lessonId: string) {
   try {
@@ -67,6 +68,11 @@ export async function recalculateProgress(userId: string, courseId: string) {
           : {}),
       },
     });
+
+    // Auto-generate certificate on course completion
+    if (progressPercent === 100) {
+      await generateCertificate(userId, courseId).catch(() => null);
+    }
 
     return enrollment.progress;
   } catch (error) {

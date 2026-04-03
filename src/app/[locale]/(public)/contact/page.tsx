@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,7 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle } from "lucide-react";
+import { submitContactForm } from "@/actions/contact.actions";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -20,6 +22,8 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactPage() {
   const t = useTranslations("contact");
+  const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -30,8 +34,13 @@ export default function ContactPage() {
   });
 
   async function onSubmit(data: ContactFormData) {
-    // TODO: implement contact form submission
-    console.log(data);
+    setSubmitError(null);
+    const result = await submitContactForm(data);
+    if (result.success) {
+      setSent(true);
+    } else {
+      setSubmitError(result.error || "Something went wrong");
+    }
   }
 
   return (
@@ -47,6 +56,22 @@ export default function ContactPage() {
           </p>
         </div>
 
+        {sent ? (
+          <div className="mt-12 mx-auto max-w-md rounded-xl border bg-card p-8 text-center">
+            <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
+            <h2 className="mt-4 text-xl font-semibold">Message sent!</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Thank you for reaching out. We&apos;ll get back to you soon.
+            </p>
+            <Button
+              className="mt-6"
+              variant="outline"
+              onClick={() => setSent(false)}
+            >
+              Send another message
+            </Button>
+          </div>
+        ) : (
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-3">
           {/* Contact Form */}
           <div className="lg:col-span-2">
@@ -112,6 +137,12 @@ export default function ContactPage() {
                 )}
               </div>
 
+              {submitError && (
+                <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {submitError}
+                </div>
+              )}
+
               <Button type="submit" size="lg" disabled={isSubmitting}>
                 {isSubmitting ? t("form.sending") : t("form.submit")}
               </Button>
@@ -157,6 +188,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

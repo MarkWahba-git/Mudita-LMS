@@ -1,0 +1,220 @@
+import { Resend } from "resend";
+
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend && process.env.RESEND_API_KEY) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
+
+const FROM_EMAIL = process.env.EMAIL_FROM || "Mudita LMS <noreply@mudita-lms.com>";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+interface SendEmailOptions {
+  to: string;
+  subject: string;
+  html: string;
+}
+
+async function sendEmail({ to, subject, html }: SendEmailOptions) {
+  const resend = getResend();
+
+  // If no API key configured, log and return (dev mode)
+  if (!resend) {
+    console.log(`[Email] To: ${to} | Subject: ${subject}`);
+    console.log(`[Email] Would send email. Set RESEND_API_KEY to enable.`);
+    return { success: true, dev: true };
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject,
+      html,
+    });
+
+    if (error) {
+      console.error("[Email] Send failed:", error);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, id: data?.id };
+  } catch (err) {
+    console.error("[Email] Send error:", err);
+    return { success: false, error: "Failed to send email" };
+  }
+}
+
+// ── Email Templates ─────────────────────────────────────────────────
+
+function layout(content: string) {
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /></head>
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <div style="max-width:560px;margin:40px auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+    <div style="background:linear-gradient(135deg,#2563eb,#7c3aed);padding:24px 32px;">
+      <h1 style="margin:0;color:white;font-size:20px;font-weight:700;letter-spacing:0.5px;">Mudita LMS</h1>
+    </div>
+    <div style="padding:32px;">
+      ${content}
+    </div>
+    <div style="padding:16px 32px;background:#f9fafb;border-top:1px solid #e5e7eb;text-align:center;">
+      <p style="margin:0;font-size:12px;color:#9ca3af;">
+        &copy; ${new Date().getFullYear()} Mudita LMS. All rights reserved.
+      </p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function button(text: string, url: string) {
+  return `<div style="text-align:center;margin:28px 0;">
+    <a href="${url}" style="display:inline-block;background:#2563eb;color:white;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">
+      ${text}
+    </a>
+  </div>`;
+}
+
+// ── Public Email Functions ───────────────────────────────────────────
+
+export async function sendPasswordResetEmail(email: string, token: string) {
+  const resetUrl = `${APP_URL}/en/reset-password?token=${token}`;
+
+  return sendEmail({
+    to: email,
+    subject: "Reset your password — Mudita LMS",
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Reset your password</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        We received a request to reset your password. Click the button below to choose a new one.
+        This link expires in <strong>1 hour</strong>.
+      </p>
+      ${button("Reset Password", resetUrl)}
+      <p style="color:#9ca3af;font-size:12px;line-height:1.5;">
+        If you didn't request this, you can safely ignore this email. Your password won't be changed.
+      </p>
+      <p style="color:#d1d5db;font-size:11px;word-break:break-all;">
+        ${resetUrl}
+      </p>
+    `),
+  });
+}
+
+export async function sendEmailVerification(email: string, token: string) {
+  const verifyUrl = `${APP_URL}/en/verify-email?token=${token}`;
+
+  return sendEmail({
+    to: email,
+    subject: "Verify your email — Mudita LMS",
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Verify your email</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Welcome to Mudita LMS! Please verify your email address by clicking the button below.
+      </p>
+      ${button("Verify Email", verifyUrl)}
+      <p style="color:#9ca3af;font-size:12px;line-height:1.5;">
+        This link expires in 24 hours. If you didn't create an account, ignore this email.
+      </p>
+    `),
+  });
+}
+
+export async function sendWelcomeEmail(email: string, name: string) {
+  const dashboardUrl = `${APP_URL}/en/student`;
+
+  return sendEmail({
+    to: email,
+    subject: `Welcome to Mudita LMS, ${name}!`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Welcome, ${name}! 🎉</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Your account is all set up. Start exploring our STEM courses designed for young learners ages 3–18.
+      </p>
+      ${button("Go to Dashboard", dashboardUrl)}
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Here's what you can do:
+      </p>
+      <ul style="color:#6b7280;font-size:14px;line-height:1.8;padding-left:20px;">
+        <li>Browse and enroll in courses</li>
+        <li>Track your learning progress</li>
+        <li>Earn badges and certificates</li>
+        <li>Book sessions with tutors</li>
+      </ul>
+    `),
+  });
+}
+
+export async function sendEnrollmentConfirmation(
+  email: string,
+  name: string,
+  courseTitle: string,
+  courseSlug: string
+) {
+  const courseUrl = `${APP_URL}/en/student/courses`;
+
+  return sendEmail({
+    to: email,
+    subject: `Enrolled: ${courseTitle} — Mudita LMS`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">You're enrolled! 📚</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        Hi ${name}, you've been enrolled in <strong>${courseTitle}</strong>.
+        Start learning right away!
+      </p>
+      ${button("Start Learning", courseUrl)}
+    `),
+  });
+}
+
+export async function sendCertificateEmail(
+  email: string,
+  name: string,
+  courseTitle: string,
+  certCode: string
+) {
+  const certUrl = `${APP_URL}/en/verify/${certCode}`;
+
+  return sendEmail({
+    to: email,
+    subject: `Certificate earned: ${courseTitle} — Mudita LMS`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">Congratulations, ${name}! 🎓</h2>
+      <p style="color:#6b7280;font-size:14px;line-height:1.6;">
+        You've completed <strong>${courseTitle}</strong> and earned a certificate of completion!
+      </p>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px;text-align:center;margin:20px 0;">
+        <p style="margin:0 0 4px;font-size:12px;color:#6b7280;">Verification Code</p>
+        <p style="margin:0;font-family:monospace;font-size:16px;font-weight:700;color:#15803d;letter-spacing:1px;">${certCode}</p>
+      </div>
+      ${button("View Certificate", certUrl)}
+    `),
+  });
+}
+
+export async function sendContactFormEmail(
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+) {
+  const adminEmail = process.env.CONTACT_EMAIL || "admin@mudita.io";
+
+  return sendEmail({
+    to: adminEmail,
+    subject: `[Contact Form] ${subject}`,
+    html: layout(`
+      <h2 style="margin:0 0 12px;font-size:22px;color:#1f2937;">New Contact Form Submission</h2>
+      <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;">
+        <p style="margin:0 0 8px;font-size:13px;color:#6b7280;"><strong>From:</strong> ${name} (${email})</p>
+        <p style="margin:0 0 8px;font-size:13px;color:#6b7280;"><strong>Subject:</strong> ${subject}</p>
+        <p style="margin:0;font-size:13px;color:#6b7280;"><strong>Message:</strong></p>
+        <p style="margin:8px 0 0;font-size:14px;color:#1f2937;white-space:pre-wrap;">${message}</p>
+      </div>
+      <p style="color:#9ca3af;font-size:12px;">Reply directly to this email to respond to ${email}.</p>
+    `),
+  });
+}

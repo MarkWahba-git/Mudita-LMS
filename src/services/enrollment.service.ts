@@ -2,6 +2,12 @@ import { db } from "@/lib/db";
 
 export async function enrollUser(userId: string, courseId: string) {
   try {
+    // Check for existing enrollment first
+    const existing = await db.enrollment.findUnique({
+      where: { userId_courseId: { userId, courseId } },
+    });
+    if (existing) return existing;
+
     const enrollment = await db.enrollment.create({
       data: {
         userId,
