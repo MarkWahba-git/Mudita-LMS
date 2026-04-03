@@ -132,7 +132,6 @@ export default async function CourseDetailPage({
       {/* Enrollments */}
       <EnrollmentList courseId={course.id} enrollments={course.enrollments} />
 
-
       {/* Module + Lesson management */}
       <ModuleList courseId={course.id} modules={course.modules} />
     </div>
