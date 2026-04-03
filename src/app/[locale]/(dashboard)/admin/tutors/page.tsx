@@ -66,6 +66,7 @@ export default async function AdminTutorsPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <VerifyTutorButton tutorId={tutor.id} />
+                    <RejectTutorButton tutorId={tutor.id} />
                     <DeleteTutorButton tutorId={tutor.id} name={tutor.user.name ?? "this tutor"} />
                   </div>
                 </div>

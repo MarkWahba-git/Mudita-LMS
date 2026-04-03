@@ -158,6 +158,18 @@ export async function verifyTutor(tutorProfileId: string) {
       sendTutorApprovedEmail(tutor.user.email, tutor.user.name || "Tutor").catch(() => null);
     }
 
+    // In-app notification for tutor
+    try {
+      await db.notification.create({
+        data: {
+          userId: tutor.userId,
+          title: "Application Approved",
+          body: "Your tutor application has been approved! You can now set your availability and start accepting bookings.",
+          type: "TUTOR_APPROVED",
+        },
+      });
+    } catch { /* non-critical */ }
+
     revalidatePath("/admin/tutors");
     return { success: true };
   } catch (error) {
@@ -182,6 +194,18 @@ export async function rejectTutor(tutorProfileId: string) {
     if (tutor.user.email) {
       sendTutorRejectedEmail(tutor.user.email, tutor.user.name || "Tutor").catch(() => null);
     }
+
+    // In-app notification for tutor
+    try {
+      await db.notification.create({
+        data: {
+          userId: tutor.userId,
+          title: "Verification Revoked",
+          body: "Your tutor verification has been revoked. Please update your profile and it will be reviewed again.",
+          type: "TUTOR_REJECTED",
+        },
+      });
+    } catch { /* non-critical */ }
 
     revalidatePath("/admin/tutors");
     return { success: true };
