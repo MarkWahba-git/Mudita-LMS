@@ -1,24 +1,28 @@
 import { db } from "@/lib/db";
 
 export async function getPublishedArticles(locale: string = "en") {
-  return db.helpArticle.findMany({
-    where: { isPublished: true },
-    orderBy: [{ category: "asc" }, { order: "asc" }, { createdAt: "desc" }],
-    select: {
-      id: true,
-      slug: true,
-      category: true,
-      title: true,
-      titleAr: true,
-      titleDe: true,
-      excerpt: true,
-      excerptAr: true,
-      excerptDe: true,
-      tags: true,
-      isFeatured: true,
-      updatedAt: true,
-    },
-  });
+  try {
+    return await db.helpArticle.findMany({
+      where: { isPublished: true },
+      orderBy: [{ category: "asc" }, { order: "asc" }, { createdAt: "desc" }],
+      select: {
+        id: true,
+        slug: true,
+        category: true,
+        title: true,
+        titleAr: true,
+        titleDe: true,
+        excerpt: true,
+        excerptAr: true,
+        excerptDe: true,
+        tags: true,
+        isFeatured: true,
+        updatedAt: true,
+      },
+    });
+  } catch {
+    return [];
+  }
 }
 
 export async function getFeaturedArticles() {
