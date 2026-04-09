@@ -100,9 +100,9 @@ export function CourseCard({ course }: CourseCardProps) {
 
           {/* Overlay badges */}
           <div className="absolute top-3 right-3">
-            <Badge variant="secondary" className="bg-white/90 text-xs font-semibold shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-800 shadow-sm backdrop-blur-sm">
               {course.category}
-            </Badge>
+            </span>
           </div>
           <div className="absolute top-3 left-3">
             <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${isFree ? "bg-green-500 text-white" : "bg-white/90 text-gray-900 backdrop-blur-sm"}`}>
