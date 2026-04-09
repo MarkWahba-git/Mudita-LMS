@@ -69,30 +69,6 @@ const AI = () => (
   </svg>
 );
 
-const Science = () => (
-  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
-    {/* nucleus */}
-    <circle cx="140" cy="88" r="16" fill="white" opacity="0.88" />
-    <circle cx="140" cy="88" r="9" fill="rgba(6,182,212,0.85)" />
-    <circle cx="140" cy="88" r="4" fill="white" opacity="0.9" />
-    {/* orbital ring 1 — horizontal */}
-    <ellipse cx="140" cy="88" rx="72" ry="24" stroke="white" strokeWidth="2" opacity="0.55" fill="none" />
-    <circle cx="212" cy="88" r="7.5" fill="white" opacity="0.85" />
-    <circle cx="68" cy="88" r="5" fill="white" opacity="0.55" />
-    {/* orbital ring 2 — 60° */}
-    <ellipse cx="140" cy="88" rx="72" ry="24" stroke="white" strokeWidth="2" opacity="0.55" fill="none" transform="rotate(60 140 88)" />
-    <circle cx="176" cy="150" r="7.5" fill="white" opacity="0.85" />
-    {/* orbital ring 3 — 120° */}
-    <ellipse cx="140" cy="88" rx="72" ry="24" stroke="white" strokeWidth="2" opacity="0.55" fill="none" transform="rotate(120 140 88)" />
-    <circle cx="68" cy="150" r="7.5" fill="white" opacity="0.85" />
-    {/* floating particles */}
-    <circle cx="72" cy="36" r="4" fill="white" opacity="0.45" />
-    <circle cx="212" cy="140" r="3.5" fill="white" opacity="0.4" />
-    <circle cx="222" cy="32" r="3" fill="white" opacity="0.38" />
-    <circle cx="42" cy="130" r="2.5" fill="white" opacity="0.3" />
-  </svg>
-);
-
 const Robotics = () => (
   <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
     {/* antenna */}
@@ -264,34 +240,6 @@ const Chemistry = () => (
     <circle cx="210" cy="140" r="4" fill="white" opacity="0.4" />
     <circle cx="220" cy="128" r="3" fill="white" opacity="0.35" />
     <circle cx="230" cy="142" r="2.5" fill="white" opacity="0.3" />
-  </svg>
-);
-
-const Physics = () => (
-  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
-    {/* wave / field lines background */}
-    <path d="M 20,88 C 60,50 100,130 140,88 C 180,46 220,130 260,88"
-      stroke="white" strokeWidth="1.5" fill="none" opacity="0.18" />
-    <path d="M 20,108 C 60,70 100,150 140,108 C 180,66 220,150 260,108"
-      stroke="white" strokeWidth="1" fill="none" opacity="0.12" />
-    <path d="M 20,68 C 60,30 100,110 140,68 C 180,26 220,110 260,68"
-      stroke="white" strokeWidth="1" fill="none" opacity="0.12" />
-    {/* nucleus */}
-    <circle cx="140" cy="88" r="18" fill="white" opacity="0.9" />
-    <circle cx="140" cy="88" r="11" fill="rgba(99,102,241,0.85)" />
-    <circle cx="135" cy="83" r="4" fill="rgba(255,255,255,0.85)" />
-    <circle cx="145" cy="93" r="3" fill="rgba(189,147,249,0.85)" />
-    {/* orbit 1 — tilted */}
-    <ellipse cx="140" cy="88" rx="68" ry="22" stroke="white" strokeWidth="2" opacity="0.58" fill="none" transform="rotate(0 140 88)" />
-    <circle cx="208" cy="88" r="7" fill="white" opacity="0.82" />
-    {/* orbit 2 — tilted 60° */}
-    <ellipse cx="140" cy="88" rx="68" ry="22" stroke="white" strokeWidth="2" opacity="0.58" fill="none" transform="rotate(60 140 88)" />
-    <circle cx="174" cy="147" r="7" fill="white" opacity="0.82" />
-    {/* orbit 3 — tilted 120° */}
-    <ellipse cx="140" cy="88" rx="68" ry="22" stroke="white" strokeWidth="2" opacity="0.58" fill="none" transform="rotate(120 140 88)" />
-    <circle cx="72" cy="147" r="7" fill="white" opacity="0.82" />
-    {/* label E=mc² */}
-    <text x="20" y="30" fontSize="20" fill="white" fillOpacity="0.55" fontFamily="Georgia, serif">E=mc²</text>
   </svg>
 );
 
