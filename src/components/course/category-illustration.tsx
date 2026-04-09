@@ -415,11 +415,156 @@ const STEM = () => (
   </svg>
 );
 
+// --- unique replacements for previously-duplicated categories ---
+
+// Technology: monitor dashboard with sidebar + bar chart
+const Technology = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* monitor frame */}
+    <rect x="52" y="16" width="176" height="122" rx="10" fill="rgba(0,0,0,0.35)" stroke="white" strokeWidth="2" opacity="0.72" />
+    <rect x="52" y="16" width="176" height="26" rx="10" fill="rgba(0,0,0,0.5)" />
+    <rect x="52" y="32" width="176" height="10" fill="rgba(0,0,0,0.5)" />
+    {/* browser circles */}
+    <circle cx="67" cy="29" r="4.5" fill="rgba(255,255,255,0.32)" />
+    <circle cx="80" cy="29" r="4.5" fill="rgba(255,255,255,0.32)" />
+    {/* URL bar */}
+    <rect x="94" y="25" width="112" height="8" rx="4" fill="rgba(255,255,255,0.16)" />
+    {/* sidebar */}
+    <rect x="58" y="42" width="36" height="92" fill="rgba(0,0,0,0.22)" />
+    <rect x="63" y="50" width="26" height="5" rx="2.5" fill="rgba(255,255,255,0.42)" />
+    <rect x="63" y="62" width="26" height="5" rx="2.5" fill="rgba(99,102,241,0.95)" />
+    <rect x="63" y="74" width="26" height="5" rx="2.5" fill="rgba(255,255,255,0.28)" />
+    <rect x="63" y="86" width="26" height="5" rx="2.5" fill="rgba(255,255,255,0.28)" />
+    <rect x="63" y="98" width="26" height="5" rx="2.5" fill="rgba(255,255,255,0.28)" />
+    {/* stat cards row */}
+    <rect x="100" y="48" width="40" height="18" rx="4" fill="rgba(255,255,255,0.12)" stroke="white" strokeWidth="1" opacity="0.35" />
+    <rect x="146" y="48" width="40" height="18" rx="4" fill="rgba(255,255,255,0.12)" stroke="white" strokeWidth="1" opacity="0.35" />
+    <rect x="192" y="48" width="30" height="18" rx="4" fill="rgba(99,102,241,0.38)" stroke="white" strokeWidth="1" opacity="0.52" />
+    {/* bar chart */}
+    <rect x="102" y="94" width="13" height="36" rx="3" fill="rgba(99,102,241,0.82)" />
+    <rect x="120" y="80" width="13" height="50" rx="3" fill="rgba(139,233,253,0.82)" />
+    <rect x="138" y="70" width="13" height="60" rx="3" fill="rgba(80,250,123,0.82)" />
+    <rect x="156" y="86" width="13" height="44" rx="3" fill="rgba(255,121,198,0.82)" />
+    <rect x="174" y="62" width="13" height="68" rx="3" fill="rgba(241,250,140,0.82)" />
+    {/* chart baseline */}
+    <line x1="98" y1="132" x2="194" y2="132" stroke="white" strokeWidth="1" opacity="0.32" />
+    {/* stand */}
+    <rect x="126" y="138" width="28" height="12" rx="2" fill="rgba(255,255,255,0.2)" />
+    <rect x="112" y="150" width="56" height="7" rx="3.5" fill="rgba(255,255,255,0.3)" />
+    {/* floating data points */}
+    <circle cx="240" cy="22" r="3" fill="white" opacity="0.2" />
+    <circle cx="254" cy="40" r="2" fill="white" opacity="0.18" />
+  </svg>
+);
+
+// Mathematics: Euclidean geometry — compass, right triangle, labels
+const Mathematics = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* subtle grid */}
+    {([44, 88, 132, 176, 220] as number[]).map((x) => (
+      <line key={`v${x}`} x1={x} y1="0" x2={x} y2="176" stroke="white" strokeWidth="0.5" opacity="0.1" />
+    ))}
+    {([36, 72, 108, 144] as number[]).map((y) => (
+      <line key={`h${y}`} x1="0" y1={y} x2="280" y2={y} stroke="white" strokeWidth="0.5" opacity="0.1" />
+    ))}
+    {/* right triangle */}
+    <polygon points="52,148 52,48 196,148" stroke="white" strokeWidth="2.5" fill="rgba(255,255,255,0.12)" opacity="0.88" />
+    {/* right-angle box */}
+    <polyline points="52,128 72,128 72,148" stroke="white" strokeWidth="2" fill="none" opacity="0.72" />
+    {/* angle arc at hypotenuse base */}
+    <path d="M 172,148 A 24,24 0 0,1 196,126" stroke="white" strokeWidth="1.5" fill="none" opacity="0.62" />
+    {/* side labels */}
+    <text x="22" y="102" fontSize="18" fill="white" fillOpacity="0.82" fontFamily="Georgia, serif" fontStyle="italic">a</text>
+    <text x="112" y="168" fontSize="18" fill="white" fillOpacity="0.82" fontFamily="Georgia, serif" fontStyle="italic">b</text>
+    <text x="118" y="88" fontSize="18" fill="white" fillOpacity="0.82" fontFamily="Georgia, serif" fontStyle="italic" transform="rotate(-34 118 88)">c</text>
+    {/* theorem label */}
+    <text x="172" y="74" fontSize="17" fill="white" fillOpacity="0.72" fontFamily="Georgia, serif">a²+b²=c²</text>
+    {/* compass — pivot + two arms + arc */}
+    <circle cx="228" cy="110" r="4" fill="white" opacity="0.72" />
+    <line x1="228" y1="110" x2="228" y2="80" stroke="white" strokeWidth="2" opacity="0.62" />
+    <line x1="228" y1="110" x2="252" y2="126" stroke="white" strokeWidth="2" opacity="0.62" />
+    <circle cx="228" cy="80" r="4" fill="white" opacity="0.55" />
+    <circle cx="252" cy="126" r="4" fill="white" opacity="0.55" />
+    <path d="M 218,80 A 32,32 0 0,1 254,106" stroke="white" strokeWidth="1.5" fill="none" opacity="0.5" strokeDasharray="4 3" />
+    {/* floating symbols */}
+    <text x="18" y="40" fontSize="30" fill="white" fillOpacity="0.5" fontFamily="Georgia, serif">π</text>
+    <text x="230" y="168" fontSize="22" fill="white" fillOpacity="0.4" fontFamily="Georgia, serif">φ</text>
+  </svg>
+);
+
+// Science: telescope pointing at a ringed planet
+const Science = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* stars */}
+    <circle cx="44" cy="26" r="2.5" fill="white" opacity="0.7" />
+    <circle cx="80" cy="14" r="2" fill="white" opacity="0.6" />
+    <circle cx="136" cy="10" r="3" fill="white" opacity="0.65" />
+    <circle cx="202" cy="20" r="2" fill="white" opacity="0.6" />
+    <circle cx="244" cy="12" r="2.5" fill="white" opacity="0.55" />
+    <circle cx="264" cy="38" r="2" fill="white" opacity="0.48" />
+    <circle cx="28" cy="58" r="1.5" fill="white" opacity="0.5" />
+    <circle cx="260" cy="66" r="2" fill="white" opacity="0.45" />
+    {/* ringed planet */}
+    <circle cx="82" cy="58" r="30" fill="rgba(255,255,255,0.16)" stroke="white" strokeWidth="1.5" opacity="0.58" />
+    <ellipse cx="82" cy="58" rx="50" ry="14" stroke="white" strokeWidth="1.5" fill="none" opacity="0.48" />
+    <ellipse cx="76" cy="50" rx="13" ry="8" fill="rgba(255,255,255,0.1)" />
+    <circle cx="78" cy="55" r="5" fill="rgba(255,255,255,0.12)" />
+    {/* small moon */}
+    <circle cx="138" cy="34" r="10" fill="rgba(255,255,255,0.18)" stroke="white" strokeWidth="1" opacity="0.52" />
+    <circle cx="134" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
+    {/* telescope — rotated group, pointing upper-left toward planet */}
+    <g transform="rotate(-32 134 128)">
+      <rect x="72" y="118" width="124" height="20" rx="10" fill="rgba(255,255,255,0.22)" stroke="white" strokeWidth="2" opacity="0.75" />
+      {/* eyepiece */}
+      <rect x="62" y="120" width="14" height="16" rx="4" fill="rgba(255,255,255,0.18)" stroke="white" strokeWidth="1.5" opacity="0.65" />
+      {/* objective lens */}
+      <circle cx="200" cy="128" r="13" fill="rgba(139,233,253,0.28)" stroke="white" strokeWidth="2" opacity="0.72" />
+      <circle cx="200" cy="128" r="7" fill="rgba(139,233,253,0.42)" />
+    </g>
+    {/* tripod legs */}
+    <line x1="132" y1="138" x2="108" y2="172" stroke="white" strokeWidth="2.5" opacity="0.62" />
+    <line x1="138" y1="140" x2="140" y2="174" stroke="white" strokeWidth="2.5" opacity="0.62" />
+    <line x1="144" y1="138" x2="168" y2="168" stroke="white" strokeWidth="2.5" opacity="0.62" />
+    {/* sparkle */}
+    <path d="M 244,86 L 246,78 L 248,86 L 256,88 L 248,90 L 246,98 L 244,90 L 236,88 Z" fill="white" opacity="0.52" />
+    <path d="M 30,100 L 31.5,94 L 33,100 L 39,101.5 L 33,103 L 31.5,109 L 30,103 L 24,101.5 Z" fill="white" opacity="0.45" />
+  </svg>
+);
+
+// Physics: glass prism splitting white light into a rainbow spectrum
+const Physics = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* prism */}
+    <polygon points="120,22 56,152 184,152" stroke="white" strokeWidth="2.5" fill="rgba(255,255,255,0.18)" opacity="0.88" />
+    {/* prism inner sheen — left face highlight */}
+    <line x1="120" y1="22" x2="56" y2="152" stroke="white" strokeWidth="5" opacity="0.08" />
+    <line x1="116" y1="28" x2="72" y2="122" stroke="white" strokeWidth="2" opacity="0.18" />
+    {/* incoming white light beam */}
+    <line x1="18" y1="78" x2="98" y2="78" stroke="white" strokeWidth="5" opacity="0.85" strokeLinecap="round" />
+    {/* refraction inside prism (faint) */}
+    <line x1="98" y1="78" x2="152" y2="140" stroke="white" strokeWidth="1.5" opacity="0.22" />
+    {/* spectrum rays from exit point on right face */}
+    <line x1="152" y1="122" x2="262" y2="76"  stroke="#FF4444" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    <line x1="152" y1="126" x2="262" y2="90"  stroke="#FF8800" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    <line x1="152" y1="130" x2="262" y2="104" stroke="#FFE600" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    <line x1="152" y1="134" x2="262" y2="118" stroke="#44DD44" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    <line x1="152" y1="138" x2="262" y2="132" stroke="#4488FF" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    <line x1="152" y1="142" x2="262" y2="148" stroke="#AA44FF" strokeWidth="3.5" opacity="0.88" strokeLinecap="round" />
+    {/* physics equations */}
+    <text x="16" y="36" fontSize="15" fill="white" fillOpacity="0.52" fontFamily="Georgia, serif">c = λf</text>
+    <text x="16" y="56" fontSize="15" fill="white" fillOpacity="0.42" fontFamily="Georgia, serif">E = hf</text>
+    {/* corner particles */}
+    <circle cx="48" cy="132" r="2.5" fill="white" opacity="0.38" />
+    <circle cx="34" cy="112" r="2" fill="white" opacity="0.3" />
+    <circle cx="210" cy="28" r="2.5" fill="white" opacity="0.32" />
+  </svg>
+);
+
 const illustrationMap: Record<string, React.FC> = {
   coding: Coding,
-  technology: AI,
+  technology: Technology,
   ai: AI,
-  mathematics: Math,
+  mathematics: Mathematics,
   math: Math,
   science: Science,
   robotics: Robotics,
