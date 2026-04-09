@@ -30,13 +30,13 @@ export default async function HelpCenterPage() {
     (cat) => articlesByCategory[cat].length > 0
   );
 
-  function getTitle(article: (typeof articles)[0]) {
+  function getTitle(article: { title: string; titleAr?: string | null; titleDe?: string | null }) {
     if (locale === "ar" && article.titleAr) return article.titleAr;
     if (locale === "de" && article.titleDe) return article.titleDe;
     return article.title;
   }
 
-  function getExcerpt(article: (typeof articles)[0]) {
+  function getExcerpt(article: { excerpt: string; excerptAr?: string | null; excerptDe?: string | null }) {
     if (locale === "ar" && article.excerptAr) return article.excerptAr;
     if (locale === "de" && article.excerptDe) return article.excerptDe;
     return article.excerpt;
