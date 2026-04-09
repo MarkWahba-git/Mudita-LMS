@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, Users, Clock } from "lucide-react";
+import { CategoryIllustration } from "./category-illustration";
 
 interface CourseCardProps {
   course: {
@@ -40,23 +41,6 @@ const categoryGradients: Record<string, string> = {
   language: "from-teal-400 to-green-500",
 };
 
-const categoryIcons: Record<string, string> = {
-  math: "∑",
-  coding: "</>",
-  science: "🔬",
-  robotics: "🤖",
-  engineering: "⚙️",
-  ai: "🧠",
-  electronics: "⚡",
-  biology: "🧬",
-  chemistry: "⚗️",
-  physics: "⚛️",
-  mathematics: "∑",
-  technology: "💻",
-  stem: "🚀",
-  arts: "🎨",
-  language: "💬",
-};
 
 const ageGroupLabels: Record<string, string> = {
   AGES_3_5: "Ages 3-5",
@@ -89,7 +73,6 @@ const levelColors: Record<string, string> = {
 export function CourseCard({ course }: CourseCardProps) {
   const categoryKey = course.category.toLowerCase();
   const gradient = categoryGradients[categoryKey] ?? "from-gray-400 to-gray-600";
-  const icon = categoryIcons[categoryKey] ?? "📚";
   const ageColor = ageGroupColors[course.ageGroup] ?? "bg-gray-100 text-gray-700";
   const lvlColor = levelColors[course.level] ?? "bg-gray-100 text-gray-700";
 
@@ -112,13 +95,7 @@ export function CourseCard({ course }: CourseCardProps) {
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
-            <div
-              className={`flex h-full items-center justify-center bg-gradient-to-br ${gradient}`}
-            >
-              <span className="text-6xl opacity-80 transition-transform duration-300 group-hover:scale-110">
-                {icon}
-              </span>
-            </div>
+            <CategoryIllustration category={course.category} gradient={gradient} />
           )}
 
           {/* Overlay badges */}
