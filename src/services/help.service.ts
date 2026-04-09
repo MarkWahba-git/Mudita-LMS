@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { HelpCategory } from "@/generated/prisma";
 
 export async function getPublishedArticles(locale: string = "en") {
   return db.helpArticle.findMany({
@@ -111,5 +110,3 @@ export async function getTopSearchQueries(limit = 10) {
     take: limit,
   });
 }
-
-export { HelpCategory };
