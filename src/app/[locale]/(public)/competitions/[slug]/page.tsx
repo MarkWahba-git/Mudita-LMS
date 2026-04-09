@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { getCompetitionBySlug } from "@/services/competition.service";
+import { getCompetitionBySlug, getLeaderboard } from "@/services/competition.service";
 import { registerForCompetition } from "@/actions/competition.actions";
 
 interface CompetitionDetailPageProps {
@@ -35,6 +35,10 @@ export default async function CompetitionDetailPage({
 
   const canRegister =
     competition.status === "UPCOMING" || competition.status === "REGISTRATION_OPEN";
+
+  const showLeaderboard =
+    competition.status === "JUDGING" || competition.status === "COMPLETED";
+  const leaderboard = showLeaderboard ? await getLeaderboard(competition.id) : [];
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 space-y-8">
@@ -141,6 +145,57 @@ export default async function CompetitionDetailPage({
           </p>
         )}
       </div>
+
+      {showLeaderboard && leaderboard.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-xl font-semibold">Leaderboard</h2>
+          <div className="rounded-xl border bg-card overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="border-b bg-muted/50">
+                <tr>
+                  <th className="px-4 py-3 text-left font-medium w-16">Rank</th>
+                  <th className="px-4 py-3 text-left font-medium">Participant</th>
+                  <th className="px-4 py-3 text-right font-medium">Score</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {leaderboard.map((entry) => (
+                  <tr
+                    key={entry.id}
+                    className={`${entry.rank === 1 ? "bg-yellow-50" : entry.rank === 2 ? "bg-gray-50" : entry.rank === 3 ? "bg-orange-50" : ""}`}
+                  >
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
+                        entry.rank === 1 ? "bg-yellow-200 text-yellow-900" :
+                        entry.rank === 2 ? "bg-gray-200 text-gray-700" :
+                        entry.rank === 3 ? "bg-orange-200 text-orange-800" :
+                        "bg-muted text-muted-foreground"
+                      }`}>
+                        {entry.rank}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        {entry.user.avatar ? (
+                          <img src={entry.user.avatar} alt="" className="h-8 w-8 rounded-full object-cover" />
+                        ) : (
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                            {(entry.user.name ?? "?")[0].toUpperCase()}
+                          </div>
+                        )}
+                        <span className="font-medium">{entry.user.name ?? "Participant"}</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-right font-semibold tabular-nums">
+                      {entry.score}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

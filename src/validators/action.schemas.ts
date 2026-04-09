@@ -353,3 +353,28 @@ export const createSettingSchema = z.object({
 });
 
 export const deleteSettingSchema = z.object({ key: z.string().min(1) });
+
+// ── Messages ─────────────────────────────────────────────────────────────
+
+export const sendMessageSchema = z.object({
+  receiverId: cuidSchema,
+  body: z.string().min(1, "Message cannot be empty").max(5000),
+  subject: z.string().max(200).optional(),
+});
+
+export const markThreadReadSchema = z.object({
+  otherUserId: cuidSchema,
+});
+
+// ── Competition Scoring ──────────────────────────────────────────────────
+
+export const updateScoreSchema = z.object({
+  registrationId: cuidSchema,
+  score: z.number().int().min(0).max(10000),
+});
+
+export const updateSubmissionSchema = z.object({
+  registrationId: cuidSchema,
+  submissionUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  teamName: z.string().max(100).optional(),
+});

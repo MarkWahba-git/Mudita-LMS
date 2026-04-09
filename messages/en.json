@@ -60,7 +60,8 @@
     "logout": "Log Out",
     "search": "Search",
     "login": "Log In",
-    "register": "Sign Up"
+    "register": "Sign Up",
+    "messages": "Messages"
   },
   "home": {
     "heroTitle": "Where Curiosity Becomes Confidence",
@@ -141,9 +142,18 @@
     },
     "team": {
       "title": "Our Team",
-      "member1": { "name": "Dr. Maya Chen", "role": "Co-Founder & CEO" },
-      "member2": { "name": "Omar Hassan", "role": "Head of Curriculum" },
-      "member3": { "name": "Julia Weber", "role": "Head of Engineering" }
+      "member1": {
+        "name": "Dr. Maya Chen",
+        "role": "Co-Founder & CEO"
+      },
+      "member2": {
+        "name": "Omar Hassan",
+        "role": "Head of Curriculum"
+      },
+      "member3": {
+        "name": "Julia Weber",
+        "role": "Head of Engineering"
+      }
     },
     "impact": {
       "title": "Our Impact",
@@ -178,29 +188,61 @@
       "name": "Free",
       "price": "$0",
       "period": "forever",
-      "features": ["Access to free courses", "Basic progress tracking", "Community access", "1 child account"],
+      "features": [
+        "Access to free courses",
+        "Basic progress tracking",
+        "Community access",
+        "1 child account"
+      ],
       "cta": "Create Free Account"
     },
     "pro": {
       "name": "Pro",
       "price": "$19",
       "period": "per month",
-      "features": ["All free courses + premium content", "Advanced progress tracking & analytics", "Certificates of completion", "Up to 3 child accounts", "Priority support", "Live tutoring discounts"],
+      "features": [
+        "All free courses + premium content",
+        "Advanced progress tracking & analytics",
+        "Certificates of completion",
+        "Up to 3 child accounts",
+        "Priority support",
+        "Live tutoring discounts"
+      ],
       "cta": "Try Pro Free for 7 Days"
     },
     "school": {
       "name": "School",
       "price": "Custom",
       "period": "per institution",
-      "features": ["Unlimited student accounts", "Admin dashboard & reporting", "Custom branding", "Bulk enrollment tools", "Dedicated account manager", "API access & integrations", "Teacher training resources"],
+      "features": [
+        "Unlimited student accounts",
+        "Admin dashboard & reporting",
+        "Custom branding",
+        "Bulk enrollment tools",
+        "Dedicated account manager",
+        "API access & integrations",
+        "Teacher training resources"
+      ],
       "cta": "Get a Custom Quote"
     },
     "faqTitle": "Pricing FAQ",
     "faq": [
-      { "q": "Can I cancel anytime?", "a": "Yes. You can cancel your subscription at any time from your account settings. Your access continues until the end of the billing period." },
-      { "q": "Is there a free trial for Pro?", "a": "Yes! Pro comes with a 7-day free trial. No charge until the trial ends, and you can cancel anytime." },
-      { "q": "What payment methods do you accept?", "a": "We accept all major credit cards, PayPal, and bank transfers for School plans." },
-      { "q": "Can I switch plans?", "a": "Absolutely. Upgrade or downgrade at any time. If you upgrade, you'll be charged the prorated difference." }
+      {
+        "q": "Can I cancel anytime?",
+        "a": "Yes. You can cancel your subscription at any time from your account settings. Your access continues until the end of the billing period."
+      },
+      {
+        "q": "Is there a free trial for Pro?",
+        "a": "Yes! Pro comes with a 7-day free trial. No charge until the trial ends, and you can cancel anytime."
+      },
+      {
+        "q": "What payment methods do you accept?",
+        "a": "We accept all major credit cards, PayPal, and bank transfers for School plans."
+      },
+      {
+        "q": "Can I switch plans?",
+        "a": "Absolutely. Upgrade or downgrade at any time. If you upgrade, you'll be charged the prorated difference."
+      }
     ]
   },
   "contact": {

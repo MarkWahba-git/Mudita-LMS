@@ -60,7 +60,8 @@
     "logout": "Abmelden",
     "search": "Suchen",
     "login": "Anmelden",
-    "register": "Registrieren"
+    "register": "Registrieren",
+    "messages": "Nachrichten"
   },
   "home": {
     "heroTitle": "Wo Neugier zu Selbstvertrauen wird",
@@ -141,9 +142,18 @@
     },
     "team": {
       "title": "Unser Team",
-      "member1": { "name": "Dr. Maya Chen", "role": "Mitgründerin & CEO" },
-      "member2": { "name": "Omar Hassan", "role": "Leiter Lehrplan" },
-      "member3": { "name": "Julia Weber", "role": "Leiterin Engineering" }
+      "member1": {
+        "name": "Dr. Maya Chen",
+        "role": "Mitgründerin & CEO"
+      },
+      "member2": {
+        "name": "Omar Hassan",
+        "role": "Leiter Lehrplan"
+      },
+      "member3": {
+        "name": "Julia Weber",
+        "role": "Leiterin Engineering"
+      }
     },
     "impact": {
       "title": "Unsere Wirkung",
@@ -178,29 +188,61 @@
       "name": "Kostenlos",
       "price": "0€",
       "period": "für immer",
-      "features": ["Zugang zu kostenlosen Kursen", "Grundlegende Fortschrittsverfolgung", "Community-Zugang", "1 Kinderkonto"],
+      "features": [
+        "Zugang zu kostenlosen Kursen",
+        "Grundlegende Fortschrittsverfolgung",
+        "Community-Zugang",
+        "1 Kinderkonto"
+      ],
       "cta": "Kostenloses Konto erstellen"
     },
     "pro": {
       "name": "Pro",
       "price": "19€",
       "period": "pro Monat",
-      "features": ["Alle kostenlosen + Premium-Inhalte", "Erweiterte Fortschrittsverfolgung & Analysen", "Abschlusszertifikate", "Bis zu 3 Kinderkonten", "Prioritäts-Support", "Live-Nachhilfe-Rabatte"],
+      "features": [
+        "Alle kostenlosen + Premium-Inhalte",
+        "Erweiterte Fortschrittsverfolgung & Analysen",
+        "Abschlusszertifikate",
+        "Bis zu 3 Kinderkonten",
+        "Prioritäts-Support",
+        "Live-Nachhilfe-Rabatte"
+      ],
       "cta": "Pro 7 Tage kostenlos testen"
     },
     "school": {
       "name": "Schule",
       "price": "Individuell",
       "period": "pro Institution",
-      "features": ["Unbegrenzte Schülerkonten", "Admin-Dashboard & Berichte", "Eigenes Branding", "Masseneinschreibungs-Tools", "Dedizierter Account Manager", "API-Zugang & Integrationen", "Lehrerfortbildungsressourcen"],
+      "features": [
+        "Unbegrenzte Schülerkonten",
+        "Admin-Dashboard & Berichte",
+        "Eigenes Branding",
+        "Masseneinschreibungs-Tools",
+        "Dedizierter Account Manager",
+        "API-Zugang & Integrationen",
+        "Lehrerfortbildungsressourcen"
+      ],
       "cta": "Individuelles Angebot anfordern"
     },
     "faqTitle": "Preis-FAQ",
     "faq": [
-      { "q": "Kann ich jederzeit kündigen?", "a": "Ja. Sie können Ihr Abonnement jederzeit kündigen. Ihr Zugang bleibt bis zum Ende des Abrechnungszeitraums bestehen." },
-      { "q": "Gibt es eine kostenlose Testphase für Pro?", "a": "Ja! Pro kommt mit einer 7-tägigen kostenlosen Testphase." },
-      { "q": "Welche Zahlungsmethoden werden akzeptiert?", "a": "Wir akzeptieren alle gängigen Kreditkarten, PayPal und Banküberweisungen für Schulpläne." },
-      { "q": "Kann ich den Plan wechseln?", "a": "Absolut. Sie können jederzeit upgraden oder downgraden." }
+      {
+        "q": "Kann ich jederzeit kündigen?",
+        "a": "Ja. Sie können Ihr Abonnement jederzeit kündigen. Ihr Zugang bleibt bis zum Ende des Abrechnungszeitraums bestehen."
+      },
+      {
+        "q": "Gibt es eine kostenlose Testphase für Pro?",
+        "a": "Ja! Pro kommt mit einer 7-tägigen kostenlosen Testphase."
+      },
+      {
+        "q": "Welche Zahlungsmethoden werden akzeptiert?",
+        "a": "Wir akzeptieren alle gängigen Kreditkarten, PayPal und Banküberweisungen für Schulpläne."
+      },
+      {
+        "q": "Kann ich den Plan wechseln?",
+        "a": "Absolut. Sie können jederzeit upgraden oder downgraden."
+      }
     ]
   },
   "contact": {

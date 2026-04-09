@@ -23,6 +23,7 @@ export const dashboardNavItems: Record<
       icon: "GraduationCap",
     },
     { href: "/student/bookings", labelKey: "nav.bookings", icon: "Calendar" },
+    { href: "/messages", labelKey: "nav.messages", icon: "MessageSquare" },
   ],
   PARENT: [
     { href: "/parent", labelKey: "nav.dashboard", icon: "LayoutDashboard" },
@@ -39,6 +40,7 @@ export const dashboardNavItems: Record<
     },
     { href: "/tutor/bookings", labelKey: "nav.bookings", icon: "Calendar" },
     { href: "/tutor/students", labelKey: "nav.students", icon: "Users" },
+    { href: "/messages", labelKey: "nav.messages", icon: "MessageSquare" },
   ],
   ADMIN: [
     { href: "/admin", labelKey: "nav.dashboard", icon: "LayoutDashboard" },

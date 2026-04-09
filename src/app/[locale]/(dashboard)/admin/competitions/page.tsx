@@ -55,7 +55,14 @@ export default async function AdminCompetitionsPage() {
             <tbody className="divide-y">
               {competitions.map((c) => (
                 <tr key={c.id} className="hover:bg-muted/30">
-                  <td className="px-4 py-3 font-medium">{c.title}</td>
+                  <td className="px-4 py-3 font-medium">
+                    <Link
+                      href={`/admin/competitions/${c.id}`}
+                      className="hover:text-primary hover:underline"
+                    >
+                      {c.title}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColor[c.status] ?? "bg-gray-100"}`}>
                       {c.status}
