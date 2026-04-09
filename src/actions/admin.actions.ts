@@ -52,6 +52,7 @@ export async function createCourse(data: {
   category: string;
   isFree: boolean;
   price: number;
+  thumbnail?: string | null;
 }) {
   try {
     const session = await requireAdmin();
@@ -72,6 +73,7 @@ export async function createCourse(data: {
         category: parsed.data.category,
         isFree: parsed.data.isFree,
         price: parsed.data.price,
+        thumbnail: parsed.data.thumbnail ?? null,
         slug,
         createdById: session.user.id,
       },
@@ -96,6 +98,7 @@ export async function updateCourse(
     isFree: boolean;
     price: number;
     status: string;
+    thumbnail: string | null;
   }>
 ) {
   try {

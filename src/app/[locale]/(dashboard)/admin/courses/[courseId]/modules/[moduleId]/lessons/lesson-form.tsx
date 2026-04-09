@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createLesson, updateLesson, deleteLesson } from "@/actions/course-content.actions";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 const LESSON_TYPES = [
   { value: "VIDEO", label: "Video" },
@@ -21,6 +22,7 @@ interface LessonData {
   contentAr: string;
   contentDe: string;
   videoUrl: string;
+  thumbnail?: string | null;
   duration: number;
   type: string;
   order: number;
@@ -42,6 +44,7 @@ export function LessonForm({ mode, courseId, moduleId, nextOrder, initialData }:
   const [isFree, setIsFree] = useState(initialData?.isFree ?? false);
   const [lessonType, setLessonType] = useState(initialData?.type ?? "VIDEO");
   const [tab, setTab] = useState<"en" | "ar" | "de">("en");
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(initialData?.thumbnail ?? null);
 
   const isEdit = mode === "edit";
 
@@ -58,6 +61,7 @@ export function LessonForm({ mode, courseId, moduleId, nextOrder, initialData }:
       contentAr: (fd.get("contentAr") as string) || undefined,
       contentDe: (fd.get("contentDe") as string) || undefined,
       videoUrl: (fd.get("videoUrl") as string) || undefined,
+      thumbnail: thumbnailUrl,
       duration: Number(fd.get("duration")) || undefined,
       type: lessonType,
       isFree,
@@ -129,6 +133,24 @@ export function LessonForm({ mode, courseId, moduleId, nextOrder, initialData }:
               <span className="text-sm font-medium">Free preview</span>
             </label>
           </div>
+        </div>
+
+        {/* Lesson thumbnail */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">
+            Lesson Preview Image
+          </label>
+          <ImageUpload
+            endpoint="lessonImage"
+            value={thumbnailUrl}
+            onUpload={setThumbnailUrl}
+            onRemove={() => setThumbnailUrl(null)}
+            label="Upload preview image"
+            aspectRatio="video"
+          />
+          <p className="mt-1 text-xs text-muted-foreground">
+            Optional: shown in lesson list and sidebar, up to 2 MB
+          </p>
         </div>
 
         {/* Language tabs */}

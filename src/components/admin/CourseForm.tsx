@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createCourse, updateCourse } from "@/actions/admin.actions";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 const AGE_GROUPS = [
   { value: "AGES_3_5", label: "Ages 3-5" },
@@ -48,6 +49,7 @@ export interface CourseFormData {
   price: number;
   currency?: string;
   status?: string;
+  thumbnail?: string | null;
 }
 
 interface CourseFormProps {
@@ -60,6 +62,7 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isFree, setIsFree] = useState(initialData?.isFree ?? false);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(initialData?.thumbnail ?? null);
 
   const isEdit = mode === "edit";
 
@@ -79,6 +82,7 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
       category: fd.get("category") as string,
       isFree,
       price,
+      thumbnail: thumbnailUrl,
     };
 
     let result: { success: boolean; error?: string };
@@ -101,6 +105,25 @@ export default function CourseForm({ mode, initialData }: CourseFormProps) {
   return (
     <div className="rounded-xl border bg-card p-6">
       <form onSubmit={handleSubmit} className="space-y-5">
+
+        {/* Course Cover Image */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">
+            Course Cover Image
+          </label>
+          <ImageUpload
+            endpoint="courseImage"
+            value={thumbnailUrl}
+            onUpload={setThumbnailUrl}
+            onRemove={() => setThumbnailUrl(null)}
+            label="Upload cover image"
+            aspectRatio="video"
+          />
+          <p className="mt-1 text-xs text-muted-foreground">
+            Recommended: 16:9 ratio, JPG or PNG, up to 4 MB
+          </p>
+        </div>
+
         {/* Title */}
         <div>
           <label className="mb-1.5 block text-sm font-medium">

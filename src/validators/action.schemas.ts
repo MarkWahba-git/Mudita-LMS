@@ -25,6 +25,7 @@ export const createCourseSchema = z.object({
   category: z.string().min(1, "Category is required"),
   isFree: z.boolean(),
   price: z.number().min(0, "Price must be non-negative"),
+  thumbnail: z.string().url().optional().nullable(),
 });
 
 export const updateCourseSchema = z.object({
@@ -38,6 +39,7 @@ export const updateCourseSchema = z.object({
     isFree: z.boolean().optional(),
     price: z.number().min(0).optional(),
     status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional(),
+    thumbnail: z.string().url().optional().nullable(),
   }),
 });
 
@@ -219,6 +221,7 @@ export const createLessonSchema = z.object({
   contentAr: z.string().optional(),
   contentDe: z.string().optional(),
   videoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  thumbnail: z.string().url().optional().or(z.literal("")).nullable(),
   duration: z.number().int().min(0).optional(),
   type: z.enum(["VIDEO", "TEXT", "QUIZ", "INTERACTIVE", "ASSIGNMENT"]),
   order: z.number().int().min(0),
@@ -234,6 +237,7 @@ export const updateLessonSchema = z.object({
   contentAr: z.string().optional(),
   contentDe: z.string().optional(),
   videoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  thumbnail: z.string().url().optional().or(z.literal("")).nullable(),
   duration: z.number().int().min(0).optional(),
   type: z.enum(["VIDEO", "TEXT", "QUIZ", "INTERACTIVE", "ASSIGNMENT"]),
   order: z.number().int().min(0).optional(),

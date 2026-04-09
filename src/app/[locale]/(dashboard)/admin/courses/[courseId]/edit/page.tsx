@@ -32,6 +32,7 @@ export default async function EditCoursePage({
         price: true,
         currency: true,
         status: true,
+        thumbnail: true,
       },
     });
   } catch (error) {
@@ -65,6 +66,7 @@ export default async function EditCoursePage({
           price: Number(course.price),
           currency: course.currency,
           status: course.status,
+          thumbnail: course.thumbnail,
         }}
       />
     </div>

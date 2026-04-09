@@ -127,6 +127,7 @@ export async function createLesson(data: {
   contentAr?: string;
   contentDe?: string;
   videoUrl?: string;
+  thumbnail?: string | null;
   duration?: number;
   type: string;
   order: number;
@@ -147,6 +148,7 @@ export async function createLesson(data: {
         contentAr: parsed.data.contentAr || null,
         contentDe: parsed.data.contentDe || null,
         videoUrl: parsed.data.videoUrl || null,
+        thumbnail: parsed.data.thumbnail ?? null,
         duration: parsed.data.duration || null,
         type: parsed.data.type as never,
         order: parsed.data.order,
@@ -172,6 +174,7 @@ export async function updateLesson(data: {
   contentAr?: string;
   contentDe?: string;
   videoUrl?: string;
+  thumbnail?: string | null;
   duration?: number;
   type: string;
   order?: number;
@@ -192,6 +195,7 @@ export async function updateLesson(data: {
         contentAr: parsed.data.contentAr || null,
         contentDe: parsed.data.contentDe || null,
         videoUrl: parsed.data.videoUrl || null,
+        thumbnail: parsed.data.thumbnail ?? null,
         duration: parsed.data.duration || null,
         type: parsed.data.type as never,
         ...(parsed.data.order !== undefined && { order: parsed.data.order }),

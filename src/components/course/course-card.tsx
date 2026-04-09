@@ -8,6 +8,7 @@ interface CourseCardProps {
     id: string;
     slug: string;
     title: string;
+    description?: string | null;
     thumbnail: string | null;
     level: string;
     ageGroup: string;
@@ -32,6 +33,11 @@ const categoryGradients: Record<string, string> = {
   biology: "from-lime-400 to-emerald-600",
   chemistry: "from-pink-400 to-rose-600",
   physics: "from-slate-400 to-indigo-500",
+  mathematics: "from-amber-400 to-orange-500",
+  technology: "from-blue-400 to-indigo-600",
+  stem: "from-violet-400 to-purple-600",
+  arts: "from-pink-400 to-rose-500",
+  language: "from-teal-400 to-green-500",
 };
 
 const categoryIcons: Record<string, string> = {
@@ -45,6 +51,11 @@ const categoryIcons: Record<string, string> = {
   biology: "🧬",
   chemistry: "⚗️",
   physics: "⚛️",
+  mathematics: "∑",
+  technology: "💻",
+  stem: "🚀",
+  arts: "🎨",
+  language: "💬",
 };
 
 const ageGroupLabels: Record<string, string> = {
@@ -76,9 +87,9 @@ const levelColors: Record<string, string> = {
 };
 
 export function CourseCard({ course }: CourseCardProps) {
-  const gradient =
-    categoryGradients[course.category] ?? "from-gray-400 to-gray-600";
-  const icon = categoryIcons[course.category] ?? "📚";
+  const categoryKey = course.category.toLowerCase();
+  const gradient = categoryGradients[categoryKey] ?? "from-gray-400 to-gray-600";
+  const icon = categoryIcons[categoryKey] ?? "📚";
   const ageColor = ageGroupColors[course.ageGroup] ?? "bg-gray-100 text-gray-700";
   const lvlColor = levelColors[course.level] ?? "bg-gray-100 text-gray-700";
 
@@ -91,24 +102,38 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link href={`/courses/${course.slug}`}>
       <Card className="card-stem group h-full overflow-hidden hover-lift">
-        {/* Gradient header with icon */}
-        <div
-          className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${gradient}`}
-        >
-          <span className="text-6xl opacity-80 transition-transform duration-300 group-hover:scale-110">
-            {icon}
-          </span>
+        {/* Thumbnail or gradient header */}
+        <div className="relative h-44 overflow-hidden">
+          {course.thumbnail ? (
+            <img
+              src={course.thumbnail}
+              alt={course.title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div
+              className={`flex h-full items-center justify-center bg-gradient-to-br ${gradient}`}
+            >
+              <span className="text-6xl opacity-80 transition-transform duration-300 group-hover:scale-110">
+                {icon}
+              </span>
+            </div>
+          )}
+
+          {/* Overlay badges */}
           <div className="absolute top-3 right-3">
-            <Badge variant="secondary" className="bg-white/90 text-xs font-semibold shadow-sm">
+            <Badge variant="secondary" className="bg-white/90 text-xs font-semibold shadow-sm backdrop-blur-sm">
               {course.category}
             </Badge>
           </div>
           <div className="absolute top-3 left-3">
-            <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${isFree ? "bg-green-500 text-white" : "bg-white/90 text-gray-900"}`}>
+            <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${isFree ? "bg-green-500 text-white" : "bg-white/90 text-gray-900 backdrop-blur-sm"}`}>
               {priceLabel}
             </span>
           </div>
-          {/* Bottom curve */}
+
+          {/* Bottom wave */}
           <div className="absolute -bottom-1 left-0 right-0">
             <svg viewBox="0 0 400 20" className="w-full" preserveAspectRatio="none">
               <path d="M0 20 Q200 0 400 20 L400 20 L0 20Z" fill="white" />
@@ -117,9 +142,14 @@ export function CourseCard({ course }: CourseCardProps) {
         </div>
 
         <CardContent className="p-5">
-          <h3 className="mb-3 line-clamp-2 font-display text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">
+          <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">
             {course.title}
           </h3>
+          {course.description && (
+            <p className="mb-3 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
+              {course.description}
+            </p>
+          )}
           <div className="flex flex-wrap gap-2">
             <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${ageColor}`}>
               {ageGroupLabels[course.ageGroup] ?? course.ageGroup}
