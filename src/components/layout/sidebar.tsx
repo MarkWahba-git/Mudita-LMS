@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   Lock,
   MessageSquare,
+  HelpCircle,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -44,6 +45,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   ShieldCheck,
   Lock,
   MessageSquare,
+  HelpCircle,
 };
 
 interface SidebarProps {

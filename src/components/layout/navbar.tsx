@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { useSession } from "next-auth/react";
 import { Menu, X, Rocket, Globe, ChevronDown, User } from "lucide-react";
+import { HelpButton } from "@/components/help/help-button";
 import { locales, localeNames, type Locale } from "@/i18n/config";
 import { publicNavItems } from "@/config/navigation";
 
@@ -75,6 +76,9 @@ export function Navbar() {
               </div>
             )}
           </div>
+
+          {/* Help */}
+          <HelpButton variant="navbar" />
 
           {/* Auth */}
           {session?.user ? (
@@ -166,6 +170,14 @@ export function Navbar() {
                   {localeNames[l]}
                 </a>
               ))}
+            </div>
+
+            {/* Mobile Help */}
+            <div className="border-t pt-3">
+              <HelpButton
+                variant="navbar"
+                className="w-full justify-start"
+              />
             </div>
 
             {/* Mobile Auth */}

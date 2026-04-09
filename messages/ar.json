@@ -61,7 +61,31 @@
     "search": "بحث",
     "login": "تسجيل الدخول",
     "register": "إنشاء حساب",
-    "messages": "الرسائل"
+    "messages": "الرسائل",
+    "help": "مساعدة",
+    "helpArticles": "مقالات المساعدة"
+  },
+  "help": {
+    "title": "مركز المساعدة",
+    "search": "ابحث عن مساعدة...",
+    "searchPlaceholder": "مثال: كيفية التسجيل في دورة",
+    "gettingStarted": "البداية",
+    "featuresOverview": "نظرة عامة على الميزات",
+    "guides": "أدلة خطوة بخطوة",
+    "faq": "الأسئلة الشائعة",
+    "troubleshooting": "استكشاف الأخطاء وإصلاحها",
+    "whatsComing": "القادم قريباً",
+    "feedback": "هل كان هذا مفيداً؟",
+    "feedbackYes": "نعم",
+    "feedbackNo": "لا",
+    "feedbackThanks": "شكراً على ملاحظاتك!",
+    "noResults": "لم يتم العثور على مقالات",
+    "backToHelp": "العودة إلى مركز المساعدة",
+    "featured": "المقالات المميزة",
+    "allArticles": "جميع المقالات",
+    "browseCategories": "تصفح حسب الفئة",
+    "relatedArticles": "مقالات ذات صلة",
+    "viewFull": "عرض مركز المساعدة الكامل"
   },
   "home": {
     "heroTitle": "حيث يصبح الفضول ثقة",

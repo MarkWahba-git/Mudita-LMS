@@ -61,7 +61,31 @@
     "search": "Suchen",
     "login": "Anmelden",
     "register": "Registrieren",
-    "messages": "Nachrichten"
+    "messages": "Nachrichten",
+    "help": "Hilfe",
+    "helpArticles": "Hilfeartikel"
+  },
+  "help": {
+    "title": "Hilfezentrum",
+    "search": "Hilfe suchen...",
+    "searchPlaceholder": "z.B. wie man sich für einen Kurs anmeldet",
+    "gettingStarted": "Erste Schritte",
+    "featuresOverview": "Funktionsübersicht",
+    "guides": "Schritt-für-Schritt-Anleitungen",
+    "faq": "Häufige Fragen",
+    "troubleshooting": "Fehlerbehebung",
+    "whatsComing": "Was kommt",
+    "feedback": "War das hilfreich?",
+    "feedbackYes": "Ja",
+    "feedbackNo": "Nein",
+    "feedbackThanks": "Danke für dein Feedback!",
+    "noResults": "Keine Artikel gefunden",
+    "backToHelp": "Zurück zum Hilfezentrum",
+    "featured": "Empfohlene Artikel",
+    "allArticles": "Alle Artikel",
+    "browseCategories": "Nach Kategorie durchsuchen",
+    "relatedArticles": "Verwandte Artikel",
+    "viewFull": "Vollständiges Hilfezentrum anzeigen"
   },
   "home": {
     "heroTitle": "Wo Neugier zu Selbstvertrauen wird",
