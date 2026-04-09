@@ -508,6 +508,211 @@ const Physics = () => (
   </svg>
 );
 
+// --- real DB categories ---
+
+// DATA_SCIENCE: scatter plot with regression line + mini histogram
+const DataScience = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    <line x1="42" y1="14" x2="42" y2="152" stroke="white" strokeWidth="2" opacity="0.65" />
+    <line x1="22" y1="148" x2="258" y2="148" stroke="white" strokeWidth="2" opacity="0.65" />
+    <polygon points="42,12 37,20 47,20" fill="white" opacity="0.65" />
+    <polygon points="260,148 252,143 252,153" fill="white" opacity="0.65" />
+    {/* scatter dots */}
+    <circle cx="70" cy="130" r="5" fill="white" opacity="0.78" />
+    <circle cx="92" cy="112" r="6.5" fill="rgba(189,147,249,0.9)" />
+    <circle cx="114" cy="104" r="4.5" fill="white" opacity="0.75" />
+    <circle cx="132" cy="90" r="7" fill="rgba(189,147,249,0.9)" />
+    <circle cx="152" cy="80" r="5" fill="white" opacity="0.8" />
+    <circle cx="170" cy="66" r="6" fill="rgba(189,147,249,0.9)" />
+    <circle cx="190" cy="56" r="4.5" fill="white" opacity="0.75" />
+    <circle cx="212" cy="42" r="7.5" fill="rgba(189,147,249,0.9)" />
+    <circle cx="232" cy="36" r="5" fill="white" opacity="0.8" />
+    {/* regression line */}
+    <line x1="56" y1="140" x2="244" y2="26" stroke="rgba(241,250,140,0.9)" strokeWidth="2.5" strokeDasharray="8 4" strokeLinecap="round" />
+    {/* confidence band */}
+    <path d="M 56,148 L 244,38 L 244,16 L 56,126 Z" fill="white" opacity="0.04" />
+    {/* mini histogram */}
+    <rect x="196" y="118" width="10" height="24" rx="2" fill="rgba(189,147,249,0.65)" />
+    <rect x="210" y="108" width="10" height="34" rx="2" fill="rgba(189,147,249,0.65)" />
+    <rect x="224" y="122" width="10" height="20" rx="2" fill="rgba(189,147,249,0.65)" />
+    <rect x="238" y="114" width="10" height="28" rx="2" fill="rgba(189,147,249,0.65)" />
+    <line x1="192" y1="148" x2="252" y2="148" stroke="white" strokeWidth="1" opacity="0.3" />
+    {/* stat symbols */}
+    <text x="16" y="38" fontSize="22" fill="white" fillOpacity="0.5" fontFamily="Georgia, serif">σ</text>
+    <text x="244" y="168" fontSize="22" fill="white" fillOpacity="0.42" fontFamily="Georgia, serif">μ</text>
+  </svg>
+);
+
+// CYBERSECURITY: shield + padlock + circuit traces
+const Cybersecurity = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* circuit traces */}
+    <path d="M 18,52 L 54,52 L 54,74" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+    <path d="M 18,100 L 42,100 L 42,126 L 60,126" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+    <path d="M 262,52 L 226,52 L 226,74" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+    <path d="M 262,100 L 238,100 L 238,126 L 220,126" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+    <circle cx="54" cy="74" r="3.5" fill="white" opacity="0.42" />
+    <circle cx="42" cy="126" r="3.5" fill="white" opacity="0.42" />
+    <circle cx="226" cy="74" r="3.5" fill="white" opacity="0.42" />
+    <circle cx="238" cy="126" r="3.5" fill="white" opacity="0.42" />
+    {/* shield */}
+    <path d="M 140,16 L 212,46 L 212,96 C 212,148 140,168 140,168 C 140,168 68,148 68,96 L 68,46 Z"
+      fill="rgba(255,255,255,0.14)" stroke="white" strokeWidth="2.5" opacity="0.85" />
+    <path d="M 140,28 L 202,54 L 202,96 C 202,140 140,156 140,156 C 140,156 78,140 78,96 L 78,54 Z"
+      fill="none" stroke="white" strokeWidth="1" opacity="0.28" />
+    {/* padlock body */}
+    <rect x="116" y="90" width="48" height="38" rx="6" fill="rgba(255,255,255,0.28)" stroke="white" strokeWidth="2" opacity="0.82" />
+    {/* shackle */}
+    <path d="M 126,90 L 126,76 Q 126,62 140,62 Q 154,62 154,76 L 154,90"
+      stroke="white" strokeWidth="3" fill="none" opacity="0.82" strokeLinecap="round" />
+    {/* keyhole */}
+    <circle cx="140" cy="103" r="6" fill="rgba(0,0,0,0.4)" />
+    <rect x="137" y="103" width="6" height="10" rx="2" fill="rgba(0,0,0,0.4)" />
+    {/* binary text */}
+    <text x="18" y="170" fontSize="11" fill="white" fillOpacity="0.22" fontFamily="monospace">01101001</text>
+    <text x="198" y="18" fontSize="11" fill="white" fillOpacity="0.22" fontFamily="monospace">10110</text>
+  </svg>
+);
+
+// DESIGN: artboard with bezier curve, UI elements, color swatches
+const Design = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* artboard */}
+    <rect x="50" y="20" width="180" height="120" rx="8" fill="rgba(255,255,255,0.15)" stroke="white" strokeWidth="2" opacity="0.72" />
+    {/* grid */}
+    {([94, 138, 182] as number[]).map((x) => (
+      <line key={`v${x}`} x1={x} y1="20" x2={x} y2="140" stroke="white" strokeWidth="0.8" opacity="0.18" />
+    ))}
+    {([64, 108] as number[]).map((y) => (
+      <line key={`h${y}`} x1="50" y1={y} x2="230" y2={y} stroke="white" strokeWidth="0.8" opacity="0.18" />
+    ))}
+    {/* header block */}
+    <rect x="64" y="30" width="76" height="14" rx="4" fill="rgba(255,255,255,0.5)" />
+    {/* text lines */}
+    <rect x="64" y="50" width="96" height="6" rx="3" fill="rgba(255,255,255,0.3)" />
+    <rect x="64" y="60" width="68" height="6" rx="3" fill="rgba(255,255,255,0.22)" />
+    {/* image placeholder */}
+    <rect x="152" y="30" width="62" height="44" rx="4" fill="rgba(255,255,255,0.18)" stroke="white" strokeWidth="1" opacity="0.5" />
+    <line x1="152" y1="30" x2="214" y2="74" stroke="white" strokeWidth="1" opacity="0.22" />
+    <line x1="214" y1="30" x2="152" y2="74" stroke="white" strokeWidth="1" opacity="0.22" />
+    {/* button */}
+    <rect x="64" y="74" width="50" height="16" rx="8" fill="rgba(244,114,182,0.82)" />
+    {/* bezier curve with handles */}
+    <path d="M 68,120 C 108,88 152,146 202,108" stroke="white" strokeWidth="2.5" fill="none" opacity="0.78" strokeLinecap="round" />
+    <circle cx="68" cy="120" r="5" fill="white" opacity="0.85" />
+    <circle cx="202" cy="108" r="5" fill="white" opacity="0.85" />
+    <circle cx="108" cy="88" r="4" fill="rgba(244,114,182,0.9)" stroke="white" strokeWidth="1.5" />
+    <circle cx="152" cy="146" r="4" fill="rgba(244,114,182,0.9)" stroke="white" strokeWidth="1.5" />
+    <line x1="68" y1="120" x2="108" y2="88" stroke="white" strokeWidth="1" opacity="0.38" strokeDasharray="3 2" />
+    <line x1="202" y1="108" x2="152" y2="146" stroke="white" strokeWidth="1" opacity="0.38" strokeDasharray="3 2" />
+    {/* color swatches */}
+    {(["#FF5F57","#FFBD2E","#28CA41","#4488FF","#AA44FF","#FF79C6"] as string[]).map((c, i) => (
+      <circle key={c} cx={68 + i * 22} cy="162" r="8" fill={c} opacity="0.88" />
+    ))}
+  </svg>
+);
+
+// DIGITAL_LITERACY: smartphone with app grid + wifi arcs + clouds
+const DigitalLiteracy = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* wifi arcs */}
+    <path d="M 116,44 Q 140,22 164,44" stroke="white" strokeWidth="2" fill="none" opacity="0.55" />
+    <path d="M 102,58 Q 140,28 178,58" stroke="white" strokeWidth="2" fill="none" opacity="0.38" />
+    <path d="M 88,72 Q 140,34 192,72" stroke="white" strokeWidth="2" fill="none" opacity="0.24" />
+    <circle cx="140" cy="50" r="4.5" fill="white" opacity="0.72" />
+    {/* phone body */}
+    <rect x="96" y="62" width="88" height="106" rx="10" fill="rgba(255,255,255,0.18)" stroke="white" strokeWidth="2" opacity="0.78" />
+    <rect x="124" y="67" width="32" height="5" rx="2.5" fill="rgba(255,255,255,0.35)" />
+    <rect x="122" y="159" width="36" height="4" rx="2" fill="rgba(255,255,255,0.35)" />
+    {/* screen */}
+    <rect x="103" y="76" width="74" height="78" rx="4" fill="rgba(0,0,0,0.25)" />
+    {/* 2×3 app icons */}
+    <rect x="111" y="84" width="24" height="24" rx="6" fill="rgba(99,102,241,0.88)" />
+    <rect x="145" y="84" width="24" height="24" rx="6" fill="rgba(80,250,123,0.88)" />
+    <rect x="111" y="114" width="24" height="24" rx="6" fill="rgba(255,121,198,0.88)" />
+    <rect x="145" y="114" width="24" height="24" rx="6" fill="rgba(241,250,140,0.88)" />
+    <rect x="111" y="138" width="24" height="12" rx="4" fill="rgba(139,233,253,0.72)" />
+    <rect x="145" y="138" width="24" height="12" rx="4" fill="rgba(189,147,249,0.72)" />
+    {/* notification dot */}
+    <circle cx="133" cy="86" r="5" fill="rgba(255,80,80,0.92)" />
+    <text x="130.5" y="89.5" fontSize="6" fill="white" fontWeight="bold" fontFamily="sans-serif">3</text>
+    {/* cloud left */}
+    <path d="M 36,92 Q 32,82 40,78 Q 42,68 52,70 Q 58,64 66,70 Q 74,68 74,78 Q 82,80 78,92 Z"
+      fill="rgba(255,255,255,0.22)" stroke="white" strokeWidth="1.5" opacity="0.58" />
+    {/* cloud right */}
+    <path d="M 202,112 Q 198,104 204,100 Q 206,92 214,94 Q 218,88 226,93 Q 232,91 232,100 Q 238,102 234,112 Z"
+      fill="rgba(255,255,255,0.2)" stroke="white" strokeWidth="1.5" opacity="0.52" />
+  </svg>
+);
+
+// ENTREPRENEURSHIP: lightbulb with growth chart inside + sparkles
+const Entrepreneurship = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* bulb glass */}
+    <path d="M 140,18 C 100,18 72,44 72,78 C 72,102 86,118 96,128 L 96,136 L 184,136 L 184,128 C 194,118 208,102 208,78 C 208,44 180,18 140,18 Z"
+      fill="rgba(255,255,255,0.2)" stroke="white" strokeWidth="2.5" opacity="0.85" />
+    {/* inner glow */}
+    <circle cx="140" cy="88" r="30" fill="rgba(255,220,50,0.16)" />
+    {/* filament / growth polyline */}
+    <polyline points="112,122 124,104 138,88 152,74 168,58"
+      stroke="rgba(255,240,100,0.92)" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="168" cy="58" r="6" fill="rgba(255,240,100,0.95)" />
+    {/* upward arrow head */}
+    <polygon points="168,44 160,58 176,58" fill="rgba(255,240,100,0.88)" />
+    {/* base bands */}
+    <rect x="100" y="136" width="80" height="10" rx="4" fill="rgba(255,255,255,0.25)" />
+    <rect x="106" y="146" width="68" height="10" rx="4" fill="rgba(255,255,255,0.2)" />
+    <rect x="114" y="156" width="52" height="10" rx="4" fill="rgba(255,255,255,0.15)" />
+    {/* sparkles */}
+    <path d="M 56,52 L 58,44 L 60,52 L 68,54 L 60,56 L 58,64 L 56,56 L 48,54 Z" fill="white" opacity="0.68" />
+    <path d="M 218,44 L 220,38 L 222,44 L 228,46 L 222,48 L 220,54 L 218,48 L 212,46 Z" fill="white" opacity="0.58" />
+    <path d="M 225,104 L 226.5,99 L 228,104 L 233,105.5 L 228,107 L 226.5,112 L 225,107 L 220,105.5 Z" fill="white" opacity="0.46" />
+    {/* small gear bottom-left */}
+    <circle cx="52" cy="122" r="12" fill="rgba(255,255,255,0.12)" stroke="white" strokeWidth="1.5" opacity="0.52" />
+    {([0,45,90,135,180,225,270,315] as number[]).map((deg) => (
+      <rect key={deg} x="49" y="108" width="6" height="6" rx="1" fill="rgba(255,255,255,0.32)" transform={`rotate(${deg} 52 122)`} />
+    ))}
+    <circle cx="52" cy="122" r="4.5" fill="rgba(255,255,255,0.28)" />
+  </svg>
+);
+
+// CAREER: briefcase with resume + bar chart + checkmarks
+const Career = () => (
+  <svg viewBox="0 0 280 176" className="h-full w-full" aria-hidden>
+    {/* briefcase body */}
+    <rect x="54" y="64" width="172" height="100" rx="10" fill="rgba(255,255,255,0.18)" stroke="white" strokeWidth="2.5" opacity="0.82" />
+    {/* handle */}
+    <path d="M 106,64 L 106,50 Q 106,40 118,40 L 162,40 Q 174,40 174,50 L 174,64"
+      stroke="white" strokeWidth="2.5" fill="none" opacity="0.78" strokeLinecap="round" />
+    {/* clasp */}
+    <rect x="128" y="106" width="24" height="16" rx="5" fill="rgba(255,255,255,0.3)" stroke="white" strokeWidth="1.5" opacity="0.72" />
+    <circle cx="140" cy="114" r="4" fill="rgba(255,255,255,0.55)" />
+    {/* divider */}
+    <line x1="54" y1="108" x2="226" y2="108" stroke="white" strokeWidth="1.5" opacity="0.32" />
+    {/* resume text lines (top half) */}
+    <rect x="72" y="74" width="44" height="9" rx="3.5" fill="rgba(255,255,255,0.48)" />
+    <rect x="72" y="88" width="58" height="5" rx="2.5" fill="rgba(255,255,255,0.28)" />
+    <rect x="72" y="97" width="46" height="5" rx="2.5" fill="rgba(255,255,255,0.22)" />
+    {/* bar chart (top-right) */}
+    <rect x="158" y="88" width="11" height="18" rx="2" fill="rgba(139,233,253,0.75)" />
+    <rect x="174" y="78" width="11" height="28" rx="2" fill="rgba(80,250,123,0.75)" />
+    <rect x="190" y="68" width="11" height="38" rx="2" fill="rgba(241,250,140,0.75)" />
+    <rect x="206" y="74" width="11" height="32" rx="2" fill="rgba(189,147,249,0.75)" />
+    <line x1="154" y1="108" x2="222" y2="108" stroke="white" strokeWidth="1" opacity="0.28" />
+    {/* bottom task list */}
+    <rect x="72" y="118" width="82" height="5" rx="2.5" fill="rgba(255,255,255,0.25)" />
+    <rect x="72" y="130" width="62" height="5" rx="2.5" fill="rgba(255,255,255,0.2)" />
+    <rect x="72" y="142" width="72" height="5" rx="2.5" fill="rgba(255,255,255,0.18)" />
+    {/* checkmarks */}
+    <polyline points="168,118 172,123 180,116" stroke="rgba(80,250,123,0.92)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <polyline points="168,130 172,135 180,128" stroke="rgba(80,250,123,0.92)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <polyline points="168,142 172,147 180,140" stroke="rgba(80,250,123,0.92)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    {/* floating star */}
+    <path d="M 228,50 L 230,42 L 232,50 L 240,52 L 232,54 L 230,62 L 228,54 L 220,52 Z" fill="white" opacity="0.62" />
+    <path d="M 38,86 L 39.5,80 L 41,86 L 47,87.5 L 41,89 L 39.5,95 L 38,89 L 32,87.5 Z" fill="white" opacity="0.5" />
+  </svg>
+);
+
 const illustrationMap: Record<string, React.FC> = {
   coding: Coding,
   technology: Technology,
@@ -524,6 +729,13 @@ const illustrationMap: Record<string, React.FC> = {
   arts: Arts,
   language: Language,
   stem: STEM,
+  // real DB categories
+  data_science: DataScience,
+  cybersecurity: Cybersecurity,
+  design: Design,
+  digital_literacy: DigitalLiteracy,
+  entrepreneurship: Entrepreneurship,
+  career: Career,
 };
 
 export function CategoryIllustration({

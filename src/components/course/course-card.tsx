@@ -39,6 +39,13 @@ const categoryGradients: Record<string, string> = {
   stem: "from-violet-400 to-purple-600",
   arts: "from-pink-400 to-rose-500",
   language: "from-teal-400 to-green-500",
+  // real DB categories
+  digital_literacy: "from-sky-400 to-cyan-600",
+  data_science: "from-purple-500 to-violet-700",
+  cybersecurity: "from-slate-600 to-gray-900",
+  design: "from-fuchsia-400 to-pink-600",
+  entrepreneurship: "from-yellow-400 to-amber-500",
+  career: "from-blue-500 to-indigo-700",
 };
 
 
