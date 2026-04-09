@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { locales, localeNames, type Locale } from "@/i18n/config";
 import { Menu, Bell, Search, Globe } from "lucide-react";
+import { HelpButton } from "@/components/help/help-button";
 import { Avatar } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/utils";
 
@@ -59,6 +60,9 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         >
           <Bell className="h-5 w-5 text-muted-foreground" />
         </button>
+
+        {/* Help */}
+        <HelpButton variant="topbar" />
 
         {/* Locale switcher */}
         <div className="relative flex items-center">

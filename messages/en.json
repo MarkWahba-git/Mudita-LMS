@@ -60,7 +60,31 @@
     "logout": "Log Out",
     "search": "Search",
     "login": "Log In",
-    "register": "Sign Up"
+    "register": "Sign Up",
+    "help": "Help",
+    "helpArticles": "Help Articles"
+  },
+  "help": {
+    "title": "Help Center",
+    "search": "Search for help...",
+    "searchPlaceholder": "e.g. how to enroll in a course",
+    "gettingStarted": "Getting Started",
+    "featuresOverview": "Features Overview",
+    "guides": "Step-by-step Guides",
+    "faq": "FAQs",
+    "troubleshooting": "Troubleshooting",
+    "whatsComing": "What's Coming",
+    "feedback": "Was this helpful?",
+    "feedbackYes": "Yes",
+    "feedbackNo": "No",
+    "feedbackThanks": "Thanks for your feedback!",
+    "noResults": "No articles found",
+    "backToHelp": "Back to Help Center",
+    "featured": "Featured Articles",
+    "allArticles": "All Articles",
+    "browseCategories": "Browse by Category",
+    "relatedArticles": "Related Articles",
+    "viewFull": "View Full Help Center"
   },
   "home": {
     "heroTitle": "Where Curiosity Becomes Confidence",

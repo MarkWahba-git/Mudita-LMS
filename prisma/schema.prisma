@@ -621,6 +621,64 @@ model Page {
   @@index([slug])
 }
 
+// ========== HELP & DOCUMENTATION ==========
+
+enum HelpCategory {
+  GETTING_STARTED
+  FEATURES_OVERVIEW
+  GUIDES
+  FAQ
+  TROUBLESHOOTING
+  WHATS_COMING
+}
+
+model HelpArticle {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  category    HelpCategory
+  title       String
+  titleAr     String?
+  titleDe     String?
+  excerpt     String       @db.Text
+  excerptAr   String?      @db.Text
+  excerptDe   String?      @db.Text
+  content     String       @db.Text
+  contentAr   String?      @db.Text
+  contentDe   String?      @db.Text
+  tags        String[]
+  order       Int          @default(0)
+  isPublished Boolean      @default(false)
+  isFeatured  Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  feedback    HelpFeedback[]
+
+  @@index([slug])
+  @@index([category])
+  @@index([isPublished])
+}
+
+model HelpFeedback {
+  id        String      @id @default(cuid())
+  articleId String
+  helpful   Boolean
+  createdAt DateTime    @default(now())
+  article   HelpArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@index([articleId])
+}
+
+model HelpSearchLog {
+  id           String   @id @default(cuid())
+  query        String
+  resultsCount Int      @default(0)
+  locale       String   @default("en")
+  createdAt    DateTime @default(now())
+
+  @@index([query])
+  @@index([locale])
+}
+
 // ========== PERMISSIONS & ROLES ==========
 
 model Permission {
